@@ -1,0 +1,228 @@
+/* General game styling */
+body{
+	height: 100vh;
+}
+.container {
+	position: relative;
+}
+
+#item-slots{
+	/* background-color: #C79D83; */
+	margin: 2% 0% 0% 0%;
+    background-color:#e2cab8;
+}
+
+.slot{
+    background-color: white;
+    width: 5vw;
+    height: 5vw;
+    margin: 10px;
+	justify-content: center;
+	align-items: center;
+	display: flex;
+}
+.slot > img{
+	width: 5vw;
+	height: auto;
+}
+
+#game-background {
+    background-color:#e2cab8;
+}
+
+/* settings for cards */
+.card-row{
+    margin: 1px;
+}
+.card{
+    justify-content: center;
+    align-items: center;
+}
+
+.disabled{
+    pointer-events: none;
+}
+
+.open{
+    background-color: cornflowerblue;
+    transform: rotateY(0);
+    animation-name: flipInY;
+	-webkit-backface-visibility: visible;
+	backface-visibility: visible ;
+	animation-duration: .75s;
+}
+
+.close{
+    background-color: black;
+}
+
+.modal-content{
+    background: radial-gradient(circle, rgba(255,255,255,1) 47%, rgba(255,255,255,0.6815913865546219) 97%, rgba(254,254,254,0.37907037815126055) 100%);
+}
+
+@keyframes flipInY {
+	from {
+		transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+		animation-timing-function: ease-in;
+		opacity: 0;
+	}
+
+	40% {
+		transform: perspective(400px) rotate3d(0, 1, 0, -20deg);
+		animation-timing-function: ease-in;
+	}
+
+	60% {
+		transform: perspective(400px) rotate3d(0, 1, 0, 10deg);
+		opacity: 1;
+	}
+
+	80% {
+		transform: perspective(400px) rotate3d(0, 1, 0, -5deg);
+	}
+
+	to {
+		transform: perspective(400px);
+	}
+}
+
+/* match interaction */
+
+#matchInteraction {
+	position: absolute;
+	left: 30%;
+	top:80%;
+	transform: translate(-50%,-50%);
+	width:5vw;
+}
+#matchInteraction > img{
+	width: 100%;
+	display: none
+}
+
+
+/* appleInteraction styling */
+#appleInteraction {
+	position: absolute;
+	left: 70%;
+	top:70%;
+	transform: translate(-50%,-50%);
+	width: 6vw;
+}
+
+#appleInteraction > img {
+	width: 100%;
+	display: none;
+}
+
+/* campfire interaction */
+
+#campfireInteraction { 
+	position: absolute;
+	left: 51%;
+	top:77%;
+	transform: translate(-50%,-50%);
+	width: 13vw;
+	height: 13vh;
+}
+
+#Fire{
+	animation: glowOpp 6s infinite step-end;
+}
+
+#Fire_glow{
+	animation: glow 6s infinite step-end;
+}
+
+#clue2{
+	position: absolute;
+	left: 52%;
+	top:69%;
+	transform: translate(-50%,-50%);
+	width: 8vw;
+	height: 8vh;
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	animation: glow 6s infinite step-end;
+	display: none;
+}
+
+@keyframes glow {
+    0%    { opacity: 0;   }
+    20%    { opacity: 1; }
+    40%    { opacity: 0;   }
+    60%    { opacity: 1; }
+    80%    { opacity: 0;   }
+    100%  { opacity: 1;   }
+}
+@keyframes glowOpp {
+    0%    { opacity: 1;   }
+    20%    { opacity: 0; }
+    40%    { opacity: 1;   }
+    60%    { opacity: 0; }
+    80%    { opacity: 1;   }
+    100%  { opacity: 0;   }
+}
+
+/* Maze game styling */
+.game-container {
+	margin: 0px auto;
+}
+
+#map-and-controls {
+	display: flex;
+	justify-content: center;
+}
+.game-map {
+	position: relative;
+	margin: 0px auto;
+	height: 100vh
+}
+
+.default .floor {
+	background-color: lightgrey;
+  }
+.default .wall {
+	background-color: skyblue;
+}
+#player, 
+#goal {
+  transform-origin: center;
+  transform:scale(0.85);
+}
+.goal {
+	background-color: #FFD700;
+	border: 1px solid #98720b;
+}
+#player {
+	/* background-color: #90ee90;
+	border: 1px solid green; */
+	height: 100%;
+	transition: left 0.2s linear, top 0.2s linear;
+	justify-content: center;
+	align-items: center;
+}
+#player > span {
+	text-align: center;
+	width: 100%;
+}
+
+.tile{
+	height: 4vh;
+	width: 4vh;
+	padding:0;
+	margin: 0;
+	flex:none;
+}
+#tiles{
+	height: 100vh;
+}
+
+#tiles .row{
+	align-items: center;
+	justify-content: center;
+	height: 4vh;
+	--bs-gutter-x:0;
+}
