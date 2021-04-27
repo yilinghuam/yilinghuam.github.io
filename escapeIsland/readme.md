@@ -21,11 +21,11 @@ comprises of two sections, each with interactive objects in svg file format
 ### Section 1: Earth Panel 1 Walkthrough
 
 To do: add hover animations for svg elements 
-    to remove left turn from maze
+    remove completed from completed tasks
+    to remove left turn from maze and down
+    
     tent bugs:if click too quickly, the card does not close
-            Need to make tent unclickable once game completed
             maze reset button
-    add modal for boulder
 
 1. Tent [Card Matching Game] [item1] [Clue 2? ]
 Simple card matching game with 8 cards.
@@ -41,6 +41,8 @@ To be used in section 2 of Earth
 
 
 4. Boulder (story setting for going through tunnel)
+- message pop up
+- way ahead blocked
 
 5. Tunnel[Maze game]
 - goal: To escape the maze

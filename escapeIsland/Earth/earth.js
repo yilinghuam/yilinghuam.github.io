@@ -151,6 +151,8 @@ window.onload = () => {
             [1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1]
         ],
         player: {
+            originx: 15,
+            originy:18,
             x: 15,  //col number
             y: 18    //row number
         },
@@ -172,6 +174,7 @@ window.onload = () => {
         this.player.el = null
         this.rotation = 'up'
     }
+
     // Tile creation
     Game.prototype.createEl = function(x,type) {
         let el = document.createElement('div')
@@ -215,57 +218,78 @@ window.onload = () => {
         divToAppend.appendChild(sprite)
         return sprite
     }
+
+    Game.prototype.placeGoal = function (type) {
+        let x = this[type].x
+        let y = this[type].y
+        let sprite = document.createElement('div')
+        let spriteIcon = document.createElement('span')
+        spriteIcon.innerText = 'E'
+        sprite.appendChild(spriteIcon)
+        let divToAppend = document.querySelector('#row'+y+'col'+x)
+        sprite.id = type
+        divToAppend.appendChild(sprite)
+        return sprite
+    }
     
     // Player movements. Only update orientation and position if able to move
     Game.prototype.moveUp = function(num) {   
-        this.player.y -= 1
-        if (this.checkWall(this.player.y,this.player.x)){
-            this.updateOrientation(num)
-            let rotation = this.rotation
-            this.updatePosition(rotation)
-            console.log(this.rotation)
-        }else{
-            this.player.y += 1
+        if (this.player.y - 1 >= 0){
+            this.player.y -= 1
+            if (this.checkWall(this.player.y,this.player.x) === true){
+                this.updateOrientation(num)
+                let rotation = this.rotation
+                this.updatePosition(rotation)
+                console.log(this.rotation)
+            }else{
+                this.player.y += 1
+            }
         }
     }
     Game.prototype.moveDown = function(num) {
-        this.player.y += 1
-        if (this.checkWall(this.player.y,this.player.x)){
-            this.updateOrientation(num)
-            let rotation = this.rotation
-            this.updatePosition(rotation)
-            console.log(this.rotation)
-        }else{
-            this.player.y -= 1
-        }    
+        if (this.player.y + 1 < 19) {
+            this.player.y += 1
+            if (this.checkWall(this.player.y,this.player.x) === true){
+                this.updateOrientation(num)
+                let rotation = this.rotation
+                this.updatePosition(rotation)
+                console.log(this.rotation)
+            }else{
+                this.player.y -= 1
+            } 
+        }      
     }
     Game.prototype.moveLeft = function(num) {
-        this.player.x -= 1
-        if (this.checkWall(this.player.y,this.player.x)){
-            this.updateOrientation(num)
-            let rotation = this.rotation
-            this.updatePosition(rotation)
-            console.log(this.rotation)
-        }else{
-            this.player.x += 1
+        if (this.player.x - 1 >= 0) {
+            this.player.x -= 1
+            if (this.checkWall(this.player.y,this.player.x) === true){
+                this.updateOrientation(num)
+                let rotation = this.rotation
+                this.updatePosition(rotation)
+                console.log(this.rotation)
+            }else{
+                this.player.x += 1
+            }
         }
     }
     Game.prototype.moveRight = function(num) {
-        this.player.x += 1
-        if (this.checkWall(this.player.y,this.player.x)) {
-            this.updateOrientation(num)
-            let rotation = this.rotation
-            this.updatePosition(rotation)
-            console.log(this.rotation)
-        }else{
-            this.player.x -= 1
+        if (this.player.x + 1 < 19) {
+            this.player.x += 1
+            if (this.checkWall(this.player.y,this.player.x) === true) {
+                this.updateOrientation(num)
+                let rotation = this.rotation
+                this.updatePosition(rotation)
+                console.log(this.rotation)
+            }else{
+                this.player.x -= 1
+            }
         }
     }
 
     // Collision control
     Game.prototype.checkWall = function(y,x) {
         let divToAppend = document.querySelector('#row'+y+'col'+x)
-        if (divToAppend.classList[0] === 'floor' && divToAppend !== null) {
+        if (divToAppend.classList[0] === 'floor') {
             return true
         }else {
             return false
@@ -293,6 +317,19 @@ window.onload = () => {
         
     };
 
+    Game.prototype.resetPosition = function(el) {
+        let x = this.player.originx
+        let y = this.player.originy
+        this.rotation = 'up'
+        this.player.x = x
+        this.player.y = y
+ 
+        let iconToChange = el.childNodes
+        iconToChange[0].className = "fas fa-arrow-circle-up"
+        let divToAppend = document.querySelector('#row'+y+'col'+x)
+        divToAppend.appendChild(el)
+    }
+
     // Update orientation of object // consider rotation of img? 
     Game.prototype.updateOrientation = function(num) {
         let orientation = ['left','up','right','down']
@@ -311,17 +348,18 @@ window.onload = () => {
         }
         //right arrow
         if (num === 39) {
-            if (index < orientation.length-1) {
-                this.rotation = orientation[index+1]
+            if (index < orientation.length - 1) {
+                this.rotation = orientation[index + 1]
             }else{
                 this.rotation = orientation[0]
             }
         }
         //down arrow
         if (num === 40) {
+            console.log(index)
             if (index < 2) {
                 this.rotation = orientation[index + 2]
-            }else if (index === 3) {
+            }else if (index === 2) {
                 this.rotation = orientation[0]
             }else {
                 this.rotation = orientation[1]
@@ -397,7 +435,6 @@ window.onload = () => {
         document.addEventListener('keydown', event => {
             this.movePlayer(event);
         });
-    
     }
 
     function init() {
@@ -405,11 +442,17 @@ window.onload = () => {
           
         myGame.populateMap();
         let playerSprite = myGame.placeSprite('player')
+        let goalSprite = myGame.placeGoal('goal')
         myGame.player.el = playerSprite
         myGame.keyboardListener()
 
-      }
-      init();
+        // maze reset button
+        let mazeResetBtn = document.querySelector('#mazeResetBtn')
+        mazeResetBtn.addEventListener('click',() => {myGame.resetPosition(myGame.player.el)})
+    }
+    init();
+
+    
     
     
 }
@@ -449,6 +492,8 @@ function drop_handler(ev) {
         fireglow.style.display = 'block'
         clue2.style.display = 'block'
         checkTaskCompleted('match')
+        const match = document.querySelector('#match')
+        match.style.display = 'none'
     }
     // prevent other items from lightiing fire
     if(ev.target.id === 'campfireInteraction' && data !== 'match') {
@@ -456,10 +501,8 @@ function drop_handler(ev) {
     }
 
     // Get the id of the target and add the moved element to slot
-    if(ev.target.id !== 'campfireInteraction') {
+    if (ev.target.id !== 'campfireInteraction' && ev.target.className === 'slot col-2') {
     ev.target.appendChild(document.getElementById(data));
-    console.log(ev.target)
-    console.log(data)
     }
 
     if(data === 'apple') {
