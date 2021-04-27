@@ -1,9 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis&display=swap');
+
+
 /* General game styling */
 body{
 	height: 100vh;
+	background-color:#634025;
 }
 .container {
 	position: relative;
+}
+#game-background {
+    background-color:#e2cab8;
 }
 
 #item-slots{
@@ -11,7 +18,6 @@ body{
 	margin: 2% 0% 0% 0%;
     background-color:#e2cab8;
 }
-
 .slot{
     background-color: white;
     width: 5vw;
@@ -26,8 +32,28 @@ body{
 	height: auto;
 }
 
-#game-background {
-    background-color:#e2cab8;
+#Tent:hover path {
+	filter:url(#sofGlow) 
+}
+#Bag:hover path, #Bag:hover polygon {
+	filter:url(#sofGlow) 
+}
+
+/* modal styling */
+h5, .btn, p {
+	font-family: 'Dosis', sans-serif;
+}
+.modal-backdrop { 
+	background-color: white;
+}
+.modal-content{
+    background: radial-gradient(circle, rgba(255,255,255,1) 47%, rgba(255,255,255,0.6815913865546219) 97%, rgba(254,254,254,0.37907037815126055) 100%);
+	border: none;
+}
+.instruction {
+	text-align: center;
+	justify-content: center;
+	align-items: center;
 }
 
 /* settings for cards */
@@ -37,6 +63,7 @@ body{
 .card{
     justify-content: center;
     align-items: center;
+	border: none;
 }
 
 .disabled{
@@ -44,20 +71,18 @@ body{
 }
 
 .open{
-    background-color: cornflowerblue;
+    background-color: #ffe3ac;
     transform: rotateY(0);
     animation-name: flipInY;
 	-webkit-backface-visibility: visible;
 	backface-visibility: visible ;
 	animation-duration: .75s;
+	color: #B8926A;
 }
 
 .close{
-    background-color: black;
-}
-
-.modal-content{
-    background: radial-gradient(circle, rgba(255,255,255,1) 47%, rgba(255,255,255,0.6815913865546219) 97%, rgba(254,254,254,0.37907037815126055) 100%);
+    background-color: #B8926A;
+	opacity: 70%;
 }
 
 @keyframes flipInY {
@@ -99,6 +124,11 @@ body{
 	width: 100%;
 	display: none
 }
+#match{
+	transform: scale(1);
+	animation: pulse 2s infinite;
+	filter: drop-shadow(0px 0px 12px white)
+}
 
 
 /* appleInteraction styling */
@@ -109,10 +139,31 @@ body{
 	transform: translate(-50%,-50%);
 	width: 6vw;
 }
-
 #appleInteraction > img {
 	width: 100%;
 	display: none;
+}
+#apple{
+	transform: scale(1);
+	animation: pulse 2s infinite;
+	filter: drop-shadow(0px 0px 12px white)
+}
+
+@keyframes pulse {
+	0% {
+		transform: scale(0.95);
+		filter: drop-shadow(0px 0px 12px white)
+	}
+
+	70% {
+		transform: scale(1);
+		filter: drop-shadow(0px 0px 0px white)
+	}
+
+	100% {
+		transform: scale(0.95);
+		filter: drop-shadow(0px 0px 12px white)
+	}
 }
 
 /* campfire interaction */
@@ -125,15 +176,12 @@ body{
 	width: 13vw;
 	height: 13vh;
 }
-
 #Fire{
 	animation: glowOpp 6s infinite step-end;
 }
-
 #Fire_glow{
 	animation: glow 6s infinite step-end;
 }
-
 #clue2{
 	position: absolute;
 	left: 52%;
@@ -148,7 +196,6 @@ body{
 	animation: glow 6s infinite step-end;
 	display: none;
 }
-
 @keyframes glow {
     0%    { opacity: 0;   }
     20%    { opacity: 1; }
@@ -185,20 +232,10 @@ body{
 	background-color: lightgrey;
   }
 .default .wall {
-	background-color: skyblue;
+	background-color: #B8926A;
 }
-#player, 
-#goal {
-  transform-origin: center;
-  transform:scale(0.85);
-}
-.goal {
-	background-color: #FFD700;
-	border: 1px solid #98720b;
-}
+
 #player {
-	/* background-color: #90ee90;
-	border: 1px solid green; */
 	height: 100%;
 	transition: left 0.2s linear, top 0.2s linear;
 	justify-content: center;
@@ -225,4 +262,22 @@ body{
 	justify-content: center;
 	height: 4vh;
 	--bs-gutter-x:0;
+}
+#Tunnel{
+	pointer-events: none;
+	animation: none ;
+}
+
+@keyframes keyStepGlow {
+	0% {
+		filter:url(#sofGlow) 
+	}
+
+	70% {
+		filter:url(#sofGlow) 
+	}
+
+	100% {
+		filter:url(#sofGlow) 
+	}
 }

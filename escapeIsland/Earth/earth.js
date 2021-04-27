@@ -6,6 +6,12 @@ window.onload = () => {
     const earthPanelInteractiveArray = document.querySelectorAll('.InteractiveObj')
     console.log(earthPanelInteractiveArray)
 
+    // Remove pointer events after use
+    function removePointerEvent(ID) {
+        let element = document.querySelector('#'+ID)
+        element.style.pointerEvents = 'none'
+    }
+
     //1. animate bag falling to retrieve apple(for later use)
     const bag = earthPanelInteractiveArray[4]
     const fallenBag = earthPanelInteractiveArray[5]
@@ -18,10 +24,7 @@ window.onload = () => {
     })
 
     //2. tent JS for matching card game
-    const tent = earthPanelInteractiveArray[2]
-    console.log(tent)
- 
-    const tentModal = document.querySelector('#tentModal')
+    const tent = earthPanelInteractiveArray[2] 
     const tentModalCompleteBtn = document.querySelector('#tentModalCompleteBtn')
     
     //variables
@@ -95,6 +98,7 @@ window.onload = () => {
         match.style.display = 'block'
     }
 
+
     shuffleArray(cardOptions)
 
     //playCards
@@ -114,6 +118,7 @@ window.onload = () => {
                 if (completedCard === 8) {
                     tentModalCompleteBtn.removeAttribute('disabled')
                     tentModalCompleteBtn.addEventListener('click',showMatchSticks)
+                    removePointerEvent('Tent')
                 }
             })
         }
@@ -150,8 +155,8 @@ window.onload = () => {
             y: 18    //row number
         },
         goal: {
-            x: 4,
-            y: 0
+            x: 3,
+            y: 18
         },
         theme: 'default'
     }
@@ -177,7 +182,6 @@ window.onload = () => {
 
     //map creation
     Game.prototype.populateMap = function() {
-  
         this.el.className = 'game-container ' + this.theme;
         let tiles = document.getElementById('tiles');
 
@@ -195,8 +199,7 @@ window.onload = () => {
                  row.appendChild(tile);
            }
         }
-
-      }
+    }
 
      
     
@@ -273,10 +276,20 @@ window.onload = () => {
     Game.prototype.updatePosition = function(rotation) {
         let x = this.player.x
         let y = this.player.y
+
         let iconToChange = this.player.el.childNodes
         iconToChange[0].className = "fas fa-arrow-circle-"+rotation
         let divToAppend = document.querySelector('#row'+y+'col'+x)
         divToAppend.appendChild(this.player.el)
+
+        let goalx = this.goal.x
+        let goaly = this.goal.y
+
+
+        //check for goal completion
+        if (goalx === x && goaly === y) {
+            alert('completed')
+        }
         
     };
 
@@ -284,6 +297,7 @@ window.onload = () => {
     Game.prototype.updateOrientation = function(num) {
         let orientation = ['left','up','right','down']
         let index = orientation.indexOf(this.rotation)
+        //left arrow
         if (num === 37) {
             if (index > 0){
                 this.rotation = orientation[index-1]
@@ -291,16 +305,19 @@ window.onload = () => {
                 this.rotation = orientation[orientation.length -1]
             }
         }
+        //up arrow
         if (num === 38) {
             this.rotation = orientation[index]
         }
+        //right arrow
         if (num === 39) {
-            if (index < orientation.length) {
+            if (index < orientation.length-1) {
                 this.rotation = orientation[index+1]
             }else{
                 this.rotation = orientation[0]
             }
         }
+        //down arrow
         if (num === 40) {
             if (index < 2) {
                 this.rotation = orientation[index + 2]
@@ -311,6 +328,7 @@ window.onload = () => {
             }
         }
     }
+
 
     // moveFunction with rotation. only if player moved, then there is rotation
     Game.prototype.movePlayer = function(event) {
@@ -392,12 +410,32 @@ window.onload = () => {
 
       }
       init();
+    
+    
 }
 
 
-// Get fire animation working upon drag and drop
-// Drag and Drop functions using drag and drop api
+// variable for task completion
+let appleCompleted = 'completed'
+let matchCompleted = 'completed'
 
+//function to make tunnel clickable after tasks completed. 
+function checkTaskCompleted(item) {
+    if(item == 'apple') {
+        appleCompleted = 'completed'
+    }
+    if (item === 'match') {
+        matchCompleted = 'completed'
+    }
+    // activate tunnel if both tasks completed
+    if (matchCompleted === 'completed' && appleCompleted === 'completed') {
+        let tunnel = document.querySelector('#Tunnel')
+        tunnel.style.pointerEvents = 'visible'
+        tunnel.style.animation = 'keyStepGlow 2s infinite'
+    }
+}
+
+// Drag and Drop functions using drag and drop api
 function drop_handler(ev) {
     ev.preventDefault();
     const data = ev.dataTransfer.getData("application/my-app");
@@ -410,6 +448,7 @@ function drop_handler(ev) {
         fire.style.display = 'block'
         fireglow.style.display = 'block'
         clue2.style.display = 'block'
+        checkTaskCompleted('match')
     }
     // prevent other items from lightiing fire
     if(ev.target.id === 'campfireInteraction' && data !== 'match') {
@@ -422,6 +461,11 @@ function drop_handler(ev) {
     console.log(ev.target)
     console.log(data)
     }
+
+    if(data === 'apple') {
+        checkTaskCompleted('apple')
+    }
+
 }
 
 function dragstart_handler(ev) {

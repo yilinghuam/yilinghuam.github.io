@@ -58,13 +58,38 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button id = 'cardStartBtn'type="button" class="btn btn-danger" >Start</button>
                             <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id = 'tentModalCompleteBtn' disabled >Complete</button>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- tentModal Instructions -->
+            <div class="modal fade" id="tentModalInstruction" tabindex="-1">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h5 class="modal-title">Match the Cards! [INSTRUCTIONS]</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <!-- instructions -->
+                        <div class="modal-body">
+                            <div class = 'container instruction'>
+                                <p>GOAL: match pairs of cards.</p>
+                                <p>Turn two cards over by clicking on the card.</p>
+                                <p>If the two card matches, the card will remain open</p>
+                                <p>Continue matching till all the cards are open.</p>                                
+                            </div>  
+                            <div class = 'text-center'>
+                            <button id = 'cardStartBtn'type="button" class="btn btn-danger" data-bs-target="#tentModal" data-bs-toggle="modal" data-bs-dismiss="modal">Start</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- tunnel modal -->
             <div class="modal fade" id="tunnelModal" tabindex="-1">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
@@ -82,15 +107,9 @@
                                      <!-- start game map -->
                                      <div id="game-map-1" class="game-map container">
                                        <div id="tiles" class="layer"></div>
-                                       <div id="sprites" class="layer"></div>
-                                       <div id="success-msg">Goal reached!</div>
                                      </div>
                                    </div>
-                                   
                                    <!-- end game map -->
-                                   <p id="text-1" class="text">
-                                      Use cursor keys or buttons.
-                                   <p>
                                 </div>
                             </div>  
                         </div>
@@ -151,23 +170,6 @@
                   viewBox="0 0 1920 1080" style="enable-background:new 0 0 1920 1080;" xml:space="preserve" >
                 <style type="text/css">
                     .st0{fill:#C79D83;stroke:#000000;stroke-miterlimit:10;}
-                    <!-- .st1{fill:#E86E02;}
-                    .st2{fill:#9E4A00;}
-                    .st3{fill:#f7e5d5;}
-                    .st4{fill:#6B4623;stroke:#FFFFFF;stroke-miterlimit:10;}
-                    .st5{clip-path:url(#SVGID_2_);fill:#947254;stroke:#FFFFFF;stroke-width:3;stroke-miterlimit:10;}
-                    .st6{clip-path:url(#SVGID_4_);fill:#947254;stroke:#FFFFFF;stroke-width:3;stroke-miterlimit:10;}
-                    .st7{fill:#757575;}
-                    .st8{fill:#EB913D;stroke:#FFFFFF;stroke-width:3;stroke-miterlimit:10;}
-                    .st9{fill:#FFE3C4;stroke:#FFFFFF;stroke-width:3;stroke-miterlimit:10;}
-                    .st10{fill:#A6754B;}
-                    .st11{fill:none;stroke:#666361;stroke-miterlimit:10;}
-                    .st12{fill:#FCCF74;}
-                    .st13{display:none;}
-                    .st14{fill:#E05748;}
-                    .st15{fill:#EB913D;}
-                    .st17{fill:#B83616;stroke:#FFFFFF;stroke-miterlimit:10;} -->
-
                     .st1{fill:#c4b096;}
                     .st2{fill:#b8a68a;}
                     .st3{fill:#B8926A;}
@@ -185,6 +187,31 @@
                     .st15{fill:#f1ac6b;}
                     .st17{fill:#B83616;stroke:#FFFFFF;stroke-miterlimit:10;}
                 </style>
+
+                <defs>
+                    <!-- filter effect for glowing -->
+                    <filter id="sofGlow" height="300%" width="300%" x="-75%" y="-75%">
+                        <!-- Thicken out the original shape -->
+                        <feMorphology operator="dilate" radius="4" in="SourceAlpha" result="thicken" />
+                
+                        <!-- Use a gaussian blur to create the soft blurriness of the glow -->
+                        <feGaussianBlur in="thicken" stdDeviation="10" result="blurred" />
+                
+                        <!-- Change the colour -->
+                        <feFlood flood-color="rgb(255,255,255)" result="glowColor" />
+                
+                        <!-- Color in the glows -->
+                        <feComposite in="glowColor" in2="blurred" operator="in" result="softGlow_colored" />
+                
+                        <!--	Layer the effects together -->
+                        <feMerge>
+                            <feMergeNode in="softGlow_colored"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                
+                    </filter>
+                
+                </defs>
 
                 <g id="Layer_5">
                     <path class="st1" d="M163.93,218.87c17.54-28.53,35.09-57.07,53-84.89c25.83,34.51,47.43,72.75,64.06,113.39
@@ -262,7 +289,7 @@
                         c11.19-2.67,21.42-8.3,31.49-13.87c22.21-12.28,46.52-27.2,52.63-51.83c4.94-19.89,6.8-90.37,6.8-105.49
                         C1933.69,509.23,1904.54,428.03,1895.08,430.73z"/>
                     </g>
-                    <g id="Tent" class = 'InteractiveObj' data-bs-toggle="modal" data-bs-target="#tentModal">
+                    <g id="Tent" class = 'InteractiveObj' data-bs-toggle="modal" data-bs-target="#tentModalInstruction">
                         <path class="st8" d="M640.45,793.48c-69.19,18.86-136.98,43.5-202.52,73.64c5.94-66.48,18.97-132.25,38.76-195.65
                             c6.21-19.88,13.16-40.89,8.67-61.28C537.72,670.15,590.08,730.11,640.45,793.48z"/>
                         <path class="st8" d="M488.82,616.35c-73.85-22.38-147.71-44.77-221.56-67.15c-44.41,63.61-80.45,133.77-106.76,207.83

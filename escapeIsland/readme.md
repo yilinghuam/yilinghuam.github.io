@@ -21,6 +21,7 @@ comprises of two sections, each with interactive objects in svg file format
 ### Section 1: Earth Panel 1 Walkthrough
 
 To do: add hover animations for svg elements 
+    to remove left turn from maze
     check on tent buttons
 
     tent bugs:if click too quickly, the card does not close
@@ -42,10 +43,15 @@ To be used in section 2 of Earth
 4. Boulder (story setting for going through tunnel)
 
 5. Tunnel[Maze game]
+- goal: To escape the maze
+- No left turn maze (only up,down,right allowed)
+- orientation of player changes with each turn
+
 
 ###Issues faced
 1. Making svg element draggable
 Even when i could make it draggable, I had problems figuring out how to drag it into a html element. 
+
 Method used to overcome: use divs and set position of divs instead so i could use HTML5 drag and drop. Divs are made as responsive as possible by using relative positions instead of fixed positions.
 
 
