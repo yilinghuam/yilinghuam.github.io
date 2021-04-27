@@ -38,6 +38,9 @@ body{
 #Bag:hover path, #Bag:hover polygon {
 	filter:url(#sofGlow) 
 }
+#Boulder:hover path {
+	filter:url(#sofGlow) 
+}
 
 /* modal styling */
 h5, .btn, p {
@@ -263,6 +266,8 @@ h5, .btn, p {
 	height: 4vh;
 	--bs-gutter-x:0;
 }
+
+/* Tunnel animation upon completion */
 #Tunnel{
 	pointer-events: none;
 	animation: none ;

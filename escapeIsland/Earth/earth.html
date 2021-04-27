@@ -100,10 +100,15 @@
                         </div>
                         <!-- maze game -->
                         <div class="modal-body">
+                            <div class = 'row'>
+                                <h5>Instructions</h5>
+                                <p> Complete the maze by guiding the arrow sign out of the maze.</p>
+                                <p> Take note that the arrow orientation changes with each move.</p>
+                                <p> Click on complete when you are done to move on to the next Stage!</p>
+                            </div>
                             <div class = 'container'>
                                 <div id="game-container-1" class="game-container">
                                     <div id="map-and-controls">
-
                                      <!-- start game map -->
                                      <div id="game-map-1" class="game-map container">
                                        <div id="tiles" class="layer"></div>
@@ -115,8 +120,32 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button id = 'cardStartBtn'type="button" class="btn btn-danger" >Start</button>
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id = 'tentModalCompleteBtn' disabled >Complete</button>
+                            <button id = 'mazeResetBtn'type="button" class="btn btn-danger" >Reset</button>
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id = 'mazeCompleteBtn' disabled >Complete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Boulder Modal -->
+            <div class="modal fade" id="boulderModal" tabindex="-1">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h5 class="modal-title">Boulder</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <!-- instructions -->
+                        <div class="modal-body">
+                            <div class = 'container instruction'>
+                                <p>PATH AHEAD BLOCKED</p>
+                                <p>A large boulder is blocking the pathway. </p>
+                                <p>Find another pathway to the next area.</p>
+                            </div>  
+                            <div class = 'text-center'>
+                            <button id = 'boulderCloseBtn'type="button" class="btn btn-danger" data-bs-dismiss="modal">Close Message</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -279,7 +308,7 @@
                                 c3.65,36.04,1.86,72.63-12.15,111.7c-5.46,0.73-10.93,1.46-17.48,0.15c-9.47,0.74-18.94,1.49-28.41,2.23"/>
                         </g>
                     </g>
-                    <g id = 'boulder' class = 'InteractiveObj'>
+                    <g id = 'Boulder' class = 'InteractiveObj' data-bs-toggle="modal" data-bs-target="#boulderModal">
                     <path id="Boulder" class="st7" d="M1895.08,430.73c-3.08,0.88-5.86,2.56-8.59,4.22c-9.39,5.7-18.78,11.4-27.66,16.42
                         c-5.04-21.49-11.21-42.72-18.47-63.57c-2.69-7.72-5.8-15.78-12.17-20.92c-9.75-7.87-23.77-6.48-36.18-4.68
                         c-8.12,1.18-16.25,2.36-24.37,3.54c-2.93,0.43-5.97,0.89-8.46,2.5c-5.75,3.72-6.38,11.7-6.89,18.53

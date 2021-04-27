@@ -22,10 +22,10 @@ comprises of two sections, each with interactive objects in svg file format
 
 To do: add hover animations for svg elements 
     to remove left turn from maze
-    check on tent buttons
-
     tent bugs:if click too quickly, the card does not close
             Need to make tent unclickable once game completed
+            maze reset button
+    add modal for boulder
 
 1. Tent [Card Matching Game] [item1] [Clue 2? ]
 Simple card matching game with 8 cards.
