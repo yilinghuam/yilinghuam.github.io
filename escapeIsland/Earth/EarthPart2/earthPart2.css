@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis&display=swap');
+
+
+/* General game styling */
+body{
+	height: 100vh;
+	background-color:#634025;
+}
+.container {
+	position: relative;
+}
+#game-background {
+    background-color:#e2cab8;
+}
+
+#item-slots{
+	/* background-color: #C79D83; */
+	margin: 2% 0% 0% 0%;
+    background-color:#e2cab8;
+	padding: 1%;
+}
+.slot{
+    background-color: white;
+    width: 5vw;
+    height: 5vw;
+    margin: 10px;
+	justify-content: center;
+	align-items: center;
+	display: flex;
+}
+.slot > img{
+	width: 5vw;
+	height: auto;
+}
+#Standing-bear {
+    display: none;
+}
+#Standing-bear:hover path {
+	filter:url(#sofGlow) 
+}
+#Door:hover {
+	filter:url(#sofGlow) 
+}
+#Cave:hover {
+	filter:url(#sofGlow) 
+}
+#Note:hover path {
+	filter:url(#sofGlow) 
+}
+#Tunnel:hover {
+	filter:url(#sofGlow) 
+}
+#Torch:hover path {
+	filter:url(#sofGlow) 
+}
+
+/* modal styling */
+h5, .btn, p {
+	font-family: 'Dosis', sans-serif;
+}
+.modal-backdrop { 
+	background-color: white;
+}
+.modal-content{
+    background: radial-gradient(circle, rgba(255,255,255,1) 47%, rgba(255,255,255,0.6815913865546219) 97%, rgba(254,254,254,0.37907037815126055) 100%);
+	border: none;
+}
+.instruction {
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+}

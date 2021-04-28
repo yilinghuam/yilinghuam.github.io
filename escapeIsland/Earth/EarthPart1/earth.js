@@ -312,7 +312,8 @@ window.onload = () => {
 
         //check for goal completion
         if (goalx === x && goaly === y) {
-            alert('completed')
+            let mazeCompleteBtn = document.querySelector('#mazeCompleteBtn')
+            mazeCompleteBtn.classList.remove('disabled')
         }
         
     };
