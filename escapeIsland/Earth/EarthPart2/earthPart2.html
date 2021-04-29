@@ -6,7 +6,7 @@
         <link href = './earthPart2.css' rel = 'stylesheet'>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
-        <script src = './earth.js'></script>
+        <script src = './earthPart2.js'></script>
     </head>
 
     <body>
@@ -89,8 +89,8 @@
                 </div>
             </div>
 
-            <!-- tunnel modal -->
-            <div class="modal fade" id="tunnelModal" tabindex="-1">
+            <!-- door modal -->
+            <div class="modal fade" id="doorModal" tabindex="-1">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
 
@@ -128,24 +128,24 @@
                 </div>
             </div>
 
-            <!-- Boulder Modal -->
-            <div class="modal fade" id="boulderModal" tabindex="-1">
+            <!-- Tunnel Modal -->
+            <div class="modal fade" id="tunnelModal" tabindex="-1">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
 
                         <div class="modal-header">
-                            <h5 class="modal-title">Boulder</h5>
+                            <h5 class="modal-title">Tunnel</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
                         <!-- instructions -->
                         <div class="modal-body">
                             <div class = 'container instruction'>
-                                <p>PATH AHEAD BLOCKED</p>
-                                <p>A large boulder is blocking the pathway. </p>
-                                <p>Find another pathway to the next area.</p>
+                                <p>Tunnel that links to the other side</p>
+                                <p> You have just arrived from this tunnel </p>
+                                <p> There is no way back</p>
                             </div>  
                             <div class = 'text-center'>
-                            <button id = 'boulderCloseBtn'type="button" class="btn btn-danger" data-bs-dismiss="modal">Close Message</button>
+                            <button id = 'tunnelCloseBtn'type="button" class="btn btn-danger" data-bs-dismiss="modal">Close Message</button>
                             </div>
                         </div>
                     </div>
@@ -159,7 +159,7 @@
             <!-- Item slots -->
             <div id = 'item-slots' class = 'row justify-content-end' ondrop="drop_handler(event)" ondragover="dragover_handler(event)">
                 <div class = 'slot col-2'>
-                    
+                        <img src = './apple.png' id = 'apple' draggable="true" ondragstart="dragstart_handler(event)">
                 </div>
                 <div class = 'slot col-2'>
 
@@ -172,6 +172,10 @@
                 </div>
             </div>
 
+            <!-- draggable components -->
+            <div id = 'bearInteraction' ondrop="drop_handler(event)" ondragover="dragover_handler(event)">
+
+            </div>
 
             <div id = 'game-background'>
             <!-- SVG file -->
@@ -394,7 +398,7 @@
                     c0.18-17.5,1.75-38.44,7.49-92.72C1446.4,704,1448.82,703.98,1449,705.4z"/>
             </g>
             <g id="Layer_7">
-                <g id = 'Tunnel'>
+                <g id = 'Tunnel' data-bs-target="#tunnelModal" data-bs-toggle="modal" >
                     <g>
                         <defs>
                             <rect id="SVGID_5_" x="115.69" y="402.11" width="48.24" height="182.78"/>

@@ -32,10 +32,8 @@ body{
 	width: 5vw;
 	height: auto;
 }
-#Standing-bear {
-    display: none;
-}
-#Standing-bear:hover path {
+
+#Standing-bear:hover {
 	filter:url(#sofGlow) 
 }
 #Door:hover {
@@ -69,4 +67,20 @@ h5, .btn, p {
 	text-align: center;
 	justify-content: center;
 	align-items: center;
+}
+
+/* Bear interaction */
+#Standing-bear {
+    display: none;
+}
+#bearInteraction { 
+	position: absolute;
+	left: 71%;
+	top:58%;
+	transform: translate(-50%,-50%);
+	width: 16vw;
+	height: 57vh;
+	background-color: green;
+	opacity: 40%;
+	display: none;
 }
