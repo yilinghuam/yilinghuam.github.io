@@ -76,7 +76,7 @@
                         <!-- instructions -->
                         <div class="modal-body">
                             <div class = 'container instruction'>
-                                <p>GOAL: match pairs of cards.</p>
+                                <h5>GOAL: match pairs of cards.</h5>
                                 <p>Turn two cards over by clicking on the card.</p>
                                 <p>If the two card matches, the card will remain open</p>
                                 <p>Continue matching till all the cards are open.</p>                                
@@ -92,20 +92,19 @@
             <!-- tunnel modal -->
             <div class="modal fade" id="tunnelModal" tabindex="-1">
                 <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
+                    <div class="modal-content" >
 
                         <div class="modal-header">
                             <h5 class="modal-title">No left-turn maze!</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
                         <!-- maze game -->
-                        <div class="modal-body">
+                        <div class="modal-body" >
                             <div class = 'row instruction'>
                                 <h5>Instructions</h5>
                                 <p>No left turns allowed</p>
                                 <p> Exit the maze by guiding the arrow sign to 'E'</p>
                                 <p> Take note that the arrow orientation changes with each move.</p>
-                                <p> Click on complete when you are done to move on to the next Stage!</p>
                             </div>
                             <div class = 'container'>
                                 <div id="game-container-1" class="game-container">
@@ -115,13 +114,16 @@
                                        <div id="tiles" class="layer"></div>
                                      </div>
                                    </div>
+
+                                   <div id = 'mazeBtnContainer' class = 'text-center'>
+                                   <button id = 'mazeResetBtn'type="button" class="btn btn-danger">Reset</button>
+                                    </div>
                                    <!-- end game map -->
                                 </div>
                             </div>  
                         </div>
 
                         <div class="modal-footer">
-                            <button id = 'mazeResetBtn'type="button" class="btn btn-danger">Reset</button>
                             <a href = '../EarthPart2/earthPart2.html' role="button" class="btn btn-primary disabled" id = 'mazeCompleteBtn'>Complete</a>
                         </div>
                     </div>
@@ -140,7 +142,7 @@
                         <!-- instructions -->
                         <div class="modal-body">
                             <div class = 'container instruction'>
-                                <p>PATH AHEAD BLOCKED</p>
+                                <h5>Path ahead blocked!</h5>
                                 <p>A large boulder is blocking the pathway. </p>
                                 <p>Find another pathway to the next area.</p>
                             </div>  

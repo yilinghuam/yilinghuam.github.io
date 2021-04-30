@@ -11,54 +11,50 @@
 
     <body>
             
-            <!-- Tent Modal container  - Matching game-->
-            <div class="modal fade" id="tentModal" tabindex="-1">
+            <!--  Bear Interaction Modal -->
+            <div class="modal fade" id="bearModal" tabindex="-1">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
 
                         <div class="modal-header">
-                            <h5 class="modal-title">Match the Cards!</h5>
+                            <h5 class="modal-title">Bear!</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
-                        <!-- cards -->
+
                         <div class="modal-body">
-                            <div class = 'container'>
-                                <div class="card-row row row-cols-5 g-2 justify-content-around">
-                                    <div class="col card close" style = 'height:12em'>
-                                        <i style = 'font-size: 50px'class="none"></i>                                  
-                                    </div>
-                                    <div class="col card close">
-                                        <i style = 'font-size: 50px'class="none"></i>                                  
-                                    </div>
-                                    
-                                    <div class="col card close">
-                                        <i style = 'font-size: 50px'class="none"></i>                                  
-                                    </div>
-                                    <div class="col card close">
-                                        <i style = 'font-size: 50px'class="none"></i>                                  
-                                    </div>
-                                </div>
-
-                                <div class="card-row row row-cols-5 g-2 justify-content-around">
-                                    <div class="col card close" style = 'height:12em'>
-                                        <i style = 'font-size: 50px'class="none "></i>                                  
-                                    </div>
-                                    <div class="col card close">
-                                        <i style = 'font-size: 50px'class="none"></i>                                  
-                                    </div>
-                                    
-                                    <div class="col card close">
-                                        <i style = 'font-size: 50px'class="none"></i>                                  
-                                    </div>
-                                    <div class="col card close">
-                                        <i style = 'font-size: 50px'class="none"></i>                                  
-                                    </div>
-                                </div>
+                            <div class = 'container instruction'>
+                                <h5> Bear blocking the gate! </h5>
+                                <p> The bear is growling...</p>
+                                <p> Seems like it is hungry. Maybe it needs food? </p>
+                                <p> What food does a bear eat?</p>                                
                             </div>  
+                            <div class = 'text-center'>
+                            <button id = 'closeBtn'type="button" class="btn btn-danger" data-bs-dismiss="modal">Close Message</button>
+                            </div>
                         </div>
+                    </div>
+                </div>
+            </div>
 
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id = 'tentModalCompleteBtn' disabled >Complete</button>
+            <!-- Tunnel Modal -->
+            <div class="modal fade" id="tunnelModal" tabindex="-1">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h5 class="modal-title">Tunnel</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <!-- instructions -->
+                        <div class="modal-body">
+                            <div class = 'container instruction'>
+                                <h5 >Tunnel that links to the other side</h5>
+                                <p> You have just arrived from this tunnel. </p>
+                                <p> There is no way back.</p>
+                            </div>  
+                            <div class = 'text-center'>
+                            <button id = 'tunnelCloseBtn'type="button" class="btn btn-danger" data-bs-dismiss="modal">Close Message</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -95,62 +91,84 @@
                     <div class="modal-content">
 
                         <div class="modal-header">
-                            <h5 class="modal-title">No left-turn maze!</h5>
+                            <h5 class="modal-title">Door</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
-                        <!-- maze game -->
+                        <!-- password Input -->
                         <div class="modal-body">
-                            <div class = 'row instruction'>
-                                <h5>Instructions</h5>
-                                <p>No left turns allowed</p>
-                                <p> Exit the maze by guiding the arrow sign to 'E'</p>
-                                <p> Take note that the arrow orientation changes with each move.</p>
-                                <p> Click on complete when you are done to move on to the next Stage!</p>
-                            </div>
-                            <div class = 'container'>
-                                <div id="game-container-1" class="game-container">
-                                    <div id="map-and-controls">
-                                     <!-- start game map -->
-                                     <div id="game-map-1" class="game-map container">
-                                       <div id="tiles" class="layer"></div>
-                                     </div>
-                                   </div>
-                                   <!-- end game map -->
-                                </div>
-                            </div>  
-                        </div>
+                            
+                            <form id = 'password'>
+                                <div class = 'container instruction'>
+                                    <h5> Lock Found!</h5>
+                                    <p> Key in the three digit number you've found to escape! </p>                              
+                                </div>  
 
-                        <div class="modal-footer">
-                            <button id = 'mazeResetBtn'type="button" class="btn btn-danger">Reset</button>
-                            <a href = '../EarthPart2/earthPart2.html' role="button" class="btn btn-primary disabled" id = 'mazeCompleteBtn'>Complete</a>
+                                <div class="row g-3 align-items-center instruction">
+                                    <div class="col-2">
+                                    <input type="number" min = '0' max = '9' id="numOne" class="form-control text-center">
+                                    </div>
+                                    <div class="col-2">
+                                        <input type="number" min = '0' max = '9' id="numTwo" class="form-control text-center">
+                                    </div>
+                                    <div class="col-2">
+                                        <input type="number" min = '0' max = '9' id="numThree" class="form-control text-center">
+                                    </div>
+                                </div>
+
+                                <div class="row g-3 align-items-center instruction mt-2">
+                                    <div class="col-2">
+                                        <h2>C</h2>
+                                    </div>
+                                    <div class="col-2">
+                                        <h2>F</h2>
+                                    </div>
+                                    <div class="col-2">
+                                        <h2>N</h2>
+                                    </div>
+                                </div>
+
+                                <div id="invalid" class = 'text-center'>
+                                </div>
+
+                                <div class = 'instruction mt-3'>
+                                    <button id = 'doorPasswordSubmitBtn' class="btn btn-danger" >Submit</button>
+                                </div>
+                              </form>
+
+                              <div id = 'earthSuccessModal'>
+                                <div class = 'container instruction'>
+                                    <h5> CONGRATULATIONS! </h5>
+                                    <p> You have successfully escaped the Earth Region.</p>
+                                    <p> Click continue to move on to the next section</p>
+                                </div>  
+                                <div class = 'text-center'>
+                                    <a href = '../../index.html' role="button" class="btn btn-primary" id = 'mazeCompleteBtn'>Continue</a>
+                                </div>
+                            </div>
+
+                             
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Tunnel Modal -->
-            <div class="modal fade" id="tunnelModal" tabindex="-1">
+            <!-- Earth success modal -->
+            <div class="modal fade" id="earthSuccessModal" tabindex="-1">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
 
                         <div class="modal-header">
-                            <h5 class="modal-title">Tunnel</h5>
+                            <h5 class="modal-title">Success Message</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
-                        <!-- instructions -->
+                        <!-- password Input -->
                         <div class="modal-body">
-                            <div class = 'container instruction'>
-                                <p>Tunnel that links to the other side</p>
-                                <p> You have just arrived from this tunnel </p>
-                                <p> There is no way back</p>
-                            </div>  
-                            <div class = 'text-center'>
-                            <button id = 'tunnelCloseBtn'type="button" class="btn btn-danger" data-bs-dismiss="modal">Close Message</button>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
             </div>
+            
 
         <!-- Overall container -->
         <div class = 'container'>
@@ -175,6 +193,11 @@
             <!-- draggable components -->
             <div id = 'bearInteraction' ondrop="drop_handler(event)" ondragover="dragover_handler(event)">
 
+            </div>
+
+            <!-- clue -->
+            <div id = 'clue1'>
+                <h2 class = 'text-center'>3</h2>
             </div>
 
             <div id = 'game-background'>
@@ -287,7 +310,7 @@
             <g id="Layer_6">
                 <path id="Cave" class="st4" d="M736.03,519.75c14.37-72.62,81.36-134.34,155.38-133.03c41.24,0.73,81.29,20.07,109.56,50.1
                     c28.27,30.03,44.97,70.12,49.19,111.15C944.91,534.62,839.18,525,736.03,519.75z"/>
-                <g id ='Door'>
+                <g id ='Door' data-bs-toggle="modal" data-bs-target="#doorModal">
                     <g>
                         <defs>
                             <rect id="SVGID_1_" x="1391.79" y="231.75" width="257.35" height="804.02"/>
@@ -395,7 +418,7 @@
                     c-6.21,1.55-12.56,2.6-18.96,3.15c-0.99,0.08-1.75-0.75-1.44-1.57c4.73-12.46,19.05-19.51,32.26-24.54
                     c13.32-5.07,28.07-10.51,35.13-22.16c0.39-0.64,0.04-1.42-0.75-1.68c-7.96-2.67-10.54-12.74-11.51-21.01
                     c-1.13-9.66-2.27-19.31-3.4-28.97c-0.14-1.22-2.09-1.47-2.64-0.34l-5.4,11.08c-0.59,1.2-2.66,0.83-2.65-0.47
-                    c0.18-17.5,1.75-38.44,7.49-92.72C1446.4,704,1448.82,703.98,1449,705.4z"/>
+                    c0.18-17.5,1.75-38.44,7.49-92.72C1446.4,704,1448.82,703.98,1449,705.4z" data-bs-toggle="modal" data-bs-target="#bearModal"/>
             </g>
             <g id="Layer_7">
                 <g id = 'Tunnel' data-bs-target="#tunnelModal" data-bs-toggle="modal" >

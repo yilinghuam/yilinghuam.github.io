@@ -15,7 +15,7 @@ body{
 
 #item-slots{
 	/* background-color: #C79D83; */
-	margin: 2% 0% 0% 0%;
+	margin: 0% 0% 0% 0%;
     background-color:#e2cab8;
 	padding: 1%;
 }
@@ -44,7 +44,7 @@ body{
 }
 
 /* modal styling */
-h5, .btn, p {
+h2, h5, .btn, p {
 	font-family: 'Dosis', sans-serif;
 }
 .modal-backdrop { 
@@ -218,6 +218,7 @@ h5, .btn, p {
 }
 
 /* Maze game styling */
+
 .game-container {
 	margin: 0px auto;
 }
@@ -229,7 +230,7 @@ h5, .btn, p {
 .game-map {
 	position: relative;
 	margin: 0px auto;
-	height: 100vh
+	height: 80vh
 }
 
 .default .floor {
@@ -261,13 +262,17 @@ h5, .btn, p {
 	flex:none;
 }
 #tiles{
-	height: 100vh;
+	height: 80vh;
 }
 #tiles .row{
 	align-items: center;
 	justify-content: center;
 	height: 4vh;
 	--bs-gutter-x:0;
+}
+#mazeBtnContainer {
+	justify-content: center;
+	align-items: center;
 }
 
 /* Tunnel animation upon completion */

@@ -15,7 +15,7 @@ body{
 
 #item-slots{
 	/* background-color: #C79D83; */
-	margin: 2% 0% 0% 0%;
+	margin: 0% 0% 0% 0%;
     background-color:#e2cab8;
 	padding: 1%;
 }
@@ -53,7 +53,7 @@ body{
 }
 
 /* modal styling */
-h5, .btn, p {
+h2, h5, .btn, p {
 	font-family: 'Dosis', sans-serif;
 }
 .modal-backdrop { 
@@ -69,6 +69,7 @@ h5, .btn, p {
 	align-items: center;
 }
 
+
 /* Bear interaction */
 #Standing-bear {
     display: none;
@@ -80,7 +81,40 @@ h5, .btn, p {
 	transform: translate(-50%,-50%);
 	width: 16vw;
 	height: 57vh;
-	background-color: green;
-	opacity: 40%;
+	display: none;
+}
+/* cave Interaction */
+#clue1{
+	position: absolute;
+	left: 47%;
+	top:53%;
+	transform: translate(-50%,-50%);
+	width: 8vw;
+	height: 8vh;
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	animation: glow 6s infinite step-end;
+	display: none;
+}
+@keyframes glow {
+    0%    { opacity: 0;   }
+    20%    { opacity: 1; }
+    40%    { opacity: 0;   }
+    60%    { opacity: 1; }
+    80%    { opacity: 0;   }
+    100%  { opacity: 1;   }
+}
+/* doorInteraction */
+#invalid{
+	color: red;
+	font-family: 'Dosis', sans-serif;
+	display: none;
+}
+#doorPasswordContinueBtn{
+	display: none;
+}
+#earthSuccessModal {
 	display: none;
 }
