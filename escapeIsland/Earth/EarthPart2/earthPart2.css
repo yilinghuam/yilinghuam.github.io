@@ -53,7 +53,7 @@ body{
 }
 
 /* modal styling */
-h2, h5, .btn, p {
+h2, h5, .btn, p, .statement {
 	font-family: 'Dosis', sans-serif;
 }
 .modal-backdrop { 
@@ -117,4 +117,31 @@ h2, h5, .btn, p {
 }
 #earthSuccessModal {
 	display: none;
+}
+/* noteModal */
+/* .col-5 {
+	background: red;
+} */
+.num {
+	background: #B8926A;
+	color: white;
+	margin:2%;
+}
+.num-container {
+	padding: 1%;
+	margin: 1%;
+}
+.num > h5 {
+	margin-bottom: 0;
+}
+.statement{
+	padding: 0.5%;
+}
+.code {
+	background: #917150;
+	color: white;
+	margin:2%;
+}
+.clues{
+	width: 100%;
 }

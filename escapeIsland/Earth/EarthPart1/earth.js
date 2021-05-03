@@ -370,10 +370,11 @@ window.onload = () => {
 
 
     // moveFunction with rotation. only if player moved, then there is rotation
+    // only right and up key should be used. the rest are coded to check for bugs
     Game.prototype.movePlayer = function(event) {
         event.preventDefault(); 
        
-        if (event.keyCode > 36 && event.keyCode < 41) {
+        if (event.keyCode > 37 && event.keyCode < 40) {
             switch (event.keyCode) {
         
                 case 37:
@@ -460,8 +461,8 @@ window.onload = () => {
 
 
 // variable for task completion
-let appleCompleted = 'completed'
-let matchCompleted = 'completed'
+let appleCompleted = ''
+let matchCompleted = ''
 
 //function to make tunnel clickable after tasks completed. 
 function checkTaskCompleted(item) {
