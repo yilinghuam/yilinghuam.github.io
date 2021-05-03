@@ -86,10 +86,5 @@ Done by setting orientation of player with each key press. Then matching next ke
 - to store progress of game
 
 
-###Current bugs
-1. Tent
-- clicking too fast resulted in cards not closing
-
-
 
 

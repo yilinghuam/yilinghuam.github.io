@@ -118,10 +118,7 @@ h2, h5, .btn, p, .statement {
 #earthSuccessModal {
 	display: none;
 }
-/* noteModal */
-/* .col-5 {
-	background: red;
-} */
+/* note styling */
 .num {
 	background: #B8926A;
 	color: white;

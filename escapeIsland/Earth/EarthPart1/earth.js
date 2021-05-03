@@ -1,33 +1,33 @@
 //TODO
 //Need to add disabled func to the first card that is open too so card count cant increase
+// Remove pointer events after use
+function removePointerEvent(ID) {
+    let element = document.querySelector('#'+ID)
+    element.style.pointerEvents = 'none'
+}
+function changeDisplayStatus(element,status) {
+    let el = document.querySelector(element)
+    el.style.display = status
+    return el
+}
+function changePointerEvent(element,status) {
+    let el = document.querySelector(element)
+    el.style.pointerEvents = status
+}
 
 window.onload = () => {
-    // Arrays of interactive objects and the results of interaction
-    const earthPanelInteractiveArray = document.querySelectorAll('.InteractiveObj')
-    console.log(earthPanelInteractiveArray)
-
-    // Remove pointer events after use
-    function removePointerEvent(ID) {
-        let element = document.querySelector('#'+ID)
-        element.style.pointerEvents = 'none'
-    }
 
     //1. animate bag falling to retrieve apple(for later use)
-    const bag = earthPanelInteractiveArray[4]
-    const fallenBag = earthPanelInteractiveArray[5]
-    const apple = document.querySelector('#apple')
+    const bag = document.querySelector('#Bag')
 
     bag.addEventListener('click', () => {
-        bag.style.display = 'none'
-        fallenBag.style.display = 'block'
-        apple.style.display = 'block'
+        changeDisplayStatus('#Bag','none')
+        changeDisplayStatus('#FallenBag','block')
+        changeDisplayStatus('#apple','block')
     })
 
     //2. tent JS for matching card game
-    const tent = earthPanelInteractiveArray[2] 
-    const tentModalCompleteBtn = document.querySelector('#tentModalCompleteBtn')
-    
-    //variables
+    //variable
     let cardOptions = ['fas fa-globe-asia','fas fa-mountain','fas fa-map','fas fa-paw','fas fa-globe-asia','fas fa-mountain','fas fa-map','fas fa-paw']
     let cardArray = document.querySelectorAll('.card')
     let cardClickedCount = 0
@@ -44,18 +44,21 @@ window.onload = () => {
 
     function toggleCard(element,status) {
         switch(status) {
+            //open and disabled
             case 'open':
                 element.classList.remove('close')
-                element.classList.add(status);
+                element.classList.add('open');
                 element.classList.add('disabled')
                 break;
             case 'close':
+            //close only
                 element.classList.remove('open');
                 element.classList.remove('disabled')
-                element.classList.add(status)
+                element.classList.add('close')
                 break;
             case 'disabled':
-                element.classList.add(status)
+                element.classList.add('disabled')
+                break
         }
     }
 
@@ -63,7 +66,6 @@ window.onload = () => {
     function openCard(cardArray,i) {
         let icon = cardArray[i].querySelector('i')  
         icon.className = cardOptions[i]             
-        console.log(icon)
         toggleCard(cardArray[i],'open')
     }
 
@@ -73,9 +75,12 @@ window.onload = () => {
         icon.className = 'none'
         let previousCardIcon = previousOpenCard.querySelector('i')
         previousCardIcon.className = 'none'
+
         toggleCard(cardArray[i],'close')
         toggleCard(previousOpenCard,'close')
         previousOpenCard = ''
+        const cardContainer = document.querySelector('.card-container')
+        cardContainer.style.pointerEvents = 'auto'
     }
 
     //match card function
@@ -89,17 +94,11 @@ window.onload = () => {
             completedCard += 2
         }else {
             //close cards if no match
+            const cardContainer = document.querySelector('.card-container')
+            cardContainer.style.pointerEvents = 'none'
             setTimeout(closeCard,1000,cardArray,i)
         }
     }
-    //End Result of Tent
-    function showMatchSticks() {
-        const match = document.querySelector('#match')
-        match.style.display = 'block'
-    }
-
-
-    shuffleArray(cardOptions)
 
     //playCards
     function playCards () {
@@ -107,24 +106,31 @@ window.onload = () => {
             cardArray[i].addEventListener('click', () => {
                 cardClickedCount += 1
                 openCard(cardArray,i)
+                console.log(cardClickedCount)
                 
                 if (cardClickedCount%2 === 1) {
                     previousOpenCard = cardArray[i]
                 }
-                if (cardClickedCount%2 === 0) {
+                if (cardClickedCount%2 === 0 && cardClickedCount !== 0) {
                     matchCard(cardArray,i)
                 }
-                //Result of completion
+                //Result of completion, show match upon completion
                 if (completedCard === 8) {
+                    const tentModalCompleteBtn = document.querySelector('#tentModalCompleteBtn')
                     tentModalCompleteBtn.removeAttribute('disabled')
-                    tentModalCompleteBtn.addEventListener('click',showMatchSticks)
-                    removePointerEvent('Tent')
+                    tentModalCompleteBtn.addEventListener('click',() => {
+                        changeDisplayStatus('#match','block')
+                    })
+                    changePointerEvent('#Tent','none')
                 }
             })
         }
     }
     const cardStartBtn = document.querySelector('#cardStartBtn')
-    cardStartBtn.addEventListener('click',playCards)
+    cardStartBtn.addEventListener('click',() => {
+        shuffleArray(cardOptions)
+        playCards()
+    })
    
     // maze game
     let levels = []
