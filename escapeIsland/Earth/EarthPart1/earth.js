@@ -1,10 +1,4 @@
-//TODO
-//Need to add disabled func to the first card that is open too so card count cant increase
-// Remove pointer events after use
-function removePointerEvent(ID) {
-    let element = document.querySelector('#'+ID)
-    element.style.pointerEvents = 'none'
-}
+
 function changeDisplayStatus(element,status) {
     let el = document.querySelector(element)
     el.style.display = status
