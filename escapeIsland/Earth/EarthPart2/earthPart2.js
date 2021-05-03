@@ -1,21 +1,31 @@
+// functions for display and pointer event changes
+function changeDisplayStatus(element,status) {
+    let el = document.querySelector(element)
+    el.style.display = status
+    return el
+}
+function changePointerEvent(element,status) {
+    let el = document.querySelector(element)
+    el.style.pointerEvents = status
+}
+
 window.onload = () => {
-    let cave = document.querySelector('#Cave')
 
     // display bear upon clicking cave
     function showBear() {
-        const bear = document.querySelector('#Standing-bear')
-        bear.style.display = 'block'
+        changeDisplayStatus('#Standing-bear','block')
+
         // remove pointer events from door 
-        const door = document.querySelector('#Door')
-        door.style.pointerEvents = 'none'
+        changePointerEvent('#Door','none')
 
         // remove pointer events for cave
-        cave.style.pointerEvents = 'none'
+        changePointerEvent('#Cave','none')
 
         // show clue 1
-        const clue1 = document.querySelector('#clue1')
-        clue1.style.display = 'block'
+        changeDisplayStatus('#clue1','block')
     }
+
+    let cave = document.querySelector('#Cave')
     cave.addEventListener('click', showBear)
 
     let doorPasswordSubmitBtn = document.querySelector('#doorPasswordSubmitBtn')
@@ -24,17 +34,16 @@ window.onload = () => {
     function showSuccessMsg(event) {
         event.preventDefault()
 
+        // show success message if password is correct
         if (checkPassword() === true) {
-            const form = document.querySelector('#password')
-            form.style.display = 'none'
-            const earthSuccessModal = document.querySelector('#earthSuccessModal')
-            earthSuccessModal.style.display = 'block'
+            changeDisplayStatus('#password','none')
+            changeDisplayStatus('#earthSuccessModal','block')
         }else{
+            // if password is wrong, show error message according to validation type
             let invalidMsg = checkPassword()
-            console.log(invalidMsg)
-            let invalidBlock = document.querySelector('#invalid')
-            invalidBlock.innerText = invalidMsg
-            invalidBlock.style.display = 'block'
+            changeDisplayStatus('#invalid','block')
+            let el = changeDisplayStatus('#invalid','block')
+            el.innerText = invalidMsg
         }
     }
 
@@ -63,18 +72,15 @@ function drop_handler(ev) {
 
     //apple and bear disappears on drop
     if(ev.target.id === 'bearInteraction' && data === 'apple'){
-        const bear = document.querySelector('#Standing-bear')
-        bear.style.display = 'none'
-        const apple = document.querySelector('#apple')
-        apple.style.display = 'none'
-        const bearInteraction = document.querySelector('#bearInteraction')
-        bearInteraction.style.display = 'none'
+        changeDisplayStatus('#Standing-bear','none')
+        changeDisplayStatus('#apple','none')
+        changeDisplayStatus('#bearInteraction','none')
+
         // remove pointer events from cave
-        const cave = document.querySelector('#Cave')
-        cave.style.pointerEvents = 'none'
+        changePointerEvent('#Cave','none')
+
         //add pointer events to gate
-        const door = document.querySelector('#Door')
-        door.style.pointerEvents = 'auto'
+        changePointerEvent('#Door','auto')
     }
 
     // Get the id of the target and add the moved element to slot
@@ -91,11 +97,9 @@ function dragstart_handler(ev) {
     const bear = document.querySelector('#Standing-bear')
 
     if (bear.style.display === 'block') {
-        let bearInteraction = document.querySelector('#bearInteraction')
-        bearInteraction.style.display = 'block'
+        changeDisplayStatus('#bearInteraction','block')
     }
-    
-   }
+}
 
 function dragover_handler(ev) {
     ev.preventDefault();
