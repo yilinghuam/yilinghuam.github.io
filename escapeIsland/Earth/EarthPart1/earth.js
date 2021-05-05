@@ -18,6 +18,7 @@ window.onload = () => {
         changeDisplayStatus('#Bag','none')
         changeDisplayStatus('#FallenBag','block')
         changeDisplayStatus('#apple','block')
+        playMusic('#appleDropSound')
     })
 
     //2. tent JS for matching card game
@@ -65,6 +66,7 @@ window.onload = () => {
         let icon = cardArray[i].querySelector('i')  
         icon.className = cardOptions[i]             
         toggleCard(cardArray[i],'open')
+        playMusic('#cardFlipSound')
     }
 
     //close current card and previous card
@@ -478,6 +480,11 @@ function checkTaskCompleted(item) {
         tunnel.style.animation = 'keyStepGlow 2s infinite'
     }
 }
+// play sound effect
+function playMusic(id) {
+    let sound = document.querySelector(id)
+    sound.play()
+}
 
 // Drag and Drop functions using drag and drop api
 function drop_handler(ev) {
@@ -491,6 +498,7 @@ function drop_handler(ev) {
         changeDisplayStatus('#clue2','block')
         changeDisplayStatus('#match','none')
         checkTaskCompleted('match')
+        playMusic('#fireSound')
     }
     // prevent other items from lightiing fire
     if (ev.target.id === 'campfireInteraction' && data !== 'match') {
@@ -518,3 +526,4 @@ function dragover_handler(ev) {
     ev.preventDefault();
     ev.dataTransfer.dropEffect = "move"
 }
+

@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis&display=swap');
+
+h1, h5, p, .btn{
+    font-family: 'Dosis', sans-serif;
+}
+.title {
+    padding: 2%;
+    background: white;
+}
+body { 
+    background: white;
+}

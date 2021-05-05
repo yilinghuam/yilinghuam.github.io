@@ -10,7 +10,11 @@
     </head>
 
     <body>
-        <audio autoplay src = '../../musicAsset/mixkit-discover-587.mp3'>
+        <!-- background music -->
+        <audio autoplay src = '../../musicAsset/mixkit-discover-587.mp3' loop>
+        </audio>
+        <!-- card flip sound -->
+        <audio src = '../../musicAsset/Card-flip-sound-effect.mp3' id = 'cardFlipSound'>
         </audio>
             
             <!-- Tent Modal container  - Matching game-->
@@ -182,10 +186,14 @@
             </div>
 
             <div id = 'appleInteraction'>
+                <audio src = '../../musicAsset/mixkit-falling-on-foil-748.wav' id = 'appleDropSound'>
+                </audio>
                 <img src = './apple.png' id = 'apple' draggable="true" ondragstart="dragstart_handler(event)">
             </div>
 
             <div id = 'campfireInteraction' ondrop="drop_handler(event)" ondragover="dragover_handler(event)">
+                <audio src = '../../musicAsset/burn_no_autostart.mp3' id = 'fireSound' loop>
+                </audio>
             </div>
 
             <div id = 'clue2'>

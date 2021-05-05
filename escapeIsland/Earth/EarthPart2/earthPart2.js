@@ -23,6 +23,8 @@ window.onload = () => {
 
         // show clue 1
         changeDisplayStatus('#clue1','block')
+
+        playMusic('#bearSound')
     }
 
     let cave = document.querySelector('#Cave')
@@ -64,6 +66,11 @@ window.onload = () => {
     }
 
 }
+// play sound effect
+function playMusic(id) {
+    let sound = document.querySelector(id)
+    sound.play()
+}
 
 // Drag and Drop functions using drag and drop api
 function drop_handler(ev) {
@@ -75,6 +82,7 @@ function drop_handler(ev) {
         changeDisplayStatus('#Standing-bear','none')
         changeDisplayStatus('#apple','none')
         changeDisplayStatus('#bearInteraction','none')
+        playMusic('#bearSound')
 
         // remove pointer events from cave
         changePointerEvent('#Cave','none')
