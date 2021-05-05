@@ -1,3 +1,8 @@
+let myStorage = window.localStorage
+function setGameProgress(gameSection) {
+    myStorage.setItem('escapeIslandGameProgress',gameSection)
+}
+
 // functions for display and pointer event changes
 function changeDisplayStatus(element,status) {
     let el = document.querySelector(element)
@@ -40,6 +45,7 @@ window.onload = () => {
         if (checkPassword() === true) {
             changeDisplayStatus('#password','none')
             changeDisplayStatus('#earthSuccessModal','block')
+            setGameProgress('fireIndex')
         }else{
             // if password is wrong, show error message according to validation type
             let invalidMsg = checkPassword()

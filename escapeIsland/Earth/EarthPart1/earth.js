@@ -1,3 +1,8 @@
+let myStorage = window.localStorage
+function setGameProgress(gameSection) {
+    myStorage.setItem('escapeIslandGameProgress',gameSection)
+}
+setGameProgress('earthPart1')
 
 function changeDisplayStatus(element,status) {
     let el = document.querySelector(element)
@@ -318,6 +323,7 @@ window.onload = () => {
             if (goalx === x && goaly === y) {
                 let mazeCompleteBtn = document.querySelector('#mazeCompleteBtn')
                 mazeCompleteBtn.classList.remove('disabled')
+                setGameProgress('earthPart2')
             }       
         };
         // reset position of player
