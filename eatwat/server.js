@@ -5,6 +5,10 @@ const port = 3000;
 app.set('view engine', 'ejs')
 
 app.get('/eats', (req,res) => {
+    res.render('index')
+})
+
+app.get('/eats/mapSearch', (req,res) => {
     res.render('mapSearch')
 })
 

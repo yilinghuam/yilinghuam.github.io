@@ -30,7 +30,8 @@
                 text-align-last: center;
             }
             body{
-                font-family: 'Open Sans', sans-serif;            }
+                font-family: 'Open Sans', sans-serif;  
+            }
         </style>
     </head>
     <body>
@@ -107,6 +108,7 @@
 
             var geocoder = new MapboxGeocoder({
                 accessToken: mapboxgl.accessToken,
+                countries: 'sg',
             });
             
             document.getElementById('geocoder').appendChild(geocoder.onAdd());
@@ -116,6 +118,8 @@
                 document.getElementById('coordinates').value = result.geometry.coordinates;
                 document.getElementById('placeName').value = result.place_name;
                 // centre or geometry coordinates?
+                console.log(typeof document.getElementById('coordinates').value)
+                console.log(result)
             })
             
 

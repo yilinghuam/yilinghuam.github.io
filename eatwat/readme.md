@@ -29,4 +29,6 @@ user stories
 notes to yourself 
 - new.ejs need to add option for file image upload.(consider if got third party web)
 - need to hide coordinates and name of place
-- limit geosearch to singapore using proximity and bbox
+- limit geosearch to singapore using country. check if it's ok, if not use bbox
+- add border to active link in nav bar
+- to add dot env to all mongoose seed + server
