@@ -1,11 +1,6 @@
 <html>
     <head>
-        <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
-        <!-- mapbox -->
-        
-        <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.0/mapbox-gl.js'></script>
-        <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.0/mapbox-gl.css' rel='stylesheet' />
-        
+        <%- include('./partials/mapbox') %>
         <%- include('./partials/generic_head') %> 
 
         <style>
@@ -19,7 +14,7 @@
         
         <div id='map' style='width: 400px; height: 300px;'></div>
         <script>
-        mapboxgl.accessToken = <%- JSON.stringify(mapAccessToken)%> 
+        mapboxgl.accessToken = <%- JSON.stringify(mapAccessToken) %> ;
         const map = new mapboxgl.Map({
             container: 'map', // container ID
             style: 'mapbox://styles/lingy93/ckne1ifkw2r8y17qj11k2pg5h', // style URL
