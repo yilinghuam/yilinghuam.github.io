@@ -19,7 +19,7 @@ module.exports = {
     },
 
     newEat: (req,res) => {
-        res.render('newEat', {mrtStations : mrtStations})
+        res.render('new', {mrtStations : mrtStations})
     },
 
     create: async(req,res) => {
