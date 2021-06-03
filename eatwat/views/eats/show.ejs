@@ -30,7 +30,8 @@
             font-size: 80%;
         }
         .info{
-            padding: 5%;
+            min-height: 50vh;
+            margin: 5%;
         }
         .container{
             height: 80vh;
@@ -43,52 +44,52 @@
         <%- include('../partials/navbar') %>
 
         <div class = 'container d-flex justify-content-center align-items-center'>
-            <div class = 'row' style ='height: 80%;width: 100%;'>
-                <div class = 'col-4 d-flex justify-content-center align-items-center'>
-                    <div id='map' class='col'></div>
-                </div>
+            <div class = 'col-4 d-flex justify-content-center align-items-center'>
+                <div id='map' class='col'></div>
+            </div>
 
-                <div class = 'col-4 d-flex justify-content-center align-items-center'>
-                    <div class = 'info content row d-flex align-items-between'>
-                        <div class ='row'>
-                            <h2 class="text-center"><%=singleEat.placeName%></h2>
-                            <p class="text-center">
-                                <% for (let i = 0; i < 5 ; i++){ %>
-                                    <% if (i < singleEat.ratings) { %>
-                                        <span class="fas fa-star checked"></span>
-                                    <% } else { %>
-                                        <span class="fas fa-star"></span>
-                                    <% } %>
+            <div class = 'col-4 d-flex justify-content-center align-items-center'>
+                <div class = 'info row d-flex align-items-between'>
+                    <div class ='row'>
+                        <h3 class="text-center"><%=singleEat.placeName%></h3>
+                        <p class="text-center">
+                            <% for (let i = 0; i < 5 ; i++){ %>
+                                <% if (i < singleEat.ratings) { %>
+                                    <span class="fas fa-star checked"></span>
+                                <% } else { %>
+                                    <span class="fas fa-star"></span>
                                 <% } %>
-                            </p>
+                            <% } %>
+                        </p>
 
-                            <p class= 'text-center'>
-                                <% for (let i = 0; i < singleEat.price ; i++){ %>
-                                    <span class="fas fa-dollar-sign"></span>
-                                <% } %>
-                            </p>
-                            <p class= 'text-center'>MRT:<%=singleEat.mrt%></p>
-                            <p class= 'text-center'><%=singleEat.address%></p>
+                        <p class= 'text-center'>
+                            <% for (let i = 0; i < singleEat.price ; i++){ %>
+                                <span class="fas fa-dollar-sign"></span>
+                            <% } %>
+                        </p>
+                        <p class= 'text-center'>MRT:<%=singleEat.mrt%></p>
+                        <p class= 'text-center'><%=singleEat.address%></p>
 
-                            <% if (singleEat.comments) { %>
-                                <p><%=singleEat.comments%></p>
-                            <% } %>  
+                        <% if (singleEat.comments) { %>
+                            <p>"<%=singleEat.comments%>"</p>
+                        <% } %>  
 
-                        </div>
-
-                        <div class='row'>
-                            <small class="text-muted text-center"><%=singleEat.updatedAt%></small>
-                        </div>
-                        
                     </div>
 
+                    <div class='row'>
+                        <small class="text-muted text-center"><%=singleEat.updatedAt%></small>
+                    </div>
+                    
                 </div>
 
-                <div class = 'col-4 d-flex justify-content-center align-items-center'>
-                    <div class = 'content'>
-                        <img src = '#'>
-                    </div>
+            </div>
+
+            <div class = 'col-4 d-flex justify-content-center align-items-center'>
+                <div class = 'content'>
+                    <img src = '#'>
                 </div>
+            </div>
+                
             </div>
         </div>
 
