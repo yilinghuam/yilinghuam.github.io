@@ -15,7 +15,7 @@ explanations of the technologies used
 |--|-------|-----------------|-----------|------------ 
 |1.| Index |  /              | GET       | Homepage
 |  |       |  /eats          | GET       | All EATS from database
-|2.| New   |  /eats/new      | GET       | EEATS record form
+|2.| New   |  /eats/new      | GET       | EATS record form
 
 
 
@@ -31,4 +31,3 @@ notes to yourself
 - need to hide coordinates and name of place
 - limit geosearch to singapore using country. check if it's ok, if not use bbox
 - add border to active link in nav bar
-- to add dot env to all mongoose seed + server

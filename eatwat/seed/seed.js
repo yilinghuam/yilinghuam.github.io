@@ -1,8 +1,8 @@
 require('dotenv').config()
 const mongoose = require('mongoose')
-const {eatModel} = require('../modals/eats')
+const {eatModel} = require('../models/eats')
 
-const mongoURI = 'mongodb+srv://lingy:Chipmunk@001@cluster0.h2kyc.mongodb.net/eatwat'
+const mongoURI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}`
 
 const data = [
     {
