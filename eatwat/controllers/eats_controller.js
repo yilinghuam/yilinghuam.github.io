@@ -1,6 +1,8 @@
+require('dotenv').config()
 
 const {eatModel} = require('../models/eats')
 const _ = require('lodash')
+const mapAccessToken = `${process.env.MAPBOX_TOKEN}`
 
 const mrtStations = require('../data/MRT_stations')
 
@@ -15,11 +17,13 @@ module.exports = {
             return `server error`
         }
         console.log(eats)
-        res.render('index', {eats: eats})
+        res.render('eats/index', {eats: eats})
     },
 
     newEat: (req,res) => {
-        res.render('new', {mrtStations : mrtStations})
+        res.render('eats/new', 
+            {mrtStations : mrtStations,
+            mapAccessToken: mapAccessToken})
     },
 
     create: async(req,res) => {

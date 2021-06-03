@@ -6,7 +6,7 @@
         <!-- mapbox geocoder -->
         <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js"></script>
         <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css" type="text/css">
-        <%- include('./partials/generic_head') %> 
+        <%- include('../partials/generic_head') %> 
         
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
@@ -38,7 +38,7 @@
         </style>
     </head>
     <body>
-        <%- include('./partials/navbar') %>
+        <%- include('../partials/navbar') %>
 
         <div class = 'container'>
         <div id="geocoder" class="geocoder row mt-3"></div>
@@ -119,7 +119,7 @@
         </div>
 
         <script>
-            mapboxgl.accessToken = 'pk.eyJ1IjoibGluZ3k5MyIsImEiOiJja3BjaGRoZzQwa3lzMm5ycjhyb3pueWw1In0.7n_IOkfepwaa6IkpFO2MiA';
+            mapboxgl.accessToken = <%- JSON.stringify(mapAccessToken) %>
 
             var geocoder = new MapboxGeocoder({
                 accessToken: mapboxgl.accessToken,

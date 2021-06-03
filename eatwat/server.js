@@ -5,6 +5,8 @@ const mongoose = require('mongoose')
 const eatController = require('./controllers/eats_controller')
 const methodOverride = require('method-override')
 
+const mapAccessToken = `${process.env.MAPBOX_TOKEN}`
+
 const app = express();
 const port = 3000;
 
@@ -19,11 +21,13 @@ app.get('/eats/new', eatController.newEat)
 
 app.post('/eats', eatController.create)
 
+app.get('/eats/mapSearch', (req,res) => {
+    res.render('mapSearch',{mapAccessToken: mapAccessToken })
+})
+
 app.get('/eats/:slug', eatController.show)
 
-app.get('/eats/mapSearch', (req,res) => {
-    res.render('mapSearch')
-})
+
 
 
 

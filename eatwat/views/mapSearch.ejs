@@ -19,8 +19,8 @@
         
         <div id='map' style='width: 400px; height: 300px;'></div>
         <script>
-        mapboxgl.accessToken = 'pk.eyJ1IjoibGluZ3k5MyIsImEiOiJja3BjaGRoZzQwa3lzMm5ycjhyb3pueWw1In0.7n_IOkfepwaa6IkpFO2MiA';
-        var map = new mapboxgl.Map({
+        mapboxgl.accessToken = <%- JSON.stringify(mapAccessToken)%> 
+        const map = new mapboxgl.Map({
             container: 'map', // container ID
             style: 'mapbox://styles/lingy93/ckne1ifkw2r8y17qj11k2pg5h', // style URL
             center: [103.820, 1.340], // starting position [lng, lat] note that mapbox studio shows [lat,lng]
