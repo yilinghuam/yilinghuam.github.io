@@ -19,6 +19,8 @@ app.get('/eats/new', eatController.newEat)
 
 app.post('/eats', eatController.create)
 
+app.get('/eats/:slug', eatController.show)
+
 app.get('/eats/mapSearch', (req,res) => {
     res.render('mapSearch')
 })

@@ -19,7 +19,7 @@ module.exports = {
     },
 
     newEat: (req,res) => {
-        res.render('new', {mrtStations : mrtStations})
+        res.render('newEat', {mrtStations : mrtStations})
     },
 
     create: async(req,res) => {
@@ -49,5 +49,9 @@ module.exports = {
             return  `single data insertion error`
         }
         res.redirect('/eats')
+    },
+
+    show: (req,res) => {
+        
     }
 }
