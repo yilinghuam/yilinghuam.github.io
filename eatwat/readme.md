@@ -11,11 +11,12 @@ explanations of the technologies used
 
 ## RESTfulRoutes
 
-|No.|Route | URL             | HTTP Verb |Description
-|--|-------|-----------------|-----------|------------ 
-|1.| Index |  /              | GET       | Homepage
-|  |       |  /eats          | GET       | All EATS from database
-|2.| New   |  /eats/new      | GET       | EATS record form
+|No.|Route      | URL             | HTTP Verb |Description
+|--|------------|-----------------|-----------|------------ 
+|1.| Index      |  /              | GET       | Homepage
+|  |            |  /eats          | GET       | All EATS from database
+|2.| New        |  /eats/new      | GET       | EATS record form
+|3.| Create     |  /eats          | POST      | add new EAT to database
 
 
 
@@ -31,3 +32,6 @@ notes to yourself
 - need to hide coordinates and name of place
 - limit geosearch to singapore using country. check if it's ok, if not use bbox
 - add border to active link in nav bar
+- add circle line and downtown line to MRT_stations.js
+- add validation for form
+- fix fontawesome in dropdown

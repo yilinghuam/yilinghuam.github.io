@@ -7,9 +7,12 @@
         <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js"></script>
         <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css" type="text/css">
         <%- include('./partials/generic_head') %> 
-
+        
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+            body{
+                font-family: 'Open Sans', sans-serif;  
+            }
             .geocoder {
                 position: relative;
                 z-index: 1;
@@ -28,20 +31,23 @@
             select{
                 text-align-last: center;
             }
-            body{
-                font-family: 'Open Sans', sans-serif;  
+            #ratings {
+                font-family: 'Font Awesome 5 Free', 'Open Sans';
             }
+            
         </style>
     </head>
     <body>
+        <%- include('./partials/navbar') %>
+
         <div class = 'container'>
         <div id="geocoder" class="geocoder row mt-3"></div>
 
         <div class = 'row mt-3 justify-content-center align-items-center'>
             <div class = 'col-6'>
-                <form action="/team_name_url/" method="post">
+                <form action="/eats" method="POST">
                     <div class="mb-3">
-                        <input type="text" class="form-control" id="placeName" name = 'placeName' >
+                        <input type="text" class="form-control" id="placeNameAndAddress" name = 'placeNameAndAddress' >
                     </div>
 
                     <div class="mb-3">
@@ -49,23 +55,28 @@
                     </div>
 
                     <div class="mb-3">
-                        <input type="text" class="form-control" id="mrt" name = 'mrt' placeholder="nearest MRT" >
+                        <input type="text" class="form-control" autocomplete = 'on' list="mrtStations" id="mrt" name = 'mrt' placeholder="nearest MRT" >
+                        <datalist id="mrtStations">
+                            <% mrtStations.forEach(station => { %>
+                                <option value= '<%=station%>' >
+                            <%}); %>
+                        </datalist>
                     </div>
 
                     <div class = 'mb-3 row justify-content-center align-items-center'>
                         <div class = 'col-4'>
-                            <select class="form-control tags">
+                            <select class="form-control tags" id = 'ratings' name = 'ratings'>
                                 <option selected>RATINGS</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                                <option value="3">Four</option>
-                                <option value="3">Five</option>
+                                <option class = 'rating' value="1">&#xf005;1</option>
+                                <option value="2">&#xf005;&#xf005;2</option>
+                                <option value="3">&#xf005;&#xf005;&#xf005;3</option>
+                                <option value="4">&#xf005;&#xf005;&#xf005;&#xf005;4</option>
+                                <option value="5">&#xf005;&#xf005;&#xf005;&#xf005;&#xf005;5</option>
                             </select>
                         </div>
 
                         <div class = 'col-4'>
-                            <select class="form-control tags" >
+                            <select class="form-control tags" name = 'price'>
                                 <option selected>PRICE</option>
                                 <option value="1">$</option>
                                 <option value="2">$$</option>
@@ -76,7 +87,7 @@
                         </div>
 
                         <div class = 'col-4'>
-                            <select class="form-control tags" >
+                            <select class="form-control tags" name ='tags'>
                                 <option selected>CATEGORY</option>
                                 <option value="Cafe">CAFE</option>
                                 <option value="Chinese">CHINESE</option>
@@ -89,6 +100,7 @@
                                 <option value="Japanese">JAPANESE</option>
                                 <option value="Mexican">MEXICAN</option>
                                 <option value="Spanish">SPANISH</option>
+                                <option value="Thai">THAI</option>
                                 <option value="Vietnamese">VIETNAMESE</option>
                             </select>
                         </div>
@@ -119,7 +131,7 @@
             // retrieve geocode results
                 geocoder.on('result', function({ result }) { 
                 document.getElementById('coordinates').value = result.geometry.coordinates;
-                document.getElementById('placeName').value = result.place_name;
+                document.getElementById('placeNameAndAddress').value = result.place_name;
                 // centre or geometry coordinates?
                 console.log(typeof document.getElementById('coordinates').value)
                 console.log(result)

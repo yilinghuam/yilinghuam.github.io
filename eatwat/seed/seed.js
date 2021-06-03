@@ -1,10 +1,11 @@
 require('dotenv').config()
 const mongoose = require('mongoose')
 const {eatModel} = require('../models/eats')
+const _ = require('lodash')
 
 const mongoURI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}`
 
-const data = [
+let data = [
     {
         placeName: 'Shake Shack',
         address: '89 Neil Road, Singapore, Central 088849, Singapore',
@@ -22,7 +23,7 @@ const data = [
         ratings: 2,
         price: 4,
         category: 'Chinese',
-        comment: 'great duck, will come back here again'
+        comments: 'great duck, will come back here again'
     },
     {
         placeName: 'Wild Honey',
@@ -32,9 +33,14 @@ const data = [
         ratings: 5,
         price: 4,
         category: 'Brunch',
-        comment: 'Food is so so so so so so so so so good. Will always come for the coffee'
+        comments: 'Food is so so so so so so so so so good. Will always come for the coffee'
     },
 ]
+
+data = data.map(element => {
+    element.slug = _.kebabCase(element.placeName)
+    return element
+})
 
 let connection = null
 
