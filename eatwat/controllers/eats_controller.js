@@ -55,7 +55,20 @@ module.exports = {
         res.redirect('/eats')
     },
 
-    show: (req,res) => {
-        
+    show: async(req,res) => {
+        let singleEat = {}
+
+        try {
+            singleEat = await eatModel.findOne({slug:req.params.slug})
+        } catch (err) {
+            console.log(err)
+            res.redirect('/eats/')
+            return `failure to find single data`
+        }
+        res.render('eats/show',
+            {
+            mapAccessToken: mapAccessToken,
+            singleEat: singleEat
+        })
     }
 }

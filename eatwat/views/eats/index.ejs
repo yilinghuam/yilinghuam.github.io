@@ -28,7 +28,7 @@
                         <img src="..." class="card-img-top" style='width: 100%;height: 15vw;object-fit: cover;'alt="...">
                         
                         <div class="card-body">
-                            <h5 class="card-title placeName"><%=element.placeName%></h5>
+                            <h5 class="card-title placeName"><a href="/eats/<%=element.slug%>"><%=element.placeName%></a></h5>
                             <p class="card-text ratings">
                                 <% for (let i = 0; i < 5 ; i++){ %>
                                     <% if (i < element.ratings) { %>
@@ -46,20 +46,17 @@
                             
                             <% if (element.comments) { %>
                                 <p class="card-text comments"><%=element.comments%></p>
-                            <% } %>
+                            <% } %>  
                         </div>
 
                         <div class="card-footer">
                         <small class="text-muted"><%=element.updatedAt%></small>
                         </div>
+
                     </div>
                 </div>
                 <%}); %>
             </div>
         </div>
-        <script>
-            
-        </script>
-
     </body>
 </html>
