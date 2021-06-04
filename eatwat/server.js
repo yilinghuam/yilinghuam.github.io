@@ -27,6 +27,8 @@ app.get('/eats/mapSearch', (req,res) => {
 
 app.get('/eats/:slug', eatController.show)
 
+app.get('/eats/:slug/edit', eatController.edit)
+
 
 
 

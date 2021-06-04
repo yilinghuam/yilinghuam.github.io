@@ -16,15 +16,15 @@
             <div class = 'col-6'>
                 <form action="/eats" method="POST">
                     <div class="mb-3">
-                        <input type="hidden" class="form-control" id="placeNameAndAddress" name = 'placeNameAndAddress' >
+                        <input type="text" class="form-control" id="placeNameAndAddress" name = 'placeNameAndAddress' value= '<%= singleEat.placeName + ',' + singleEat.address%>' readonly>
                     </div>
 
                     <div class="mb-3">
-                        <input type="hidden" class="form-control" id="coordinates" name = 'coordinates' >
+                        <input type="hidden" class="form-control" id="coordinates" name = 'coordinates' value= '<%=singleEat.coordinates%>'>
                     </div>
 
                     <div class="mb-3">
-                        <input type="text" class="form-control" autocomplete = 'on' list="mrtStations" id="mrt" name = 'mrt' placeholder="nearest MRT" >
+                        <input type="text" class="form-control" autocomplete = 'on' list="mrtStations" id="mrt" name = 'mrt' placeholder="nearest MRT" value = '<%=singleEat.mrt%>'>
                         <datalist id="mrtStations">
                             <% mrtStations.forEach(station => { %>
                                 <option value= '<%=station%>' >
@@ -35,36 +35,52 @@
                     <div class = 'mb-3 row justify-content-center align-items-center'>
                         <div class = 'col-4'>
                             <select class="form-control tags" id = 'ratings' name = 'ratings'>
-                                <option selected>RATINGS</option>
                                 <% let ratingKey = Object.keys(ratings)%>
                                 <% for (let i = 0; i < ratingKey.length ; i++) { %>
+                                    <% if (singleEat.ratings === Number(ratingKey[i])) { %>
+                                        <option selected value = <%=ratingKey[i]%>>
+                                            <%- ratings[ratingKey[i]]%>
+                                        </option>
+                                    <% }else{ %>
                                     <option value=<%= ratingKey[i]%>>
                                         <%- ratings[ratingKey[i]] %>
                                     </option>
+                                    <% } %>
                                 <% } %>
-                                
                             </select>
                         </div>
 
                         <div class = 'col-4'>
                             <select class="form-control tags" name = 'price'>
-                                <option selected>PRICE</option>
                                 <% let priceKey = Object.keys(price)%>
+
                                 <% for (let i = 0; i < priceKey.length ; i++) { %>
-                                    <option value=<%= priceKey[i]%>>
-                                        <%- price[priceKey[i]] %>
-                                    </option>
+                                    <% if (singleEat.price === Number(priceKey[i])) { %>
+                                        <option selected value=<%= priceKey[i]%>>
+                                            <%- price[priceKey[i]] %>
+                                        </option>
+                                    <% }else{ %>
+                                        <option value=<%= priceKey[i]%>>
+                                            <%- price[priceKey[i]] %>
+                                        </option>
+                                    <% } %>
                                 <% } %>
+                                                
                             </select>
                         </div>
 
                         <div class = 'col-4'>
-                            <select class="form-control tags" name ='tags' id ='tags'>
-                                <option selected>CATEGORY</option>
+                            <select class="form-control tags" name ='tags' id ='tags' >
                                 <% category.forEach(element => { %>
-                                    <option value="<%=element%>">
-                                        <%=element%>
-                                    </option>
+                                    <% if (element === singleEat.element) {%>
+                                        <option selected = '<%=element%>'>
+                                            <%= element %>
+                                        </option>
+                                    <% }else { %>
+                                        <option value="<%=element%>">
+                                            <%=element%>
+                                        </option>
+                                    <% } %>
                                 <% }); %>
                                
                             </select>
@@ -72,7 +88,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <textarea class="form-control" id="comments" rows="3" name='comments' placeholder="Comments"></textarea>
+                        <textarea class="form-control text-start" id="comments" rows="3" name='comments' placeholder="Comments"><%= singleEat.comments%></textarea>
                     </div>
 
                     <div class = 'mb-3 text-end'>

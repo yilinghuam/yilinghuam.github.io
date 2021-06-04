@@ -90,8 +90,7 @@ const northEastLine = [
 
 let mrtStations = [northSouthLine,eastWestLine, northEastLine]
 
+// flatten data for use later
 mrtStations = mrtStations.flat()
-
-console.log(mrtStations)
 
 module.exports = mrtStations

@@ -5,6 +5,7 @@ const _ = require('lodash')
 const mapAccessToken = `${process.env.MAPBOX_TOKEN}`
 
 const mrtStations = require('../data/MRT_stations')
+const {category,ratings, price} = require('../data/form_data')
 
 module.exports = {
     index: async(req,res) => {
@@ -23,6 +24,9 @@ module.exports = {
     newEat: (req,res) => {
         res.render('eats/new', 
             {mrtStations : mrtStations,
+            category:category,
+            ratings: ratings,
+            price:price,
             mapAccessToken: mapAccessToken})
     },
 
@@ -70,5 +74,26 @@ module.exports = {
             mapAccessToken: mapAccessToken,
             singleEat: singleEat
         })
+    },
+
+    edit: async(req,res) => {
+        let singleEat = {}
+
+        try {
+            singleEat = await eatModel.findOne({slug: req.params.slug})
+        } catch (err) {
+            console.log(err)
+            res.redirect('/eats/'+req.params.slug)
+            return `failure to find single data`
+        }
+        res.render('eats/edit', 
+            {
+                singleEat:singleEat,
+                mrtStations : mrtStations,
+                category:category,
+                ratings:ratings,
+                price: price,
+                mapAccessToken: mapAccessToken
+            })
     }
 }
