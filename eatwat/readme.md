@@ -32,6 +32,7 @@ To make ejs files neater
 |4.| Show       |  /eats/:slug      | GET       | show individual EAT with map and image
 |5.| Edit       |  /eats/:slug/edit | GET       | EAT edit form
 |6.| Update     |  /eats/:slug      | PATCH     | update EAT
+|7.| Delete     |  /eats/:slug      | DELETE    | delete EAT
 
 
 
@@ -53,3 +54,4 @@ notes to yourself
 - add validation for form
 - fix fontawesome in dropdown
 - add titles for edit and new form to segregate
+- put form data in database and create form to edit and segregate etc

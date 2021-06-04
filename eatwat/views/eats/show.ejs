@@ -1,94 +1,115 @@
 <html>
     <head>
-    <%- include('../partials/generic_head') %> 
-    <%- include('../partials/common_styling')%>
-    <%- include ('../partials/mapbox') %>
+        <%- include ('../partials/mapbox') %>
     
-    <!-- other styling -->
-    <style>
-        /* .col-4 {
-            background-color: teal;
-        } */
-        .content {
-            background-color: white;
-            min-height: 50vh;
-            max-height: 50vh;
-            margin: 5%;
-        }
-        #map {
-            min-height: 50vh;
-            max-height: 50vh;
-            margin: 5%;
-        }
-        .text-muted{
-            font-size: 60%;
-        }
-        .info{
-            min-height: 50vh;
-            margin: 5%;
-        }
-        .container{
-            height: 80vh;
-        }
-        p{
-            font-size: 80%;
-        }
-    </style>
+        <!-- other styling -->
+        <style>
+            <%- include('../partials/common_styling')%>
+
+            /* .col-4 {
+                background-color: teal;
+            } */
+            .content {
+                background-color: white;
+                min-height: 50vh;
+                max-height: 50vh;
+                margin: 5%;
+            }
+            #map {
+                min-height: 50vh;
+                max-height: 50vh;
+                margin: 5%;
+            }
+            .text-muted{
+                font-size: 60%;
+            }
+            .info{
+                min-height: 50vh;
+                margin: 5%;
+            }
+            .singleEatContainer{
+                height:90vh;
+                min-width: 100%;
+            }
+            p{
+                font-size: 80%;
+            }
+            .btn {
+                font-size: 70%;
+            }
+        </style>
 
     </head>
 
     <body>
         <%- include('../partials/navbar') %>
 
-        <div class = 'container d-flex justify-content-center align-items-center'>
-            <div class = 'col-4 d-flex justify-content-center align-items-center'>
-                <div id='map' class='col'></div>
-            </div>
+            <div class = 'container singleEatContainer row  d-flex justify-content-center align-items-center'>
+                <div class = 'col-4 d-flex justify-content-center align-items-center'>
+                    <div id='map' class='col'></div>
+                </div>
 
-            <div class = 'col-4 d-flex justify-content-center align-items-center'>
-                <div class = 'info row d-flex align-items-between'>
-                    <div class ='row'>
-                        <h3 class="text-center"><%=singleEat.placeName%></h3>
-                        <p class="text-center">
-                            <% for (let i = 0; i < 5 ; i++){ %>
-                                <% if (i < singleEat.ratings) { %>
-                                    <span class="fas fa-star checked"></span>
-                                <% } else { %>
-                                    <span class="fas fa-star"></span>
+                <div class = 'col-4 d-flex justify-content-center align-items-center'>
+                    <div class = 'info row d-flex align-items-between'>
+                        <div class ='row'>
+                            <h3 class="text-center"><%=singleEat.placeName%></h3>
+                            <p class="text-center">
+                                <% for (let i = 0; i < 5 ; i++){ %>
+                                    <% if (i < singleEat.ratings) { %>
+                                        <span class="fas fa-star checked"></span>
+                                    <% } else { %>
+                                        <span class="fas fa-star"></span>
+                                    <% } %>
                                 <% } %>
-                            <% } %>
-                        </p>
+                            </p>
 
-                        <p class= 'text-center'>
-                            <% for (let i = 0; i < singleEat.price ; i++){ %>
-                                <span class="fas fa-dollar-sign"></span>
-                            <% } %>
-                        </p>
-                        <p class= 'text-center'>MRT:<%=singleEat.mrt%></p>
-                        <p class= 'text-center'><%=singleEat.address%></p>
+                            <p class= 'text-center'>
+                                <% for (let i = 0; i < singleEat.price ; i++){ %>
+                                    <span class="fas fa-dollar-sign"></span>
+                                <% } %>
+                            </p>
+                            <p class= 'text-center'>MRT:<%=singleEat.mrt%></p>
+                            <p class= 'text-center'><%=singleEat.address%></p>
 
-                        <% if (singleEat.comments) { %>
-                            <p>"<%=singleEat.comments%>"</p>
-                        <% } %>  
+                            <% if (singleEat.comments) { %>
+                                <p class='text-center'>"<%=singleEat.comments%>"</p>
+                            <% } %>  
 
+                        </div>
+
+                        <div class='row'>
+                            <small class="text-muted text-center"><%=singleEat.updatedAt%></small>
+                        </div>
+
+                        <div class ='row justify-content-center mt-3'>
+                            <div class = 'col-2'>
+                                <a type="btn" class="btn btn-dark" href='#'><i class="fas fa-undo-alt"></i></a>
+                            </div>
+
+                            <div class = 'col-2'>
+                                <a type="btn" class="btn btn-dark" href='/eats/<%=singleEat.slug%>/edit'><i class="fas fa-pencil-alt"></i></a>
+                            </div>
+
+                            <div class = 'col-2'>
+                                <form action="/eats/<%=singleEat.slug%>?_method=DELETE" method="POST">
+                                    <div class = 'mb-3'>
+                                        <button type="submit" class="btn btn-dark"><i class="fas fa-times"></i></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class='row'>
-                        <small class="text-muted text-center"><%=singleEat.updatedAt%></small>
+                </div>
+
+                <div class = 'col-4 d-flex justify-content-center align-items-center'>
+                    <div class = 'content'>
+                        <img src = '#'>
                     </div>
+                </div>
                     
-                </div>
-
             </div>
-
-            <div class = 'col-4 d-flex justify-content-center align-items-center'>
-                <div class = 'content'>
-                    <img src = '#'>
-                </div>
-            </div>
-                
-            </div>
-        </div>
+            
 
         <script>
             let singleEatCoordinatesString = <%- JSON.stringify(singleEat.coordinates) %> 

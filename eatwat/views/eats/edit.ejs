@@ -1,11 +1,11 @@
 <html>
     <head>
         <%- include('../partials/mapbox') %>
-        <%- include('../partials/generic_head') %> 
-        <%- include('../partials/common_styling') %>
-        <%- include('../partials/mapbox_geocoder_styling') %>
-        
+        <style>
+            <%- include('../partials/mapbox_geocoder_styling') %>
+        </style>
     </head>
+
     <body>
         <%- include('../partials/navbar') %>
 
@@ -14,7 +14,7 @@
 
         <div class = 'row mt-3 justify-content-center align-items-center'>
             <div class = 'col-6'>
-                <form action="/eats" method="POST">
+                <form action="/eats/<%=singleEat.slug%>?_method=PATCH" method="POST">
                     <div class="mb-3">
                         <input type="text" class="form-control" id="placeNameAndAddress" name = 'placeNameAndAddress' value= '<%= singleEat.placeName + ',' + singleEat.address%>' readonly>
                     </div>
@@ -104,7 +104,7 @@
 
             var geocoder = new MapboxGeocoder({
                 accessToken: mapboxgl.accessToken,
-                countries: 'sg',
+                countries: 'sg', //limit results based on country
             });
             
             document.getElementById('geocoder').appendChild(geocoder.onAdd());
