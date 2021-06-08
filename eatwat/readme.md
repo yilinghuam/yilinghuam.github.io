@@ -10,6 +10,10 @@ To allow for patch and delete
 - partials
 To make ejs files neater
 - cloudinary with express-fileupload
+
+or 
+multer with streamifier and cloudinary 
+- 
 ## Approach taken
 ### 1. Initial start
 - decide on the unknown factor of the project, the map api to be used

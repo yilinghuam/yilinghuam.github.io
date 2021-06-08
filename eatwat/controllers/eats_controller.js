@@ -2,6 +2,9 @@ require('dotenv').config()
 
 const _ = require('lodash')
 const cloudinary = require('cloudinary').v2
+const streamifier = require('streamifier')
+var multer  = require('multer')
+const fileUpload = multer()
 
 const mapAccessToken = `${process.env.MAPBOX_TOKEN}`
 
@@ -39,22 +42,48 @@ module.exports = {
         let imageURL = ''
 
         // for cases with image uploading
-        if (req.files !== null) {
-            let image = req.files.image.tempFilePath
+        // if (req.files !== null) {
+        //     let image = req.files.image.tempFilePath
 
-            try {
-                const upload= await cloudinary.uploader.upload(image, 
+        //     try {
+        //         const upload= await cloudinary.uploader.upload(image, 
+        //             {public_id: slug, //set option parameter
+        //             folder: 'eatwat'} ,	
+        //             function(error, result) {
+        //                 imageURL = result.url
+        //             });
+        //     } catch (error) {
+        //         console.log(error)
+        //         return `single upload error`
+        //     }
+        // }
+
+        let streamUpload = (req) => {
+            return new Promise((resolve, reject) => {
+                let stream = cloudinary.uploader.upload_stream(
                     {public_id: slug, //set option parameter
-                    folder: 'eatwat'} ,	
-                    function(error, result) {
+                        folder: 'eatwat'},
+                  (error, result) => {
+                    if (result) {
                         imageURL = result.url
-                    });
-            } catch (error) {
-                console.log(error)
-                return `single upload error`
-            }
+                        resolve(result)
+                    } else {
+                      reject(error);
+                    }
+                  }
+                );
+        
+               streamifier.createReadStream(req.file.buffer).pipe(stream);
+            })
+        }
+
+        try {
+            let result = await streamUpload(req);
+        } catch (error) {
+            console.log(error)
         }
         
+
         // create model
         try {
             const eatCreation = await eatModel.create({
@@ -120,13 +149,34 @@ module.exports = {
 
     update: async(req,res) => {
         const placeNameAndAddressArray = processPlaceNameAndAddress(req)
+        let placeName = placeNameAndAddressArray[0]
+        let slug = _.kebabCase(placeName)
+        let imageURL = ''
+
+        // if image is updated then new image file uploaded
+        if (req.files !== null) {
+            let image = req.files.image.tempFilePath
+
+            try {
+                const upload= await cloudinary.uploader.upload(image, 
+                    {public_id: slug, //set option parameter
+                    folder: 'eatwat',
+                    overwrite: true} , // allow overwriting if image already exist	
+                    function(error, result) {
+                        imageURL = result.url
+                    });
+            } catch (error) {
+                console.log(error)
+                return `single upload error`
+            }
+        }
 
         try {
             const singleEatUpdate = await eatModel.updateOne(
                 {slug: req.params.slug},
                 {
-                    placeName: placeNameAndAddressArray[0],
-                    slug: _.kebabCase(placeNameAndAddressArray[0]),
+                    placeName: placeName,
+                    slug: slug,
                     address: placeNameAndAddressArray[1],
                     coordinates:req.body.coordinates,
                     mrt: req.body.mrt,
@@ -134,6 +184,7 @@ module.exports = {
                     price: Number(req.body.price),
                     category: req.body.tags,
                     comments: req.body.comments,
+                    image: imageURL
                 }
             )
         } catch (err) {
@@ -146,8 +197,12 @@ module.exports = {
     },
 
     delete: async (req,res) => {
+
+
         try {
             const singleEatDelete = await eatModel.deleteOne({slug: req.params.slug})
+            const singleImageDelete = await cloudinary.uploader.destroy(req.params.slug, function(error,result) {
+                console.log(result, error) });
         } catch (err) {
             console.log(err)
             res.statusCode = 500

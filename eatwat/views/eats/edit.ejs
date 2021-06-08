@@ -14,7 +14,7 @@
 
         <div class = 'row mt-3 justify-content-center align-items-center'>
             <div class = 'col-6'>
-                <form action="/eats/<%=singleEat.slug%>?_method=PATCH" method="POST">
+                <form action="/eats/<%=singleEat.slug%>?_method=PATCH" method="POST" enctype="multipart/form-data">
                     <div class="mb-3">
                         <input type="text" class="form-control" id="placeNameAndAddress" name = 'placeNameAndAddress' value= '<%= singleEat.placeName + ',' + singleEat.address%>' readonly>
                     </div>
@@ -89,6 +89,10 @@
 
                     <div class="mb-3">
                         <textarea class="form-control text-start" id="comments" rows="3" name='comments' placeholder="Comments"><%= singleEat.comments%></textarea>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <input class="form-control form-control-sm" id="image" name='image' type="file">
                     </div>
 
                     <div class = 'mb-3 text-end'>
