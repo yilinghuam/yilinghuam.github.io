@@ -41,23 +41,7 @@ module.exports = {
         let slug = _.kebabCase(placeName)
         let imageURL = ''
 
-        // for cases with image uploading
-        // if (req.files !== null) {
-        //     let image = req.files.image.tempFilePath
-
-        //     try {
-        //         const upload= await cloudinary.uploader.upload(image, 
-        //             {public_id: slug, //set option parameter
-        //             folder: 'eatwat'} ,	
-        //             function(error, result) {
-        //                 imageURL = result.url
-        //             });
-        //     } catch (error) {
-        //         console.log(error)
-        //         return `single upload error`
-        //     }
-        // }
-
+        
         let streamUpload = (req) => {
             return new Promise((resolve, reject) => {
                 let stream = cloudinary.uploader.upload_stream(
@@ -77,10 +61,13 @@ module.exports = {
             })
         }
 
-        try {
-            let result = await streamUpload(req);
-        } catch (error) {
-            console.log(error)
+
+        if(req.file !== undefined) {
+            try {
+                let result = await streamUpload(req);
+            } catch (error) {
+                console.log(error)
+            }
         }
         
 
@@ -151,53 +138,85 @@ module.exports = {
         const placeNameAndAddressArray = processPlaceNameAndAddress(req)
         let placeName = placeNameAndAddressArray[0]
         let slug = _.kebabCase(placeName)
-        let imageURL = ''
 
-        // if image is updated then new image file uploaded
-        if (req.files !== null) {
-            let image = req.files.image.tempFilePath
-
-            try {
-                const upload= await cloudinary.uploader.upload(image, 
+        let streamUpload = (req) => {
+            return new Promise((resolve, reject) => {
+                let stream = cloudinary.uploader.upload_stream(
                     {public_id: slug, //set option parameter
-                    folder: 'eatwat',
-                    overwrite: true} , // allow overwriting if image already exist	
-                    function(error, result) {
+                        folder: 'eatwat',
+                        overwrite: true},
+                  (error, result) => {
+                    if (result) {
                         imageURL = result.url
-                    });
+                        resolve(result)
+                    } else {
+                      reject(error);
+                    }
+                  }
+                );
+        
+               streamifier.createReadStream(req.file.buffer).pipe(stream);
+            })
+        }
+
+
+        if(req.file !== undefined) {
+            try {
+                let imageURL = ''
+                let result = await streamUpload(req);
             } catch (error) {
                 console.log(error)
-                return `single upload error`
+            }
+            try {
+                const singleEatUpdate = await eatModel.updateOne(
+                    {slug: req.params.slug},
+                    {
+                        placeName: placeName,
+                        slug: slug,
+                        address: placeNameAndAddressArray[1],
+                        coordinates:req.body.coordinates,
+                        mrt: req.body.mrt,
+                        ratings: Number(req.body.ratings),
+                        price: Number(req.body.price),
+                        category: req.body.tags,
+                        comments: req.body.comments,
+                        image: imageURL
+                    }
+                )
+            } catch (err) {
+                console.log(err)
+                res.statusCode = 500
+                res.redirect('/eats/'+req.params.slug)
+                return  `single data update error`
+            }
+        }else {  // if no change in imageurl
+            try {
+                const singleEatUpdate = await eatModel.updateOne(
+                    {slug: req.params.slug},
+                    {
+                        placeName: placeName,
+                        slug: slug,
+                        address: placeNameAndAddressArray[1],
+                        coordinates:req.body.coordinates,
+                        mrt: req.body.mrt,
+                        ratings: Number(req.body.ratings),
+                        price: Number(req.body.price),
+                        category: req.body.tags,
+                        comments: req.body.comments,
+                    }
+                )
+            } catch (err) {
+                console.log(err)
+                res.statusCode = 500
+                res.redirect('/eats/'+req.params.slug)
+                return  `single data update error`
             }
         }
 
-        try {
-            const singleEatUpdate = await eatModel.updateOne(
-                {slug: req.params.slug},
-                {
-                    placeName: placeName,
-                    slug: slug,
-                    address: placeNameAndAddressArray[1],
-                    coordinates:req.body.coordinates,
-                    mrt: req.body.mrt,
-                    ratings: Number(req.body.ratings),
-                    price: Number(req.body.price),
-                    category: req.body.tags,
-                    comments: req.body.comments,
-                    image: imageURL
-                }
-            )
-        } catch (err) {
-            console.log(err)
-            res.statusCode = 500
-            res.redirect('/eats/'+req.params.slug)
-            return  `single data update error`
-        }
         res.redirect('/eats')
     },
 
     delete: async (req,res) => {
-
 
         try {
             const singleEatDelete = await eatModel.deleteOne({slug: req.params.slug})
@@ -214,6 +233,7 @@ module.exports = {
 }
 
 function processPlaceNameAndAddress(req) {
+    console.log(req.body)
     let placeNameAndAddress = req.body.placeNameAndAddress
     let index = placeNameAndAddress.indexOf(',')
     let placeNameAndAddressArray = [placeNameAndAddress.substring(0,index),placeNameAndAddress.substring(index+1)] 

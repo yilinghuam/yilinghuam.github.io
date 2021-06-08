@@ -44,21 +44,15 @@ multer with streamifier and cloudinary
 
 ------------------------------------------
 unsolved problems
-
+- slight delay in terms or uploading photos. Tried using streams but did not fix the time delay involved.
 
 user stories
 
 -----------------------------------------
 notes to yourself 
-- new.ejs need to add option for file image upload.(consider if got third party web)
-- need to hide coordinates and name of place
-- limit geosearch to singapore using country. check if it's ok, if not use bbox
 - add border to active link in nav bar
 - add circle line and downtown line to MRT_stations.js
 - add validation for form
 - fix fontawesome in dropdown
 - add titles for edit and new form to segregate
 - put form data in database and create form to edit and segregate etc
-- create eatImageModel to store url for cloudinary images
-- input image url in 
-- if no image url provided, provide a sample image file

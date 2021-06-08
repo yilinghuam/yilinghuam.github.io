@@ -19,9 +19,8 @@ const mongoURI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
-
-// const fileUpload = require('express-fileupload');
-// app.use(fileUpload({
+// const fileupload = require('express-fileupload');
+// app.use(fileupload({
 //     useTempFiles : true,
 //     tempFileDir : '/tmp/'
 // }));
@@ -43,7 +42,7 @@ app.get('/eats/:slug', eatController.show)
 
 app.get('/eats/:slug/edit', eatController.edit)
 
-app.patch('/eats/:slug',eatController.update)
+app.patch('/eats/:slug',fileUpload.single('image'),eatController.update)
 
 app.delete('/eats/:slug',eatController.delete)
 
