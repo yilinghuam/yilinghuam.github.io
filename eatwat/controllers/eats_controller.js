@@ -1,10 +1,14 @@
 require('dotenv').config()
-const {eatModel} = require('../models/eats')
+
 const _ = require('lodash')
+const cloudinary = require('cloudinary').v2
 
 const mapAccessToken = `${process.env.MAPBOX_TOKEN}`
+
+const {eatModel} = require('../models/eats')
 const mrtStations = require('../data/MRT_stations')
 const {category,ratings, price} = require('../data/form_data')
+
 
 module.exports = {
     index: async(req,res) => {
@@ -16,7 +20,6 @@ module.exports = {
             res.statusCode = 500
             return `server error`
         }
-        console.log(eats)
         res.render('eats/index', {eats: eats})
     },
 
@@ -31,11 +34,32 @@ module.exports = {
 
     create: async(req,res) => {
         const placeNameAndAddressArray = processPlaceNameAndAddress(req)
+        let placeName = placeNameAndAddressArray[0]
+        let slug = _.kebabCase(placeName)
+        let imageURL = ''
 
+        // for cases with image uploading
+        if (req.files !== null) {
+            let image = req.files.image.tempFilePath
+
+            try {
+                const upload= await cloudinary.uploader.upload(image, 
+                    {public_id: slug, //set option parameter
+                    folder: 'eatwat'} ,	
+                    function(error, result) {
+                        imageURL = result.url
+                    });
+            } catch (error) {
+                console.log(error)
+                return `single upload error`
+            }
+        }
+        
+        // create model
         try {
             const eatCreation = await eatModel.create({
-                placeName: placeNameAndAddressArray[0],
-                slug: _.kebabCase(placeNameAndAddressArray[0]),
+                placeName: placeName,
+                slug: slug,
                 address: placeNameAndAddressArray[1],
                 coordinates:req.body.coordinates,
                 mrt: req.body.mrt,
@@ -43,6 +67,7 @@ module.exports = {
                 price: Number(req.body.price),
                 category: req.body.tags,
                 comments: req.body.comments,
+                image: imageURL
             })
 
         } catch (err) {

@@ -12,6 +12,8 @@ const eatSchema = new mongoose.Schema({
     price: {type: Number, required: true},
     category: {type: String, required: true},
     comments: {type: String, required: false},
+    image: {type: String, required: false}
+
 }, {timestamps:true})
 
 const eatModel = mongoose.model('eat',eatSchema)

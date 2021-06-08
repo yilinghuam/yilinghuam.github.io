@@ -9,7 +9,7 @@ To protect tokens used in mongoDB and Mapbox
 To allow for patch and delete 
 - partials
 To make ejs files neater
-
+- cloudinary with express-fileupload
 ## Approach taken
 ### 1. Initial start
 - decide on the unknown factor of the project, the map api to be used
@@ -55,3 +55,6 @@ notes to yourself
 - fix fontawesome in dropdown
 - add titles for edit and new form to segregate
 - put form data in database and create form to edit and segregate etc
+- create eatImageModel to store url for cloudinary images
+- input image url in 
+- if no image url provided, provide a sample image file
