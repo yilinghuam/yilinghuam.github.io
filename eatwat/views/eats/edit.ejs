@@ -26,8 +26,8 @@
                     <div class="mb-3">
                         <input type="text" class="form-control" autocomplete = 'on' list="mrtStations" id="mrt" name = 'mrt' placeholder="nearest MRT" value = '<%=singleEat.mrt%>'>
                         <datalist id="mrtStations">
-                            <% mrtStations.forEach(station => { %>
-                                <option value= '<%=station%>' >
+                            <% mrtStations.forEach(element => { %>
+                                <option value= '<%=element.station%>' >
                             <%}); %>
                         </datalist>
                     </div>

@@ -19,11 +19,7 @@ const mongoURI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
-// const fileupload = require('express-fileupload');
-// app.use(fileupload({
-//     useTempFiles : true,
-//     tempFileDir : '/tmp/'
-// }));
+
 
 
 app.set('view engine', 'ejs')

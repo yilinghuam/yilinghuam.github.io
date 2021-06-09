@@ -29,7 +29,13 @@ const price = {
     "4":'$$$$',
     "5":'$$$$$'
 }
+let data = {
+    category,
+    ratings,
+    price
+}
 
+console.log(data)
 module.exports = {
     category,
     ratings,

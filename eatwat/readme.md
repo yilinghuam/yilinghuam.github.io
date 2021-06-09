@@ -56,3 +56,7 @@ notes to yourself
 - fix fontawesome in dropdown
 - add titles for edit and new form to segregate
 - put form data in database and create form to edit and segregate etc
+- complete mapsearch function and random
+- add log in log out feature
+- clean up image uploading codes
+- 

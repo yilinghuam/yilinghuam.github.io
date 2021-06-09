@@ -9,7 +9,7 @@ const fileUpload = multer()
 const mapAccessToken = `${process.env.MAPBOX_TOKEN}`
 
 const {eatModel} = require('../models/eats')
-const mrtStations = require('../data/MRT_stations')
+const {mrtModel} = require('../models/mrt')
 const {category,ratings, price} = require('../data/form_data')
 
 
@@ -26,7 +26,16 @@ module.exports = {
         res.render('eats/index', {eats: eats})
     },
 
-    newEat: (req,res) => {
+    newEat: async (req,res) => {
+        let mrtStations =[]
+
+        try {
+            mrtStations = await mrtModel.find()
+        } catch (err) {
+            res.statusCode = 500
+            return `server error`
+        }
+
         res.render('eats/new', 
             {mrtStations : mrtStations,
             category:category,
@@ -115,6 +124,14 @@ module.exports = {
 
     edit: async(req,res) => {
         let singleEat = {}
+        let mrtStations =[]
+
+        try {
+            mrtStations = await mrtModel.find()
+        } catch (err) {
+            res.statusCode = 500
+            return `server error`
+        }
 
         try {
             singleEat = await eatModel.findOne({slug: req.params.slug})
