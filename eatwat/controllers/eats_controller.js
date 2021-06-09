@@ -10,8 +10,7 @@ const mapAccessToken = `${process.env.MAPBOX_TOKEN}`
 
 const {eatModel} = require('../models/eats')
 const {mrtModel} = require('../models/mrt')
-const {category,ratings, price} = require('../data/form_data')
-
+const {formDataModel} = require('../models/formdata')
 
 module.exports = {
     index: async(req,res) => {
@@ -28,19 +27,20 @@ module.exports = {
 
     newEat: async (req,res) => {
         let mrtStations =[]
+        let formData = {}
 
         try {
             mrtStations = await mrtModel.find()
+            formData = await formDataModel.findOne()
         } catch (err) {
             res.statusCode = 500
             return `server error`
         }
+        console.log(formData)
 
         res.render('eats/new', 
             {mrtStations : mrtStations,
-            category:category,
-            ratings: ratings,
-            price:price,
+            formData: formData,
             mapAccessToken: mapAccessToken})
     },
 
@@ -125,9 +125,12 @@ module.exports = {
     edit: async(req,res) => {
         let singleEat = {}
         let mrtStations =[]
+        let formData = {}
+
 
         try {
             mrtStations = await mrtModel.find()
+            formData = await formDataModel.findOne()
         } catch (err) {
             res.statusCode = 500
             return `server error`
@@ -144,9 +147,7 @@ module.exports = {
             {
                 singleEat:singleEat,
                 mrtStations : mrtStations,
-                category:category,
-                ratings:ratings,
-                price: price,
+                formData: formData,
                 mapAccessToken: mapAccessToken
             })
     },

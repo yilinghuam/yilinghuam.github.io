@@ -1,18 +1,19 @@
-const category = [
-    'Cafe',
-    'Chinese',
-    'Dessert',
-    'English',
-    'Fast Food',
-    'French',
-    'Halal',
-    'Italian',
-    'Japanese',
-    'Mexican',
-    'Spanish',
-    'Thai',
-    'Vietnamese'
-]
+const category = {
+    'Cafe': 'Cafe',
+    'Chinese': 'Chinese',
+    'Dessert': 'Dessert',
+    'English': 'English',
+    'Fast Food': 'Fast Food',
+    'French': 'French' ,
+    'Halal': 'Halal',
+    'Italian': 'Italian',
+    'Japanese': 'Japanese',
+    'Mexican': 'Mexican',
+    'Spanish': 'Spanish',
+    'Taiwanese': 'Taiwanese',
+    'Thai': 'Thai',
+    'Vietnamese': 'Vietnamese'
+}
 
 const ratings = {
     '1':'&#xf005;1',

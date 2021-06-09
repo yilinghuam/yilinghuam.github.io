@@ -35,15 +35,15 @@
                     <div class = 'mb-3 row justify-content-center align-items-center'>
                         <div class = 'col-4'>
                             <select class="form-control tags" id = 'ratings' name = 'ratings'>
-                                <% let ratingKey = Object.keys(ratings)%>
+                                <% let ratingKey = Object.keys(formData.ratings)%>
                                 <% for (let i = 0; i < ratingKey.length ; i++) { %>
                                     <% if (singleEat.ratings === Number(ratingKey[i])) { %>
                                         <option selected value = <%=ratingKey[i]%>>
-                                            <%- ratings[ratingKey[i]]%>
+                                            <%- formData.ratings[ratingKey[i]]%>
                                         </option>
                                     <% }else{ %>
                                     <option value=<%= ratingKey[i]%>>
-                                        <%- ratings[ratingKey[i]] %>
+                                        <%- formData.ratings[ratingKey[i]] %>
                                     </option>
                                     <% } %>
                                 <% } %>
@@ -52,16 +52,16 @@
 
                         <div class = 'col-4'>
                             <select class="form-control tags" name = 'price'>
-                                <% let priceKey = Object.keys(price)%>
+                                <% let priceKey = Object.keys(formData.price)%>
 
                                 <% for (let i = 0; i < priceKey.length ; i++) { %>
                                     <% if (singleEat.price === Number(priceKey[i])) { %>
                                         <option selected value=<%= priceKey[i]%>>
-                                            <%- price[priceKey[i]] %>
+                                            <%- formData.price[priceKey[i]] %>
                                         </option>
                                     <% }else{ %>
                                         <option value=<%= priceKey[i]%>>
-                                            <%- price[priceKey[i]] %>
+                                            <%- formData.price[priceKey[i]] %>
                                         </option>
                                     <% } %>
                                 <% } %>
@@ -71,7 +71,7 @@
 
                         <div class = 'col-4'>
                             <select class="form-control tags" name ='tags' id ='tags' >
-                                <% category.forEach(element => { %>
+                                <% Object.keys(formData.category).forEach(element => { %>
                                     <% if (element === singleEat.element) {%>
                                         <option selected = '<%=element%>'>
                                             <%= element %>
