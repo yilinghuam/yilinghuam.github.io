@@ -2,12 +2,14 @@ require('dotenv').config()
 
 const express = require('express');
 const mongoose = require('mongoose')
-const eatController = require('./controllers/eats_controller')
 const methodOverride = require('method-override')
 var multer  = require('multer')
 const fileUpload = multer()
 
 const mapAccessToken = `${process.env.MAPBOX_TOKEN}`
+
+const eatController = require('./controllers/eats_controller')
+const mapsearchController = require('./controllers/mapsearch_controller')
 
 const app = express();
 const port = 3000;
@@ -30,10 +32,6 @@ app.get('/eats/new', eatController.newEat)
 
 app.post('/eats',fileUpload.single('image'), eatController.create)
 
-app.get('/eats/mapSearch', (req,res) => {
-    res.render('mapSearch',{mapAccessToken: mapAccessToken })
-})
-
 app.get('/eats/:slug', eatController.show)
 
 app.get('/eats/:slug/edit', eatController.edit)
@@ -41,6 +39,15 @@ app.get('/eats/:slug/edit', eatController.edit)
 app.patch('/eats/:slug',fileUpload.single('image'),eatController.update)
 
 app.delete('/eats/:slug',eatController.delete)
+
+
+
+app.get('/mapsearch', mapsearchController.index)
+app.post('/mapsearch', mapsearchController.create)
+app.get('/mapsearch/:mrt', mapsearchController.show)
+
+
+
 
 
 

@@ -1,0 +1,131 @@
+<html>
+    <head>
+            <%- include('../partials/mapbox') %>
+
+        <style>
+            <%- include('../partials/common_styling') %>
+
+            .container{
+                height:90vh;
+                min-width: 100%;            
+            }
+            .col-6{
+                height:100%;
+            }
+            .accordion{
+                width: 80%
+            }
+            .accordion-item{
+                width:80%
+            }
+            .accordion-button{
+                background:black;
+                color:white
+            }
+            #marker {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/c/ca/Jakarta_-_MRT_Jakarta_North_South_Line_Icon.png');
+            background-size: cover;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            }
+            
+            .mapboxgl-popup {
+            max-width: 200px;
+            }
+            
+        </style>
+        
+    </head>
+    <body>
+        <%- include('../partials/navbar') %>
+        <div class = 'container row g-2 d-flex justify-content-center align-items-center'>
+            <div class = 'col-6 d-flex justify-content-center align-items-center'>
+                <div class='row' id='map' style='width: 80%; height: 80%;'></div>
+            </div>
+
+            <div class = 'col-6 d-flex justify-content-center align-items-center overflow-scroll'>
+                <div class="accordion accordion-flush" id="accordionFlushExample">
+                <% eats.forEach(element => { %>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#<%=element.slug%>" aria-expanded="false" aria-controls="flush-collapseOne">
+                            <%= element.placeName %>
+                        </button>
+                    </h2>
+
+                    <div id="<%=element.slug%>" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <p class="text-center">
+                                <% for (let i = 0; i < 5 ; i++){ %>
+                                    <% if (i < element.ratings) { %>
+                                        <span class="fas fa-star checked"></span>
+                                    <% } else { %>
+                                        <span class="fas fa-star"></span>
+                                    <% } %>
+                                <% } %>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+
+                                <% for (let i = 0; i < element.price ; i++){ %>
+                                    <span class="fas fa-dollar-sign"></span>
+                                <% } %>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+
+                                <%=element.category%>
+                            </p>
+
+                            <% if (element.comments) { %>
+                                <p class='text-center'>"<%=element.comments%>"</p>
+                            <% } %>  
+                            <p class= 'text-center'>
+                                <a type="btn" class="btn btn-dark" href='/eats/<%=element.slug%>'><i class="fas fa-info-circle"></i></a>
+                            </p>
+
+
+                        </div>
+                    </div>
+                </div>
+                <% }) %>
+                </div>
+            </div>
+
+        </div>
+        <script>
+            const coordinates = '<%- mrtStations.coordinates %>'
+            const coordinatesArray = coordinates.split(',')
+            let mrtCoordinates = [coordinatesArray[1], coordinatesArray[0]]
+            mapboxgl.accessToken = <%- JSON.stringify(mapAccessToken) %> ;
+            const map = new mapboxgl.Map({
+                container: 'map', // container ID
+                style: 'mapbox://styles/lingy93/ckne1ifkw2r8y17qj11k2pg5h', // style URL
+                center: mrtCoordinates, // starting position [lng, lat] note that mapbox studio shows [lat,lng]
+                zoom: 15 // starting zoom
+            })
+            let eats = [<%- eats%>]
+            eats.forEach(element=>{ 
+            // create the popup
+                let popup = new mapboxgl.Popup({ offset: 25 }).setText(
+                element.placeName)
+                
+                // create DOM element for the marker
+
+                let coordinatesArray = element.coordinates.split(',')
+                
+                // create the marker
+                new mapboxgl.Marker()
+                .setLngLat(coordinatesArray)
+                .setPopup(popup) // sets a popup on this marker
+                .addTo(map);
+             }) 
+            var el = document.createElement('div');
+            el.id = 'marker';
+            
+            // create the marker
+            new mapboxgl.Marker(el)
+            .setLngLat(mrtCoordinates)
+            .addTo(map);
+        </script>
+    </body>
+    
+</html>

@@ -1,0 +1,45 @@
+<html>
+    <head>
+            <%- include('../partials/mapbox') %>
+
+        <style>
+            <%- include('../partials/common_styling') %>
+
+            #mrt{ 
+                background-color: white;
+                color:black;
+                text-align: center
+            }
+            form{
+                width:100vw;
+            }
+            .container{
+                height:80vh
+            }
+            
+        </style>
+        
+    </head>
+    <body>
+        <%- include('../partials/navbar') %>
+        <div class = 'container d-flex justify-content-center align-items-center'>
+            <form action = '/mapsearch' id = 'form' method="POST" class ='row g-3 align-items-center justify-content-center'>
+                <div class="col-5">
+                    <input type="text" class="form-control" autocomplete = 'on' list="mrtStations" id="mrt" name = 'mrt' placeholder="nearest MRT" >
+                        <datalist id="mrtStations">
+                            <% mrtStations.forEach(element => { %>
+                                <option value= '<%=element.station%>' >
+                            <%}); %>
+                        </datalist>
+
+                </div>
+                <div class = 'col-1'>
+                    <button type="submit" id = 'btn' class="btn btn-dark"><i class="fas fa-search"></i></button>
+
+                </div>
+            </form>
+        </div>
+        
+    </body>
+    
+</html>
