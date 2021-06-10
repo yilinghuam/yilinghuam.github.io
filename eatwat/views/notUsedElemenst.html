@@ -28,3 +28,13 @@
                         </div>
                     </form>
                 </div>
+
+
+
+                //<div class="col-md-6">
+                    <% if (eats[i].image !== undefined && eats[i].image !== '') { %>
+                        <img src="<%=eats[i].image%>" alt="..." style= 'height: 40vh; width: 14vw;object-fit:cover'>
+                    <% }else { %>
+                        <img src="https://res.cloudinary.com/dct3wrzog/image/upload/v1623327776/eatwat/unknown4_lky43f.jpg" alt="..." style= 'height: 40vh; width: 14vw;object-fit:cover'>
+                    <% } %>                            
+            </div>

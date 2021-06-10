@@ -21,12 +21,12 @@
                         <% if (element.image !== undefined && element.image !== '') { %>
                         <img src="<%= element.image%>" class="card-img-top" style='width: 100%;height: 15vw;object-fit: cover;'alt="...">
                         <% }else { %>
-                            <img src="https://res.cloudinary.com/dct3wrzog/image/upload/v1623154082/eatwat/unknown_rswnde.jpg" class="card-img-top" style='width: 100%;height: 15vw;object-fit: cover;'alt="...">
+                            <img src="https://res.cloudinary.com/dct3wrzog/image/upload/v1623327776/eatwat/unknown4_lky43f.jpg" class="card-img-top" style='width: 100%;height: 15vw;object-fit: cover;'alt="...">
                         <% } %>
 
                         <div class="card-body">
-                            <h5 class="card-title placeName"><a href="/eats/<%=element.slug%>"><%=element.placeName%></a></h5>
-                            <p class="card-text ratings">
+                            <h5 class="card-title placeName text-center"><a href="/eats/<%=element.slug%>"><%=element.placeName%></a></h5>
+                            <p class="card-text ratings text-center">
                                 <% for (let i = 0; i < 5 ; i++){ %>
                                     <% if (i < element.ratings) { %>
                                         <span class="fas fa-star checked"></span>
@@ -35,19 +35,19 @@
                                     <% } %>
                                 <% } %>
                             </p>
-                            <p class="card-text price">
+                            <p class="card-text price text-center">
                                 <% for (let i = 0; i < element.price ; i++){ %>
                                     <span class="fas fa-dollar-sign"></span>
                                 <% } %>
                             </p>
                             
                             <% if (element.comments) { %>
-                                <p class="card-text comments"><%=element.comments%></p>
+                                <p class="card-text comments text-center"><%=element.comments%></p>
                             <% } %>  
                         </div>
 
                         <div class="card-footer">
-                        <small class="text-muted"><%=element.updatedAt%></small>
+                        <small class="text-muted text-center"><%=element.updatedAt%></small>
                         </div>
 
                     </div>

@@ -1,12 +1,9 @@
 # Eatwat - A restaurant tracking app
 
-## Explanations of the technologies used
-- Mapbox
-Client side rendering of map. geocoding and tileset rendering used
-- dotenv
-To protect tokens used in mongoDB and Mapbox
-- methodOverride
-To allow for patch and delete 
+## Technologies
+- **Mapbox** Client side rendering of map, geocoding search and tileset rendering used
+- **dotenv** To protect tokens used in mongoDB and Mapbox
+- **methodOverride** To allow for patch and delete 
 - partials
 To make ejs files neater
 - cloudinary with express-fileupload
@@ -14,18 +11,16 @@ To make ejs files neater
 or 
 multer with streamifier and cloudinary 
 - 
-## Approach taken
-### 1. Initial start
-- decide on the unknown factor of the project, the map api to be used
-- read the documentation for the mapbox api and implement some functionalities gradually (at this point, only loading of the map and geosearching api)
-- think of how to post the geosearching results to the backend
 
-### 2. Creation of routes
-- Create routes based on 7 restful routes
-- adjust data as I go along
+## Approach
+* read up on documentation for mapbox and geocoding search and test
+* set up mvc structure with crud routes
+* add form information into database
+* build mapsearch pages
+
 ------------------------------------------
 
-## RESTfulRoutes
+## RESTful Routes
 
 |No.|Route      | URL               | HTTP Verb |Description
 |--|------------|-------------------|-----------|------------ 
@@ -36,6 +31,7 @@ multer with streamifier and cloudinary
 |3.| Create     |  /eats            | POST      | add new EAT to database
 |  |            |  /mapsearch       | POST      | get MRT from map search then redirect
 |4.| Show       |  /eats/:slug      | GET       | show individual EAT with map and image
+|  |            |  /eats/random     | GET       | show four random eats
 |  |            |  /mapsearch/:mrt  | GET       | map search according to mrt
 |5.| Edit       |  /eats/:slug/edit | GET       | EAT edit form
 |6.| Update     |  /eats/:slug      | PATCH     | update EAT
@@ -43,11 +39,9 @@ multer with streamifier and cloudinary
 
 
 
-
-
 ------------------------------------------
-unsolved problems
-- slight delay in terms or uploading photos. Tried using streams but did not fix the time delay involved.
+## Unsolved
+* slight delay in terms or uploading photos. Tried using streams but did not fix the time delay involved.
 
 user stories
 
@@ -58,7 +52,6 @@ notes to yourself
 - fix fontawesome in dropdown
 - add titles for edit and new form to segregate
 - put form data in database and create form to edit and segregate etc
-- complete mapsearch function and random
+- complete random
 - add log in log out feature
 - clean up image uploading codes
-- 

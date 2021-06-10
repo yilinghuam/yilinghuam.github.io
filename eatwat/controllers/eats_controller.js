@@ -247,6 +247,23 @@ module.exports = {
             return  `single data delete error`
         }
         res.redirect('/eats')
+    },
+
+    showRandom: async(req,res) => {
+        let eats = []
+        try {
+            //random 4 options
+            eats = await eatModel.aggregate([{$sample:{size:4}}])
+        } catch (err) {
+            console.log(err)
+            res.statusCode = 500
+            return  `data aggregation error`
+        }
+        console.log(eats)
+        res.render(
+            'eats/showRandom',
+            {eats:eats}
+        )
     }
 }
 
