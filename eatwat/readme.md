@@ -1,6 +1,6 @@
 # Eatwat - A restaurant tracking app
 
-## User story
+## User Story
 “As a foodie frequenting a multitude of restaurants, I desire an effortless way of recording my ventures, to curate a list of delectable food that I personally savor.”
 
 ## Technologies
@@ -13,6 +13,8 @@
 ## Experimented 
 - **cloudinary with express-file-upload**
 - wireframing using **justinmind**
+- multiple models
+
 
 ## Approach
 * read up on documentation for mapbox and geocoding search and testing of mapbox functions
@@ -24,9 +26,21 @@
 * build mapsearch pages
 * build routes to edit database form information
 
-## Wireframes
-
-!(./wireframes/addNew.png)
+## Initial Wireframes
+* Index page with all eats
+<img src="public/wireframes/index.png" width="500px"/>
+* Show single eat
+<img src="public/wireframes/showCard.png" width="500px"/>
+* Form for adding new eats
+<img src="public/wireframes/addNew.png" width="500px"/>
+* Form for map search
+<img src="public/wireframes/mapsearch-before.png" width="500px"/>
+* Show restaurants after mapsearch
+<img src="public/wireframes/mapsearch-after.png" width="500px"/>
+* Show random recommendations
+<img src="public/wireframes/random.png" width="500px"/>
+* Add restaurants to try 
+<img src="public/wireframes/try.png" width="500px"/>
 
 ------------------------------------------
 
