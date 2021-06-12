@@ -84,7 +84,7 @@
         <script>
             const coordinates = '<%- mrtStations.coordinates %>'
             const coordinatesArray = coordinates.split(',')
-            let mrtCoordinates = [coordinatesArray[1], coordinatesArray[0]]
+            let mrtCoordinates = coordinatesArray
             mapboxgl.accessToken = <%- JSON.stringify(mapAccessToken) %> ;
             const map = new mapboxgl.Map({
                 container: 'map', // container ID

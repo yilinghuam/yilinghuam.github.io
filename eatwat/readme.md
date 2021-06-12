@@ -25,28 +25,32 @@ multer with streamifier and cloudinary
 
 ## RESTful Routes
 
-|No.|Route      | URL               | HTTP Verb |Description
-|--|------------|-------------------|-----------|------------ 
-|1.| Index      |  /                | GET       | Homepage
-|  |            |  /eats            | GET       | All EATS from database
-|  |            |  /mapsearch       | GET       | map search form
-|  |            |  /dashboard       | GET       | admin rights to form data(ratings,price, category and mrt)
-|2.| New        |  /eats/new        | GET       | EATS record form
-|3.| Create     |  /eats            | POST      | add new EAT to database
-|  |            |  /mapsearch       | POST      | get MRT from map search then redirect
-|4.| Show       |  /eats/:slug      | GET       | show individual EAT with map and image
-|  |            |  /eats/random     | GET       | show four random eats
-|  |            |  /mapsearch/:mrt  | GET       | map search according to mrt
-|  |            |  /dashboard/:cat  | GET       | show data for each category
-|5.| Edit       |  /eats/:slug/edit | GET       | EAT edit form
-|6.| Update     |  /eats/:slug      | PATCH     | update EAT
-|7.| Delete     |  /eats/:slug      | DELETE    | delete EAT
+|No.|Route      | URL                   | HTTP Verb |Description
+|--|------------|-----------------------|-----------|------------ 
+|1.| Index      |  /                    | GET       | Homepage
+|  |            |  /eats                | GET       | All EATS from database
+|  |            |  /mapsearch           | GET       | map search form
+|  |            |  /dashboard           | GET       | admin rights to form data(ratings,price, category and mrt)
+|2.| New        |  /eats/new            | GET       | EATS record form
+|3.| Create     |  /eats                | POST      | add new EAT to database
+|  |            |  /mapsearch           | POST      | get MRT from map search then redirect
+|4.| Show       |  /eats/:slug          | GET       | show individual EAT with map and image
+|  |            |  /eats/random         | GET       | show four random eats
+|  |            |  /mapsearch/:mrt      | GET       | map search according to mrt
+|  |            |  /dashboard/:cat      | GET       | show data for each category
+|5.| Edit       |  /eats/:slug/edit     | GET       | EAT edit form
+|  |            |  /dashboard/:cat/:item/edit | GET       | edit formdata
+|6.| Update     |  /eats/:slug          | PATCH     | update EAT
+|  |            |  /dashboard/:cat/:item| PATCH     | update formdata
+|7.| Delete     |  /eats/:slug          | DELETE    | delete EAT
 
 
 
 ------------------------------------------
 ## Unsolved
 * slight delay in terms or uploading photos. Tried using streams but did not fix the time delay involved.
+* fontawesome in dropdown options not showing
+
 
 user stories
 
@@ -54,9 +58,8 @@ user stories
 notes to yourself 
 - add border to active link in nav bar
 - add validation for form
-- fix fontawesome in dropdown
 - add titles for edit and new form to segregate
-- put form data in database and create form to edit and segregate etc
 - add log in log out feature
 - clean up image uploading codes
 - consider add lazy loading codes
+- create,delete,update,edit route for admin

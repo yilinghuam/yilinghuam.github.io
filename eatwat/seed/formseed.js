@@ -38,6 +38,7 @@ let data = {
     category: category,
     ratings: ratings,
     price: price,
+    slug: 'formData'
 }
 console.log(data)
 

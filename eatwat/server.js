@@ -27,6 +27,8 @@ app.use(methodOverride('_method'))
 
 
 app.set('view engine', 'ejs')
+mongoose.set('useFindAndModify', false);
+
 
 app.get('/eats', eatController.index)
 
@@ -53,7 +55,10 @@ app.get('/mapsearch/:mrt', mapsearchController.show)
 
 // dashboard routes
 app.get('/dashboard', dashboardController.index)
+
 app.get('/dashboard/:cat', dashboardController.show)
+app.get('/dashboard/:cat/:item/edit', dashboardController.edit)
+app.patch('/dashboard/:cat/:item',dashboardController.update)
 app.delete('/eats/:cat',dashboardController.delete)
 
 
