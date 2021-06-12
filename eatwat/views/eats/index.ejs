@@ -12,6 +12,7 @@
 
         <!-- card containers -->
         <div class = 'container'>
+
             <div class="row row-cols-1 row-cols-md-4 g-4">
 
                 <%eats.forEach(element => { %>
@@ -26,19 +27,13 @@
 
                         <div class="card-body">
                             <h5 class="card-title placeName text-center"><a href="/eats/<%=element.slug%>"><%=element.placeName%></a></h5>
-                            <p class="card-text ratings text-center">
-                                <% for (let i = 0; i < 5 ; i++){ %>
-                                    <% if (i < element.ratings) { %>
-                                        <span class="fas fa-star checked"></span>
-                                    <% } else { %>
-                                        <span class="fas fa-star"></span>
-                                    <% } %>
-                                <% } %>
+                            
+                            <p class="card-text ratings text-center ratings-icon">
+                                <%- include('../partials/ratings',{singleEat:element}) %>
                             </p>
-                            <p class="card-text price text-center">
-                                <% for (let i = 0; i < element.price ; i++){ %>
-                                    <span class="fas fa-dollar-sign"></span>
-                                <% } %>
+
+                            <p class="card-text price text-center price-icon">
+                                <%- include('../partials/price',{singleEat:element}) %>
                             </p>
                             
                             <% if (element.comments) { %>

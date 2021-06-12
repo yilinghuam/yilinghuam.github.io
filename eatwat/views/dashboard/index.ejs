@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <%- include('../partials/generic_head') %> 
+
+        <style>
+            <%- include('../partials/common_styling')%>
+            .btn{
+                margin: 12%;
+                border-radius: 0;
+                min-width: 30vw;
+                background:#A3DCD4;
+                color: black;
+                border-color: white;
+                padding: 4%;
+            }
+        </style>
+    </head>
+
+    <body>
+        <%- include('../partials/navbar') %>
+
+        <div class = 'container d-flex justify-content-center align-items-center' style = 'height: 80vh'>
+            <div class="btn-group-vertical align-items-center">
+                <a href="/dashboard/category" class="btn btn-dark">CATEGORY</a>
+                <a href="/dashboard/mrt" class="btn btn-dark">MRT</a>
+                <a href="/dashboard/price" class="btn btn-dark">PRICE</a>
+                <a href="/dashboard/ratings" class="btn btn-dark">RATINGS</a>
+            </div>  
+        </div>
+        
+    </body>
+</html>

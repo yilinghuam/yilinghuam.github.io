@@ -7,8 +7,11 @@
             .small-card{
                 background: white;
             }
-            .colored-card{
+            .card-containers{
                 background: #A3DCD4;
+            }
+            #random{
+                color: #A3DCD4;
             }
         </style>
     </head>
@@ -17,9 +20,8 @@
         <%- include('../partials/navbar') %>
 
         <!-- card containers -->
-        <div class = 'container col'>
-            <div class ='row justify-content-center mt-4 ' style= 'height:40vh'>
-                    <div class ='card-group' style = 'width:80vw;'>
+        <div class = 'row d-flex justify-content-center align-items-center card-containers'>
+                    <div class ='card-group mt-4' style = 'width:80vw;height:40vh'>
                         <div class="row card" style="height:40vh; width:80vw">
                             <div class="row g-0">
                                 <div class="col-md-6" style =''>
@@ -37,13 +39,7 @@
                                         </a></h5>
                                         <p class="card-text text-center"><%=eats[0].address%></p>
                                         <p class="card-text ratings text-center">
-                                            <% for (let i = 0; i < 5 ; i++){ %>
-                                                <% if (i < eats[0].ratings) { %>
-                                                    <span class="fas fa-star checked"></span>
-                                                <% } else { %>
-                                                    <span class="fas fa-star"></span>
-                                                <% } %>
-                                            <% } %>
+                                            <%- include('../partials/ratings',{element: eats[0]}) %>
                                         </p>
                                         <p class="card-text price text-center">
                                             <% for (let i = 0; i < eats[0].price ; i++){ %>
@@ -59,54 +55,35 @@
                                         <p class="card-text text-center"><small class="text-muted"><%= eats[0].updatedAt%></small></p>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
 
-            </div>
-
-            <div class ='row justify-content-center mt-2 mb-2' style= 'height:40vh'>
-                    <div class =' card-group d-flex justify-content-center align-items-center' style = 'width:80vw;'>
-
+                    <div class =' ard-group d-flex mt-4 mb-4 justify-content-between align-items-center' style = 'width:80vw;height:40vh'>
                     <% for (let i = 1; i <eats.length; i++) { %>
-                    <div class="colored-card row card h-100 d-flex justify-content-center align-items-center mt-2 mb-2" style="height:40vh; width:25vw">
-                            <div class="col-12 ">
+                        <div class="colored-card row card h-100 d-flex justify-content-center align-items-center mt-2 mb-2" style="height:40vh; width:25vw">
                                 <div class="small-card card-body overflow-scroll" style="height:40vh; width:25vw">
-                                        <h5 class="card-title text-center"><a href='/eats/<%=eats[i].slug%>'>
-                                            <%=eats[i].placeName%>
-                                        </a></h5>
-                                        <p class="card-text text-center"><%=eats[i].address%></p>
+                                    <h5 class="card-title text-center"><a href='/eats/<%=eats[i].slug%>'>
+                                        <%=eats[i].placeName%>
+                                    </a></h5>
 
-                                        <p class="card-text ratings text-center">
-                                        <% for (let count = 0; count < 5 ; count++){ %>
-                                            <% if (count < eats[i].ratings) { %>
-                                                <span class="fas fa-star checked"></span>
-                                            <% } else { %>
-                                                <span class="fas fa-star"></span>
-                                                <% } %>
-                                            <% } %>
-                                    </p>
+                                    <p class="card-text text-center"><%=eats[i].address%></p>
+
+                                    <p class="card-text ratings text-center"><%- include('../partials/ratings',{element: eats[i]}) %></p>
                                     
-                                    <p class="card-text price text-center">
-                                        <% for (let count = 0; count < eats[i].price ; count++) { %>
-                                            <span class="fas fa-dollar-sign"></span>
-                                        <% } %>
-                                    </p>
+                                    <p class="card-text price text-center"><%- include('../partials/price',{element: eats[i]}) %></p>
 
                                     <p class="card-text text-center"><%=eats[i].category%></p>
+                                    
                                     <% if (eats[0].comments) { %>
                                             <p class="card-text comments text-center"><%=eats[i].comments%></p>
-                                        <% } %>  
+                                    <% } %>  
                                 </div>
-                            </div>
-
-                    </div>
+                        </div>
 
                     <% } %> 
 
                     
-                </div>
             </div>
         </div>
     </body>

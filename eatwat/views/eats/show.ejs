@@ -37,6 +37,7 @@
             .btn {
                 font-size: 70%;
             }
+            
         </style>
 
     </head>
@@ -53,22 +54,14 @@
                     <div class = 'info row d-flex align-items-between'>
                         <div class ='row'>
                             <h3 class="text-center"><%=singleEat.placeName%></h3>
-                            <p class="text-center">
-                                <% for (let i = 0; i < 5 ; i++){ %>
-                                    <% if (i < singleEat.ratings) { %>
-                                        <span class="fas fa-star checked"></span>
-                                    <% } else { %>
-                                        <span class="fas fa-star"></span>
-                                    <% } %>
-                                <% } %>
-                            </p>
 
-                            <p class= 'text-center'>
-                                <% for (let i = 0; i < singleEat.price ; i++){ %>
-                                    <span class="fas fa-dollar-sign"></span>
-                                <% } %>
-                            </p>
+                            <p class="text-center ratings-icon"><%- include('../partials/ratings') %></p>
+
+                            <p class= 'text-center price-icon'><%- include('../partials/price') %></p>
+                            
                             <p class= 'text-center'>MRT:<%=singleEat.mrt%></p>
+                            <p class= 'text-center'><%=singleEat.category%></p>
+
                             <p class= 'text-center'><%=singleEat.address%></p>
 
                             <% if (singleEat.comments) { %>

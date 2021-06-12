@@ -33,9 +33,11 @@ module.exports = {
         console.log(query)
         let mrtStations = {}
         let eats = []
+        let formData = {}
 
         try {
-            mrtStations = await mrtModel.findOne({slug:query})    
+            mrtStations = await mrtModel.findOne({slug:query})   
+            formData = await formDataModel.findOne() 
         } catch (err) {
             res.statusCode = 500
             return `query server error`
@@ -58,6 +60,7 @@ module.exports = {
             'mapsearch/show', 
             {mapAccessToken:mapAccessToken,
                 mrtStations: mrtStations,
+                formData:formData,
             eats:eats})
     }
     

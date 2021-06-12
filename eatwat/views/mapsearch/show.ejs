@@ -49,29 +49,19 @@
                 <div class="accordion accordion-flush" id="accordionFlushExample">
                 <% eats.forEach(element => { %>
                 <div class="accordion-item">
-                    <h2 class="accordion-header" id="flush-headingOne">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#<%=element.slug%>" aria-expanded="false" aria-controls="flush-collapseOne">
+                    <h2 class="accordion-header" >
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#<%=element.slug%>">
                             <%= element.placeName %>
                         </button>
                     </h2>
 
-                    <div id="<%=element.slug%>" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                    <div id="<%=element.slug%>" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                         <div class="accordion-body">
-                            <p class="text-center">
-                                <% for (let i = 0; i < 5 ; i++){ %>
-                                    <% if (i < element.ratings) { %>
-                                        <span class="fas fa-star checked"></span>
-                                    <% } else { %>
-                                        <span class="fas fa-star"></span>
-                                    <% } %>
-                                <% } %>
+                            <p class="text-center price-icon">
+                                <%- include('../partials/ratings',{singleEat: element}) %>
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-
-                                <% for (let i = 0; i < element.price ; i++){ %>
-                                    <span class="fas fa-dollar-sign"></span>
-                                <% } %>
+                                <%- include('../partials/price',{singleEat: element}) %>
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-
                                 <%=element.category%>
                             </p>
 

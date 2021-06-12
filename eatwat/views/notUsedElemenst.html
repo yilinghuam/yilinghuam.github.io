@@ -38,3 +38,37 @@
                         <img src="https://res.cloudinary.com/dct3wrzog/image/upload/v1623327776/eatwat/unknown4_lky43f.jpg" alt="..." style= 'height: 40vh; width: 14vw;object-fit:cover'>
                     <% } %>                            
             </div>
+
+
+            <% if (query !== 'mrt') { %>
+                <div class = 'mt-3 container col-12 g-4 d-flex justify-content-center align-items-center overflow-scroll' style = 'height: 80vh'>
+
+        <ul class="list-group">
+            <% let queryKeys = Object.keys(data) %>
+            <% queryKeys.forEach(element => { %>
+                <li class="list-group-item">
+                    <div class="d-flex w-100 justify-content-between align-items-center">
+                        <p class=""><%-data[element]%></p>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <small>
+                            <form action="/eats/?_method=DELETE" method="POST">
+                                <div class = ''>
+                                    <button type="submit" class="btn btn-dark"><i class="fas fa-times"></i></button>
+                                </div>
+                            </form>
+                        </small>
+                    </div>
+                </li>
+            <% }) %>
+            </ul>
+            </div>
+
+
+
+            <% for (let i = 0; i < 5 ; i++){ %>
+                <% if (i < element.ratings) { %>
+                    <span class="fas fa-star checked"></span>
+                <% } else { %>
+                    <span class="fas fa-star"></span>
+                <% } %>
+            <% } %>     

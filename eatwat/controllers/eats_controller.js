@@ -15,14 +15,16 @@ const {formDataModel} = require('../models/formdata')
 module.exports = {
     index: async(req,res) => {
         let eats =[]
+        let formData ={}
 
         try {
             eats = await eatModel.find()
+            formData = await formDataModel.findOne()
         } catch (err) {
             res.statusCode = 500
             return `server error`
         }
-        res.render('eats/index', {eats: eats})
+        res.render('eats/index', {eats: eats,formData:formData})
     },
 
     newEat: async (req,res) => {
@@ -106,10 +108,11 @@ module.exports = {
 
     show: async(req,res) => {
         let singleEat = {}
+        let formData = {}
 
         try {
             singleEat = await eatModel.findOne({slug:req.params.slug})
-
+            formData = await formDataModel.findOne()
         } catch (err) {
             console.log(err)
             res.redirect('/eats/')
@@ -118,7 +121,8 @@ module.exports = {
         res.render('eats/show',
             {
             mapAccessToken: mapAccessToken,
-            singleEat: singleEat
+            singleEat: singleEat,
+            formData:formData
         })
     },
 

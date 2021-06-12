@@ -3,6 +3,9 @@
             <%- include('../partials/mapbox') %>
         <style>
             <%- include('../partials/mapbox_geocoder_styling') %>
+            #ratings,#price{
+                font-weight:600
+            }
         </style>
     </head>
     
@@ -38,7 +41,7 @@
                                 <option selected>RATINGS</option>
                                 <% let ratingKey = Object.keys(formData.ratings)%>
                                 <% for (let i = 0; i < ratingKey.length ; i++) { %>
-                                    <option value=<%= ratingKey[i]%>>
+                                    <option class ='rating-value' value=<%= ratingKey[i]%>>
                                         <%- formData.ratings[ratingKey[i]] %>
                                     </option>
                                 <% } %>
@@ -47,7 +50,7 @@
                         </div>
 
                         <div class = 'col-4'>
-                            <select class="form-control tags" name = 'price'>
+                            <select class="form-control tags" id = 'price' name = 'price'>
                                 <option selected>PRICE</option>
                                 <% let priceKey = Object.keys(formData.price)%>
                                 <% for (let i = 0; i < priceKey.length ; i++) { %>

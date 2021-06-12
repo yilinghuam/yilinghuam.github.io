@@ -10,6 +10,8 @@ const mapAccessToken = `${process.env.MAPBOX_TOKEN}`
 
 const eatController = require('./controllers/eats_controller')
 const mapsearchController = require('./controllers/mapsearch_controller')
+const dashboardController = require('./controllers/dashboard_controller')
+
 
 const app = express();
 const port = 3000;
@@ -48,6 +50,12 @@ app.delete('/eats/:slug',eatController.delete)
 app.get('/mapsearch', mapsearchController.index)
 app.post('/mapsearch', mapsearchController.create)
 app.get('/mapsearch/:mrt', mapsearchController.show)
+
+// dashboard routes
+app.get('/dashboard', dashboardController.index)
+app.get('/dashboard/:cat', dashboardController.show)
+app.delete('/eats/:cat',dashboardController.delete)
+
 
 
 
