@@ -1,25 +1,32 @@
 # Eatwat - A restaurant tracking app
 
+## User story
+“As a foodie frequenting a multitude of restaurants, I desire an effortless way of recording my ventures, to curate a list of delectable food that I personally savor.”
+
 ## Technologies
 - **Mapbox** Client side rendering of map, geocoding search and tileset rendering used
 - **dotenv** To protect tokens used in mongoDB and Mapbox
 - **methodOverride** To allow for patch and delete 
-- partials
-To make ejs files neater
-- cloudinary with express-fileupload
+- **partials** Used to make ejs files neater
+- **multer with streamifier and cloudinary** for the uploading of single image files using stream
 
-or 
-multer with streamifier and cloudinary 
-- 
+## Experimented 
+- **cloudinary with express-file-upload**
+- wireframing using **justinmind**
 
 ## Approach
 * read up on documentation for mapbox and geocoding search and testing of mapbox functions
+* wireframing
 * setting up database structure
 * set up mvc structure with crud routes
 * add form information into database
 * testing of upload function with multer and cloudinary
 * build mapsearch pages
+* build routes to edit database form information
 
+## Wireframes
+
+!(./wireframes/addNew.png)
 
 ------------------------------------------
 
@@ -54,8 +61,9 @@ multer with streamifier and cloudinary
 * slight delay in terms or uploading photos. Tried using streams but did not fix the time delay involved.
 * fontawesome in dropdown options not showing
 
-
-user stories
+## Possible Improvements
+* include uploading of image via url
+* prevent one and two star ratings restaurant from appearing in random
 
 -----------------------------------------
 notes to yourself 
