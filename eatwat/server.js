@@ -31,20 +31,12 @@ mongoose.set('useFindAndModify', false);
 
 
 app.get('/eats', eatController.index)
-
 app.get('/eats/new', eatController.newEat)
-
 app.post('/eats',fileUpload.single('image'), eatController.create)
-
-// random
-app.get('/eats/random', eatController.showRandom)
-
+app.get('/eats/random', eatController.showRandom) // random
 app.get('/eats/:slug', eatController.show)
-
 app.get('/eats/:slug/edit', eatController.edit)
-
 app.patch('/eats/:slug',fileUpload.single('image'),eatController.update)
-
 app.delete('/eats/:slug',eatController.delete)
 
 // mapsearch routes
@@ -55,17 +47,12 @@ app.get('/mapsearch/:mrt', mapsearchController.show)
 
 // dashboard routes
 app.get('/dashboard', dashboardController.index)
-
 app.get('/dashboard/:cat', dashboardController.show)
+app.post('/dashboard/:cat', dashboardController.create)
+app.get('/dashboard/:cat/new', dashboardController.newItem)
 app.get('/dashboard/:cat/:item/edit', dashboardController.edit)
 app.patch('/dashboard/:cat/:item',dashboardController.update)
-app.delete('/eats/:cat',dashboardController.delete)
-
-
-
-
-
-
+app.delete('/dashboard/:cat/:item',dashboardController.delete)
 
 
 mongoose

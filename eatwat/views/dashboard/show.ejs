@@ -42,6 +42,11 @@
                         <small>
                             <form action="/dashboard/<%=query+'/'+element%>/edit" method="GET">
                                 <div class = ''>
+                                    <button type="submit" class="btn btn-dark"><i class="fas fa-pen"></i></button>
+                                </div>
+                            </form>
+                            <form action="/dashboard/<%=query+'/'+element%>?_method=DELETE" method="POST">
+                                <div class = ''>
                                     <button type="submit" class="btn btn-dark"><i class="fas fa-times"></i></button>
                                 </div>
                             </form>
@@ -64,6 +69,11 @@
                         <small>
                             <form action="/dashboard/category/<%=element%>/edit" method="GET">
                                 <div class = ''>
+                                    <button type="submit" class="btn btn-dark"><i class="fas fa-pen"></i></button>
+                                </div>
+                            </form>
+                            <form action="/dashboard/category/<%=element%>?_method=DELETE" method="POST">
+                                <div class = ''>
                                     <button type="submit" class="btn btn-dark"><i class="fas fa-times"></i></button>
                                 </div>
                             </form>
@@ -84,6 +94,11 @@
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <small>
                             <form action="/dashboard/mrt/<%=element.slug%>/edit" method="GET">
+                                <div class = ''>
+                                    <button type="submit" class="btn btn-dark"><i class="fas fa-pen"></i></button>
+                                </div>
+                            </form>
+                            <form action="/dashboard/mrt/<%=element.slug%>?_method=DELETE" method="POST">
                                 <div class = ''>
                                     <button type="submit" class="btn btn-dark"><i class="fas fa-times"></i></button>
                                 </div>

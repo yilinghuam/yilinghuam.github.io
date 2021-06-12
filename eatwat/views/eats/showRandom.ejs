@@ -38,13 +38,11 @@
                                             <%=eats[0].placeName%>
                                         </a></h5>
                                         <p class="card-text text-center"><%=eats[0].address%></p>
-                                        <p class="card-text ratings text-center">
-                                            <%- include('../partials/ratings',{element: eats[0]}) %>
+                                        <p class="card-text ratings text-center ratings-icon">
+                                            <%- include('../partials/ratings',{singleEat: eats[0]}) %>
                                         </p>
-                                        <p class="card-text price text-center">
-                                            <% for (let i = 0; i < eats[0].price ; i++){ %>
-                                                <span class="fas fa-dollar-sign"></span>
-                                            <% } %>
+                                        <p class="card-text price text-center price-icon">
+                                            <%- include('../partials/price',{singleEat: eats[0]}) %>
                                         </p>
 
                                         <p class="card-text text-center"><%=eats[0].category%></p>
@@ -69,9 +67,9 @@
 
                                     <p class="card-text text-center"><%=eats[i].address%></p>
 
-                                    <p class="card-text ratings text-center"><%- include('../partials/ratings',{element: eats[i]}) %></p>
+                                    <p class="card-text ratings text-center ratings-icon"><%- include('../partials/ratings',{singleEat: eats[i]}) %></p>
                                     
-                                    <p class="card-text price text-center"><%- include('../partials/price',{element: eats[i]}) %></p>
+                                    <p class="card-text price text-center price-icon"><%- include('../partials/price',{singleEat: eats[i]}) %></p>
 
                                     <p class="card-text text-center"><%=eats[i].category%></p>
                                     

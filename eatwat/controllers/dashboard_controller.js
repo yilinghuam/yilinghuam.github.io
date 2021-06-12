@@ -16,7 +16,6 @@ module.exports = {
 
     show: async(req,res) => {
         let query = req.params.cat
-        console.log(query)
 
         let data = []
 
@@ -112,7 +111,7 @@ module.exports = {
             res.redirect('/dashboard/'+query)
         }
 
-        if (query!== 'mrt') {
+        if (query !== 'mrt') {
             const newkey = req.body.key;
             try {
                 originalFormData = await formDataModel.findOne()
@@ -126,18 +125,10 @@ module.exports = {
                 return `formData replacement error`
             }
             try {
-                switch (query) {
-                    case 'category':
-                        replacedEatsData = await eatModel.updateMany({category:item},{category:newkey})
-                        break;
-                    case 'ratings':
-                        replacedEatsData = await eatModel.updateMany({ratings:Number(item)},{ratings:Number(newkey)})
-                        break
-                    case 'price':
-                        replacedEatsData = await eatModel.updateMany({price:Number(item)},{price:Number(newkey)})
-                        break
-                    default:
-                        break;
+                if (query === 'category') {
+                    replacedEatsData = await eatModel.updateMany({category:item},{category:newkey})
+                } else {
+                    replacedEatsData = await eatModel.updateMany({[query]:Number(item)},{[query]:Number(newkey)})
                 }
             } catch (err) {
                 console.log(err)
@@ -148,10 +139,113 @@ module.exports = {
         }
     },
 
-    delete: async(req,res) => {
-        
-    }
+    newItem: async(req,res) =>{
+        let query = req.params.cat
+        res.render('dashboard/new',{query:query,mapAccessToken:mapAccessToken})
+    },
 
-    
-    
-}
+    create: async(req,res) => {
+        let query = req.params.cat
+        let newFormData = {}
+        let replacedFormData = {}
+        let replacedEatsData = []
+         console.log(req.body)
+
+        if (query === 'mrt') {
+            let station = req.body.mrt
+            try {
+                newFormData = await mrtModel.create(
+                    {station: station,
+                    slug: _.kebabCase(station),
+                    coordinates: req.body.mrtcoordinates})
+            } catch (err) {
+                console.log(err)
+                res.statusCode = 500
+                return `mrt replacement error`
+            }
+            res.redirect('/dashboard/'+query)
+        }
+        if (query !== 'mrt') {
+            const newkey = req.body.key;
+            try {
+                newFormData = await formDataModel.findOne()
+                let targettedFormData = newFormData[query]
+                targettedFormData[newkey] = req.body.keyValue;
+                replacedFormData = await formDataModel.findOneAndUpdate({slug:'formData'},newFormData)
+            } catch (err) {
+                console.log(err)
+                res.statusCode = 500
+                return `formData replacement error`
+            }
+            
+            res.redirect('/dashboard/'+query)
+        }
+    },
+
+    delete: async(req,res) => {
+        let query = req.params.cat
+        let item = req.params.item
+        let originalFormData = {}
+        let replacedFormData = {}
+        let eatsData = []
+
+        if (query === 'mrt') {
+            let station = req.body.mrt
+            try {
+                originalFormData = await mrtModel.findOne({slug:item})
+            } catch (err) {
+                console.log(err)
+                res.statusCode = 500
+                return `mrt find error`
+            }
+            try {
+                eatsData = await eatModel.find({mrt:originalFormData.station})
+                console.log(Object.keys(eatsData))
+            } catch (err) {
+                console.log(err)
+                res.statusCode = 500
+                return `eat replacement error`
+            }
+            if(Object.keys(eatsData).length === 0) {
+                try {
+                    originalFormData = await mrtModel.deleteOne({slug:item})
+                } catch (err) {
+                    console.log(err)
+                    res.statusCode = 500
+                    return `mrt delete error`
+                }
+            }// else show a message that says cannot delete when database is using item
+            res.redirect('/dashboard/'+query)
+        }
+
+        if (query !== 'mrt') {
+            const newkey = req.body.key;
+            try {
+                if (query === 'category') {
+                    eatsData = await eatModel.find({category:item})
+                } else {
+                    eatsData = await eatModel.find({[query]:Number(item)})
+                }
+            } catch (err) {
+                console.log(err)
+                res.statusCode = 500
+                return `eat find error`
+            }
+            if(eatsData.length === 0) {
+                try {
+                    originalFormData = await formDataModel.findOne()
+                    let targettedFormData = originalFormData[query]
+                    delete targettedFormData[item];
+                    replacedFormData = await formDataModel.findOneAndUpdate({slug:'formData'},originalFormData)
+                } catch (err) {
+                    console.log(err)
+                    res.statusCode = 500
+                    return `formData replacement error`
+                }
+            }
+            
+            
+            res.redirect('/dashboard/'+query)
+        }
+    }
+ }

@@ -32,8 +32,10 @@ multer with streamifier and cloudinary
 |  |            |  /mapsearch           | GET       | map search form
 |  |            |  /dashboard           | GET       | admin rights to form data(ratings,price, category and mrt)
 |2.| New        |  /eats/new            | GET       | EATS record form
+|  |            |  /dashboard/:cat/new  | GET       | form to add formdata
 |3.| Create     |  /eats                | POST      | add new EAT to database
 |  |            |  /mapsearch           | POST      | get MRT from map search then redirect
+|  |            |  /dashboard/:cat      | POST      | add new formdata to database
 |4.| Show       |  /eats/:slug          | GET       | show individual EAT with map and image
 |  |            |  /eats/random         | GET       | show four random eats
 |  |            |  /mapsearch/:mrt      | GET       | map search according to mrt
@@ -43,6 +45,7 @@ multer with streamifier and cloudinary
 |6.| Update     |  /eats/:slug          | PATCH     | update EAT
 |  |            |  /dashboard/:cat/:item| PATCH     | update formdata
 |7.| Delete     |  /eats/:slug          | DELETE    | delete EAT
+|  |            |  /dashboard/:cat/:item| DELETE    | delete EAT
 
 
 
@@ -62,4 +65,3 @@ notes to yourself
 - add log in log out feature
 - clean up image uploading codes
 - consider add lazy loading codes
-- create,delete,update,edit route for admin

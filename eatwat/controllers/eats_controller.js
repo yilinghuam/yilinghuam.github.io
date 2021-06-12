@@ -255,9 +255,13 @@ module.exports = {
 
     showRandom: async(req,res) => {
         let eats = []
+        let formData ={}
+
         try {
             //random 4 options
             eats = await eatModel.aggregate([{$sample:{size:4}}])
+            formData = await formDataModel.findOne()
+
         } catch (err) {
             console.log(err)
             res.statusCode = 500
@@ -266,7 +270,9 @@ module.exports = {
         console.log(eats)
         res.render(
             'eats/showRandom',
-            {eats:eats}
+            {eats:eats,
+            formData:formData
+            }
         )
     }
 }
