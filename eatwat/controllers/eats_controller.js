@@ -18,12 +18,13 @@ module.exports = {
         let formData ={}
 
         try {
-            eats = await eatModel.find()
+            eats = await eatModel.find({user:req.session.user.user})
             formData = await formDataModel.findOne()
         } catch (err) {
             res.statusCode = 500
             return `server error`
         }
+        
         res.render('eats/index', {eats: eats,formData:formData})
     },
 
@@ -94,7 +95,8 @@ module.exports = {
                 price: Number(req.body.price),
                 category: req.body.tags,
                 comments: req.body.comments,
-                image: imageURL
+                image: imageURL,
+                user: req.session.user.user
             })
 
         } catch (err) {
@@ -111,7 +113,7 @@ module.exports = {
         let formData = {}
 
         try {
-            singleEat = await eatModel.findOne({slug:req.params.slug})
+            singleEat = await eatModel.findOne({slug:req.params.slug,user:req.session.user.user})
             formData = await formDataModel.findOne()
         } catch (err) {
             console.log(err)
@@ -141,7 +143,7 @@ module.exports = {
         }
 
         try {
-            singleEat = await eatModel.findOne({slug: req.params.slug})
+            singleEat = await eatModel.findOne({slug: req.params.slug,user:req.session.user.user})
         } catch (err) {
             console.log(err)
             res.redirect('/eats/'+req.params.slug)
@@ -202,7 +204,8 @@ module.exports = {
                         price: Number(req.body.price),
                         category: req.body.tags,
                         comments: req.body.comments,
-                        image: imageURL
+                        image: imageURL,
+                        user: req.session.user.user
                     }
                 )
             } catch (err) {
@@ -225,6 +228,7 @@ module.exports = {
                         price: Number(req.body.price),
                         category: req.body.tags,
                         comments: req.body.comments,
+                        user: req.session.user.user
                     }
                 )
             } catch (err) {
@@ -259,7 +263,7 @@ module.exports = {
 
         try {
             //random 4 options
-            eats = await eatModel.aggregate([{$sample:{size:4}}])
+            eats = await eatModel.aggregate([{$match:{user:req.session.user.user}},{$sample:{size:4}}])
             formData = await formDataModel.findOne()
 
         } catch (err) {

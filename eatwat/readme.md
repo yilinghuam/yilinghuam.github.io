@@ -43,6 +43,10 @@
 <img src="public/wireframes/try.png" width="500px"/>
 
 ------------------------------------------
+## Database structure
+* **FormData** Model Tree Structures with Child References
+* **MRT** Model Tree Structures with Parent References
+* **Eats** Model Tree Structures with Parent References
 
 ## RESTful Routes
 
@@ -52,11 +56,16 @@
 |  |            |  /eats                | GET       | All EATS from database
 |  |            |  /mapsearch           | GET       | map search form
 |  |            |  /dashboard           | GET       | admin rights to form data(ratings,price, category and mrt)
+|  |            |  /users/login         | GET       | login form
+|  |            |  /users/logout        | GET       | logout then redirect
 |2.| New        |  /eats/new            | GET       | EATS record form
 |  |            |  /dashboard/:cat/new  | GET       | form to add formdata
+|  |            |  /users/signup        | GET       | form to add user
 |3.| Create     |  /eats                | POST      | add new EAT to database
 |  |            |  /mapsearch           | POST      | get MRT from map search then redirect
+|  |            |  /users/signup        | POST      | add new user 
 |  |            |  /dashboard/:cat      | POST      | add new formdata to database
+|  |            |  /users/login         | POST      | create user session
 |4.| Show       |  /eats/:slug          | GET       | show individual EAT with map and image
 |  |            |  /eats/random         | GET       | show four random eats
 |  |            |  /mapsearch/:mrt      | GET       | map search according to mrt
@@ -78,12 +87,15 @@
 ## Possible Improvements
 * include uploading of image via url
 * prevent one and two star ratings restaurant from appearing in random
+* add lazy loading
 
 -----------------------------------------
 notes to yourself 
 - add border to active link in nav bar
 - add validation for form
 - add titles for edit and new form to segregate
-- add log in log out feature
 - clean up image uploading codes
-- consider add lazy loading codes
+- add users to dashboard
+- add req.session.user to dashboard
+- add delete and show for user
+- check if want to allow admin to see all users data

@@ -44,7 +44,7 @@ module.exports = {
         }
 
         try {
-            eats = await eatModel.find({mrt:mrtStations.station},{ '_id': 0,'createdAt':0, 'updatedAt':0})
+            eats = await eatModel.find({mrt:mrtStations.station,user:req.session.user.user},{ '_id': 0,'createdAt':0, 'updatedAt':0})
         } catch (err) {
             
         }

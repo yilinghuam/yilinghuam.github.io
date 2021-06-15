@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <%- include('../partials/generic_head') %>
+
+        <style>
+            <%- include('../partials/common_styling')%>
+            label{
+                text-transform: capitalize
+            }
+        </style>
+    </head>
+
+    <body>
+        <%- include('../partials/navbar') %>
+
+        <div class = 'container d-flex flex-column justify-content-center align-items-center' style = 'height: 80vh'>
+            <form action="/users/signup" method="POST">
+                <div class="row g-3 align-items-center justify-content-between mb-3">
+                    <div class="col-auto">
+                        <label for="user" class="col-form-label">user</label>
+                    </div>
+                    <div class="col-auto">
+                        <input type="text" id="item" class="form-control" name ='user'>
+                    </div>
+                </div>
+
+                <div class="row g-3 align-items-center justify-content-between mb-3">
+                    <div class="col-auto">
+                        <label for="email" class="col-form-label">email</label>
+                    </div>
+                    <div class="col-auto">
+                        <input type="email" id="item" class="form-control" name ='email'>
+                    </div>
+                </div>
+
+                <div class="row g-3 align-items-center justify-content-between mb-3">
+                    <div class="col-auto">
+                        <label for="password" class="col-form-label">password</label>
+                    </div>
+                    <div class="col-auto">
+                        <input type="password" id="item" class="form-control" name ='password'>
+                    </div>
+                </div>
+
+                <div class="row g-3 align-items-center justify-content-between mb-3">
+                    <div class="col-auto">
+                        <label for="confirm_password" class="col-form-label">confirm password</label>
+                    </div>
+                    <div class="col-auto">
+                        <input type="password" id="item" class="form-control" name ='confirm_password'>
+                    </div>
+                </div>
+                <div class = 'mb-3 text-end mt-3'>
+                    <button type="submit" class="btn btn-dark" style='border-radius:0'>SIGN UP</button>
+                </div>
+            </form>         
+        </div>
+
+    
+    </body>
+</html>
