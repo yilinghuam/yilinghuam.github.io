@@ -3,18 +3,25 @@
 ## User Story
 “As a foodie frequenting a multitude of restaurants, I desire an effortless way of recording my ventures, to curate a list of delectable food that I personally savor.”
 
+----------------------------------
+
 ## Technologies
 - **Mapbox** Client side rendering of map, geocoding search and tileset rendering used
 - **dotenv** To protect tokens used in mongoDB and Mapbox
 - **methodOverride** To allow for patch and delete 
 - **partials** Used to make ejs files neater
-- **multer with streamifier and cloudinary** for the uploading of single image files using stream
+- **multer** handles multi-part form processing and image processing
+- **streamifier** opens up streams to upload image directly
+- **cloudinary** Cloud Storage for storage of image files and generate image URL
+- **bcrypt** Used to hash passwords
+- **express-session** For creating session-cookies and storing user information
 
 ## Experimented 
 - **cloudinary with express-file-upload**
 - wireframing using **justinmind**
 - multiple models
 
+-----------------------------
 
 ## Approach
 * read up on documentation for mapbox and geocoding search and testing of mapbox functions
@@ -25,6 +32,12 @@
 * testing of upload function with multer and cloudinary
 * build mapsearch pages
 * build routes to edit database form information
+* create login/logout/authentication/authorisation
+* add services layer
+* test out validations
+* final check
+* deploy on Heroku
+
 
 ## Initial Wireframes
 * Index page with all eats
@@ -88,14 +101,12 @@
 * include uploading of image via url
 * prevent one and two star ratings restaurant from appearing in random
 * add lazy loading
+* add index, show, add, delete routes for user
+* allow admin to see all user eats
+* add a 'to try' section (simple list)
 
 -----------------------------------------
 notes to yourself 
-- add border to active link in nav bar
-- add validation for form
-- add titles for edit and new form to segregate
-- clean up image uploading codes
-- add users to dashboard
-- add req.session.user to dashboard
-- add delete and show for user
-- check if want to allow admin to see all users data
+- add email api
+- allow for reset of password?
+- reseed form data and mrt data before deploying on heroku
