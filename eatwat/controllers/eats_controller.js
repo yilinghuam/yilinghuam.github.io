@@ -11,19 +11,17 @@ const mapAccessToken = `${process.env.MAPBOX_TOKEN}`
 const {eatModel} = require('../models/eats')
 const {mrtModel} = require('../models/mrt')
 const {formDataModel} = require('../models/formdata')
+const eatServices = require ('../services/eats_services')
+const formServices = require('../services/form_services')
+const cloudinaryServices = require('../services/cloudinary_services')
+const mrtServices = require('../services/mrt_services')
 
 module.exports = {
     index: async(req,res) => {
-        let eats =[]
         let formData ={}
 
-        try {
-            eats = await eatModel.find({user:req.session.user.user})
-            formData = await formDataModel.findOne()
-        } catch (err) {
-            res.statusCode = 500
-            return `server error`
-        }
+        const eats =  await eatServices.findAll(req,res)
+        formData = await formServices.getForm()
         
         res.render('eats/index', {eats: eats,formData:formData})
     },
@@ -32,14 +30,8 @@ module.exports = {
         let mrtStations =[]
         let formData = {}
 
-        try {
-            mrtStations = await mrtModel.find()
-            formData = await formDataModel.findOne()
-        } catch (err) {
-            res.statusCode = 500
-            return `server error`
-        }
-        console.log(formData)
+        mrtStations = await mrtServices.getmrt()
+        formData = await formServices.getForm()
 
         res.render('eats/new', 
             {mrtStations : mrtStations,
@@ -48,78 +40,31 @@ module.exports = {
     },
 
     create: async(req,res) => {
-        const placeNameAndAddressArray = processPlaceNameAndAddress(req)
-        let placeName = placeNameAndAddressArray[0]
-        let slug = _.kebabCase(placeName)
+        // check form not empty
+        if (!req.body.mrt || !req.body.placeNameAndAddress || !req.body.category || !req.body.price || !req.body.ratings) {
+            res.redirect('/eats/new')
+            return
+        }
+
         let imageURL = ''
 
-        
-        let streamUpload = (req) => {
-            return new Promise((resolve, reject) => {
-                let stream = cloudinary.uploader.upload_stream(
-                    {public_id: slug, //set option parameter
-                        folder: 'eatwat'},
-                  (error, result) => {
-                    if (result) {
-                        imageURL = result.url
-                        resolve(result)
-                    } else {
-                      reject(error);
-                    }
-                  }
-                );
-        
-               streamifier.createReadStream(req.file.buffer).pipe(stream);
-            })
-        }
-
-
+        // only upload if there is image file uploaded
         if(req.file !== undefined) {
-            try {
-                let result = await streamUpload(req);
-            } catch (error) {
-                console.log(error)
-            }
+            result = await cloudinaryServices.uploadImage(req,res)
+            imageURL = result.url
         }
         
-
-        // create model
-        try {
-            const eatCreation = await eatModel.create({
-                placeName: placeName,
-                slug: slug,
-                address: placeNameAndAddressArray[1],
-                coordinates:req.body.coordinates,
-                mrt: req.body.mrt,
-                ratings: Number(req.body.ratings),
-                price: Number(req.body.price),
-                category: req.body.tags,
-                comments: req.body.comments,
-                image: imageURL,
-                user: req.session.user.user
-            })
-
-        } catch (err) {
-            console.log(err)
-            res.statusCode = 500
-            res.redirect('/eats/new')
-            return  `single data insertion error`
-        }
+        const singleEatCreate = await eatServices.create(req,res,imageURL)
+        
         res.redirect('/eats')
     },
 
     show: async(req,res) => {
-        let singleEat = {}
         let formData = {}
+        
+        const singleEat = await eatServices.findOne(req,res)
+        formData = await formServices.getForm()
 
-        try {
-            singleEat = await eatModel.findOne({slug:req.params.slug,user:req.session.user.user})
-            formData = await formDataModel.findOne()
-        } catch (err) {
-            console.log(err)
-            res.redirect('/eats/')
-            return `failure to find single data`
-        }
         res.render('eats/show',
             {
             mapAccessToken: mapAccessToken,
@@ -133,22 +78,11 @@ module.exports = {
         let mrtStations =[]
         let formData = {}
 
+        mrtStations = await mrtServices.getmrt()
+        formData = await formServices.getForm()
+        singleEat = await eatServices.findOne(req,res)
+    
 
-        try {
-            mrtStations = await mrtModel.find()
-            formData = await formDataModel.findOne()
-        } catch (err) {
-            res.statusCode = 500
-            return `server error`
-        }
-
-        try {
-            singleEat = await eatModel.findOne({slug: req.params.slug,user:req.session.user.user})
-        } catch (err) {
-            console.log(err)
-            res.redirect('/eats/'+req.params.slug)
-            return `failure to find single data`
-        }
         res.render('eats/edit', 
             {
                 singleEat:singleEat,

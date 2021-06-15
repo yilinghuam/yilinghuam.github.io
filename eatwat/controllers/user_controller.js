@@ -10,7 +10,6 @@ module.exports = {
         res.render('users/signup')
     },
     create: async(req,res) => {
-
         //ensure password matches
         if(req.body.password !== req.body.confirm_password){
             res.redirect('users/signup')
@@ -18,6 +17,7 @@ module.exports = {
         }
 
         let user = null
+
         try {
             user = await userModel.findOne({email:req.body.email})
         } catch (err) {
@@ -45,6 +45,7 @@ module.exports = {
         }
         res.redirect('/eats')
     },
+    
     loginUser: async(req,res) => {
         let user = null
 

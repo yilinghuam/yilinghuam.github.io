@@ -9,11 +9,10 @@
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
 
         <ul class="navbar-nav">
-        <% console.log(user) %>
         <% if (user) { %>
 
           <li class="nav-item">
-            <a class="nav-link active" href="/eats/new" id = 'new'>Add New</a>
+            <a class="nav-link active" href="/eats/new" id = 'new'><i class="fas fa-plus-circle" style='font-size: 150%'></i></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/eats" id = 'eats'>All</a>
@@ -29,7 +28,7 @@
           </li>
           <% if(user.role === 'admin') { %>
           <li class="nav-item">
-            <a class="nav-link active" href="/dashboard" id = 'new'>Dashboard</a>
+            <a class="nav-link active" href="/dashboard" id = 'dashboard'>Dashboard</a>
           </li>
           <% } %>
           <li class="nav-item">
@@ -38,7 +37,7 @@
         <% } %>
         <% if (!user) { %>
             <li class="nav-item">
-            <a class="nav-link active" href="/users/login">Log In</a>
+            <a class="nav-link active" href="/users/login" id = 'login' >Log In</a>
           </li>
         <% } %>
           
