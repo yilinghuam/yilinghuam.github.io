@@ -54,7 +54,6 @@ module.exports = {
         res.redirect('/eats')
         
     },
-
     logout: (req, res) => {
         req.session.destroy()
         res.redirect('/users/login')

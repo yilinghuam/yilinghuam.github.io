@@ -70,9 +70,15 @@
                                 <p class='text-center'>"<%=singleEat.comments%>"</p>
                             <% } %>  
 
+                            <% if (user.role === 'admin') { %>
+                                <small>
+                                <p class="card-text comments text-center">By: <%=singleEat.user[0]%></p>
+                                </small>
+                            <% } %>  
+
                         </div>
 
-                        <div class='row'>
+                        <div class='row mt-2'>
                             <small class="text-muted text-center"><%=singleEat.updatedAt%></small>
                         </div>
 

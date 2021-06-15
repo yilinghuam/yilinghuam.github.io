@@ -13,7 +13,7 @@ const eatSchema = new mongoose.Schema({
     category: {type: String, required: true},
     comments: {type: String, required: false},
     image: {type: String, required: false},
-    user: {type: String, required: true}
+    user: {type: Array, required: true}
 }, {timestamps:true})
 
 const eatModel = mongoose.model('eat',eatSchema)

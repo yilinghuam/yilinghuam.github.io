@@ -42,6 +42,12 @@
                             <% if (element.comments) { %>
                                 <p class="card-text comments text-center"><%=element.comments%></p>
                             <% } %>  
+                            <% if (user.role === 'admin') { %>
+                                <small>
+                                <p class="card-text comments text-center">By: <%=element.user[0]%></p>
+                                </small>
+                            <% } %>  
+
                         </div>
 
                         <div class="card-footer">

@@ -61,6 +61,10 @@
 * **MRT** Model Tree Structures with Parent References
 * **Eats** Model Tree Structures with Parent References
 
+## Role-based authentication
+* admin can see all user eats, and use dashboard to edit form data
+* user can only access own eats
+
 ## RESTful Routes
 
 |No.|Route      | URL                   | HTTP Verb |Description
@@ -102,8 +106,8 @@
 * prevent one and two star ratings restaurant from appearing in random
 * add lazy loading
 * add index, show, add, delete routes for user
-* allow admin to see all user eats
 * add a 'to try' section (simple list)
+* add filter by stars, ratings, tags
 
 -----------------------------------------
 notes to yourself 

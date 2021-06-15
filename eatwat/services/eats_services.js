@@ -40,7 +40,7 @@ module.exports = {
                 category: req.body.tags,
                 comments: req.body.comments,
                 image: imageURL,
-                user: req.session.user.user
+                user: [req.session.user.user,'admin']
             })
 
         } catch (err) {
@@ -66,7 +66,7 @@ module.exports = {
                     category: req.body.tags,
                     comments: req.body.comments,
                     image: imageURL,
-                    user: req.session.user.user
+                    user: [req.session.user.user,'admin']
                 }
             )
             return singleEatUpdate
@@ -93,7 +93,7 @@ module.exports = {
                     price: Number(req.body.price),
                     category: req.body.tags,
                     comments: req.body.comments,
-                    user: req.session.user.user
+                    user: [req.session.user.user,'admin']
                 }
             )
         } catch (err) {
