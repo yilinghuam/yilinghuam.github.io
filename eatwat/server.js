@@ -39,6 +39,11 @@ mongoose.set('useFindAndModify', false)
 mongoose.set('useCreateIndex', true)
 app.use(setUserVarMiddleware)
 
+// redirect from homepage
+app.get('/',(req,res) => {
+    res.redirect('/users/login')
+})
+
 app.get('/eats', authenticatedOnly, eatController.index)
 app.get('/eats/new', authenticatedOnly,eatController.newEat)
 app.post('/eats', authenticatedOnly, fileUpload.single('image'), eatController.create)

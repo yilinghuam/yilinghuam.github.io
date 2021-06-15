@@ -1,16 +1,6 @@
 require('dotenv').config()
 
-const _ = require('lodash')
-const cloudinary = require('cloudinary').v2
-const streamifier = require('streamifier')
-var multer  = require('multer')
-const fileUpload = multer()
-
 const mapAccessToken = `${process.env.MAPBOX_TOKEN}`
-
-const {eatModel} = require('../models/eats')
-const {mrtModel} = require('../models/mrt')
-const {formDataModel} = require('../models/formdata')
 const eatServices = require ('../services/eats_services')
 const formServices = require('../services/form_services')
 const cloudinaryServices = require('../services/cloudinary_services')
@@ -19,9 +9,14 @@ const mrtServices = require('../services/mrt_services')
 module.exports = {
     index: async(req,res) => {
         let formData ={}
-
+        formData = await formServices.getForm(res)
         const eats =  await eatServices.findAll(req,res)
-        formData = await formServices.getForm()
+        
+        //  if no data, redirect to add data
+        if(eats.length === 0) {
+            res.redirect('/eats/new')
+            return
+        }
         
         res.render('eats/index', {eats: eats,formData:formData})
     },
@@ -30,8 +25,8 @@ module.exports = {
         let mrtStations =[]
         let formData = {}
 
-        mrtStations = await mrtServices.getmrt()
-        formData = await formServices.getForm()
+        mrtStations = await mrtServices.getmrt(res)
+        formData = await formServices.getForm(res)
 
         res.render('eats/new', 
             {mrtStations : mrtStations,
@@ -41,7 +36,7 @@ module.exports = {
 
     create: async(req,res) => {
         // check form not empty
-        if (!req.body.mrt || !req.body.placeNameAndAddress || !req.body.category || !req.body.price || !req.body.ratings) {
+        if (!req.body.mrt || !req.body.placeNameAndAddress || !req.body.tags|| !req.body.price || !req.body.ratings) {
             res.redirect('/eats/new')
             return
         }
@@ -50,7 +45,7 @@ module.exports = {
 
         // only upload if there is image file uploaded
         if(req.file !== undefined) {
-            result = await cloudinaryServices.uploadImage(req,res)
+            const result = await cloudinaryServices.uploadImage(req,res)
             imageURL = result.url
         }
         
@@ -61,9 +56,14 @@ module.exports = {
 
     show: async(req,res) => {
         let formData = {}
-        
+        formData = await formServices.getForm(res)
         const singleEat = await eatServices.findOne(req,res)
-        formData = await formServices.getForm()
+                    
+        //  if eat is not found
+        if (!singleEat) {
+            res.redirect('/eats')
+            return
+        }           
 
         res.render('eats/show',
             {
@@ -74,14 +74,17 @@ module.exports = {
     },
 
     edit: async(req,res) => {
-        let singleEat = {}
         let mrtStations =[]
         let formData = {}
 
-        mrtStations = await mrtServices.getmrt()
-        formData = await formServices.getForm()
-        singleEat = await eatServices.findOne(req,res)
-    
+        mrtStations = await mrtServices.getmrt(res)
+        formData = await formServices.getForm(res)
+        const singleEat = await eatServices.findOne(req,res)
+        
+        if (!singleEat) {
+            res.redirect('/eats')
+            return
+        }   
 
         res.render('eats/edit', 
             {
@@ -93,84 +96,18 @@ module.exports = {
     },
 
     update: async(req,res) => {
-        const placeNameAndAddressArray = processPlaceNameAndAddress(req)
-        let placeName = placeNameAndAddressArray[0]
-        let slug = _.kebabCase(placeName)
-
-        let streamUpload = (req) => {
-            return new Promise((resolve, reject) => {
-                let stream = cloudinary.uploader.upload_stream(
-                    {public_id: slug, //set option parameter
-                        folder: 'eatwat',
-                        overwrite: true},
-                  (error, result) => {
-                    if (result) {
-                        imageURL = result.url
-                        resolve(result)
-                    } else {
-                      reject(error);
-                    }
-                  }
-                );
-        
-               streamifier.createReadStream(req.file.buffer).pipe(stream);
-            })
+        // check form not empty
+        if (!req.body.mrt || !req.body.placeNameAndAddress || !req.body.tags || !req.body.price || !req.body.ratings) {
+            res.redirect('/eats/'+req.params.slug)
+            return
         }
-
-
+        // if there is change in image
         if(req.file !== undefined) {
-            try {
-                let imageURL = ''
-                let result = await streamUpload(req);
-            } catch (error) {
-                console.log(error)
-            }
-            try {
-                const singleEatUpdate = await eatModel.updateOne(
-                    {slug: req.params.slug},
-                    {
-                        placeName: placeName,
-                        slug: slug,
-                        address: placeNameAndAddressArray[1],
-                        coordinates:req.body.coordinates,
-                        mrt: req.body.mrt,
-                        ratings: Number(req.body.ratings),
-                        price: Number(req.body.price),
-                        category: req.body.tags,
-                        comments: req.body.comments,
-                        image: imageURL,
-                        user: req.session.user.user
-                    }
-                )
-            } catch (err) {
-                console.log(err)
-                res.statusCode = 500
-                res.redirect('/eats/'+req.params.slug)
-                return  `single data update error`
-            }
+            const result = await cloudinaryServices.uploadImage(req,res)
+            const imageURL = result.url
+            const singleEatUpdate = await eatServices.updateWithImage(req,res,imageURL)
         }else {  // if no change in imageurl
-            try {
-                const singleEatUpdate = await eatModel.updateOne(
-                    {slug: req.params.slug},
-                    {
-                        placeName: placeName,
-                        slug: slug,
-                        address: placeNameAndAddressArray[1],
-                        coordinates:req.body.coordinates,
-                        mrt: req.body.mrt,
-                        ratings: Number(req.body.ratings),
-                        price: Number(req.body.price),
-                        category: req.body.tags,
-                        comments: req.body.comments,
-                        user: req.session.user.user
-                    }
-                )
-            } catch (err) {
-                console.log(err)
-                res.statusCode = 500
-                res.redirect('/eats/'+req.params.slug)
-                return  `single data update error`
-            }
+            const singleEatUpdate = await eatServices.updateWithoutImage(req,res)
         }
 
         res.redirect('/eats')
@@ -178,34 +115,22 @@ module.exports = {
 
     delete: async (req,res) => {
 
-        try {
-            const singleEatDelete = await eatModel.deleteOne({slug: req.params.slug})
-            const singleImageDelete = await cloudinary.uploader.destroy(req.params.slug, function(error,result) {
-                console.log(result, error) });
-        } catch (err) {
-            console.log(err)
-            res.statusCode = 500
-            res.redirect('/eats/'+req.params.slug)
-            return  `single data delete error`
-        }
+        const singleEatDelete = await eatServices.deleteOne(req,res)
+        const singleImageDelete = await cloudinaryServices.deleteImage(req,res)
         res.redirect('/eats')
     },
 
     showRandom: async(req,res) => {
-        let eats = []
         let formData ={}
+        let eats = []
 
-        try {
-            //random 4 options
-            eats = await eatModel.aggregate([{$match:{user:req.session.user.user}},{$sample:{size:4}}])
-            formData = await formDataModel.findOne()
-
-        } catch (err) {
-            console.log(err)
-            res.statusCode = 500
-            return  `data aggregation error`
+        formData = await formServices.getForm(res)
+        eats = await eatServices.getRandom(req,res)
+        // if no data then add new
+        if (eats.length === 0) {
+            res.redirect('/eats/new')
         }
-        console.log(eats)
+
         res.render(
             'eats/showRandom',
             {eats:eats,
@@ -213,12 +138,4 @@ module.exports = {
             }
         )
     }
-}
-
-function processPlaceNameAndAddress(req) {
-    console.log(req.body)
-    let placeNameAndAddress = req.body.placeNameAndAddress
-    let index = placeNameAndAddress.indexOf(',')
-    let placeNameAndAddressArray = [placeNameAndAddress.substring(0,index),placeNameAndAddress.substring(index+1)] 
-    return placeNameAndAddressArray
 }

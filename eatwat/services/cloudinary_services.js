@@ -14,13 +14,29 @@ module.exports = {
             console.log(error)
             res.redirect('/eats/new')
         }
+    },
+    deleteImage: async(req,res) => {
+        try {
+            const singleImageDelete = await cloudinary.uploader.destroy(
+                req.params.slug, 
+                function(error,result) {
+                console.log(result, error) });
+        } catch (err) {
+            console.log(err)
+            res.statusCode = 500
+            res.redirect('/eats/'+req.params.slug)
+            return  `single data delete error`
+        }
     }
 }
+
+
 let streamUpload = (req, slug) => {
     return new Promise((resolve, reject) => {
         let stream = cloudinary.uploader.upload_stream(
             {public_id: slug, //set option parameter
-                folder: 'eatwat'},
+            folder: 'eatwat',
+            overwrite:true},
           (error, result) => {
             if (result) {
                 resolve(result)

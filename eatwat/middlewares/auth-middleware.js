@@ -9,6 +9,11 @@ module.exports = {
     },
 
     adminOnly: (req, res, next) => {
+        if (!req.session || !req.session.user || !req.session.user.role) {
+            res.redirect('/users/login')
+            return
+        }
+
         if (req.session.user.role === 'admin') {
             next()
             return
@@ -17,6 +22,7 @@ module.exports = {
             res.redirect('/eats')
             return
         }
+        
         res.redirect('/users/login')
     },
     guestOnly: (req,res,next) =>{
