@@ -16,6 +16,7 @@ router.post('/', authenticatedOnly, fileUpload.single('image'), eatController.cr
 
 // show
 router.get('/random', authenticatedOnly, eatController.showRandom) // random
+router.get('/filter',authenticatedOnly,eatController.filter)
 router.get('/:slug', authenticatedOnly, eatController.show)
 
 // edit

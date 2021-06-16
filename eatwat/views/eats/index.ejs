@@ -7,6 +7,24 @@
             #eats{
                 color: #A3DCD4;
             }
+            #ratings,#price{
+                font-weight:600
+            }
+            .tags,.btn { 
+                background-color: black;
+                color: white;
+                border-radius: 0;
+                font-size:80%;
+            }
+            select{
+                text-align-last: center;
+            }
+            #ratings {
+                font-family: 'Font Awesome 5 Free', 'Open Sans';
+            }
+            #tags {
+                text-transform: uppercase;
+            }
         </style>
     </head>
 
@@ -15,12 +33,64 @@
 
         <!-- card containers -->
         <div class = 'container'>
+                <div class = 'row mt-4 justify-content-center align-items-center' style='padding:0'>
+                <div class= 'col-4' style = 'padding:0'>
+                    <form action="/eats/filter" method="GET">
+
+                    <div class = 'row justify-content-center align-items-center' style='padding:0'>
+
+                        <div class = 'col-3' style ='padding:0% 0.5%'>
+                            <select class="form-control tags" id = 'ratings' name = 'ratings'>
+                                <option selected>RATINGS</option>
+                                <% let ratingKey = Object.keys(formData.ratings)%>
+                                <% for (let i = 0; i < ratingKey.length ; i++) { %>
+                                    <option class ='rating-value' value=<%= ratingKey[i]%>>
+                                        <%- formData.ratings[ratingKey[i]] %>
+                                    </option>
+                                <% } %>
+                                
+                            </select>
+                        </div>
+
+                        <div class = 'col-3' style ='padding:0% 0.5%'>
+                            <select class="form-control tags" id = 'price' name = 'price'>
+                                <option selected>PRICE</option>
+                                <% let priceKey = Object.keys(formData.price)%>
+                                <% for (let i = 0; i < priceKey.length ; i++) { %>
+                                    <option value=<%= priceKey[i]%>>
+                                        <%- formData.price[priceKey[i]] %>
+                                    </option>
+                                <% } %>
+                            </select>
+                        </div>
+
+                        <div class = 'col-3' style ='padding:0% 0.5%'>
+                            <select class="form-control tags" name ='category' id ='category'>
+                                <option selected>CATEGORY</option>
+                                <% Object.keys(formData.category).forEach(element => { %>
+                                    <option value="<%=element%>">
+                                        <%=element%>
+                                    </option>
+                                <% }); %>
+                               
+                            </select>
+                        </div>
+                        <div class = 'col-1' style ='padding:0% 0.5%;height:100%'>
+                            <button type="submit" class="btn btn-dark" style='font-size:100%;padding:21.75%'><i class="fas fa-filter"></i></button>
+                               
+                            </select>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            </div>
 
             <div class="row row-cols-1 row-cols-md-4 g-4">
 
                 <%eats.forEach(element => { %>
                     <div class="col">
-                    <div class="card h-100 mt-4">
+                    <div class="card h-100 mt-3">
 
                         <% if (element.image !== undefined && element.image !== '') { %>
                         <img src="<%= element.image%>" class="card-img-top" style='width: 100%;height: 15vw;object-fit: cover;'alt="...">

@@ -8,7 +8,10 @@ const mrtServices = require('../services/mrt_services')
 
 module.exports = {
     index: async(req,res) => {
+        let mrtStations =[]
         let formData ={}
+
+        mrtStations = await mrtServices.getmrt(res)
         formData = await formServices.getForm(res)
         const eats =  await eatServices.findAll(req,res)
         
@@ -18,7 +21,7 @@ module.exports = {
             return
         }
         
-        res.render('eats/index', {eats: eats,formData:formData})
+        res.render('eats/index', {eats: eats,formData:formData, mrtStations:mrtStations})
     },
 
     newEat: async (req,res) => {
@@ -36,7 +39,7 @@ module.exports = {
 
     create: async(req,res) => {
         // check form not empty
-        if (!req.body.mrt || !req.body.placeNameAndAddress || !req.body.tags|| !req.body.price || !req.body.ratings) {
+        if (!req.body.mrt || !req.body.placeNameAndAddress || !req.body.category|| !req.body.price || !req.body.ratings) {
             res.redirect('/eats/new')
             return
         }
@@ -97,7 +100,7 @@ module.exports = {
 
     update: async(req,res) => {
         // check form not empty
-        if (!req.body.mrt || !req.body.placeNameAndAddress || !req.body.tags || !req.body.price || !req.body.ratings) {
+        if (!req.body.mrt || !req.body.placeNameAndAddress || !req.body.category || !req.body.price || !req.body.ratings) {
             res.redirect('/eats/'+req.params.slug)
             return
         }
@@ -137,5 +140,21 @@ module.exports = {
             formData:formData
             }
         )
+    },
+
+    filter: async(req,res) => {
+        let mrtStations =[]
+        let formData = {}
+        
+
+        mrtStations = await mrtServices.getmrt(res)
+        formData = await formServices.getForm(res)
+        const eats =  await eatServices.filter(req,res)
+
+
+        res.render('eats/filter', 
+            {mrtStations : mrtStations,
+            formData: formData,
+            eats:eats})
     }
 }

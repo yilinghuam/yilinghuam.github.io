@@ -37,7 +37,7 @@ module.exports = {
                 mrt: req.body.mrt,
                 ratings: Number(req.body.ratings),
                 price: Number(req.body.price),
-                category: req.body.tags,
+                category: req.body.category,
                 comments: req.body.comments,
                 image: imageURL,
                 user: [req.session.user.user,'admin']
@@ -63,7 +63,7 @@ module.exports = {
                     mrt: req.body.mrt,
                     ratings: Number(req.body.ratings),
                     price: Number(req.body.price),
-                    category: req.body.tags,
+                    category: req.body.category,
                     comments: req.body.comments,
                     image: imageURL,
                     user: [req.session.user.user,'admin']
@@ -91,7 +91,7 @@ module.exports = {
                     mrt: req.body.mrt,
                     ratings: Number(req.body.ratings),
                     price: Number(req.body.price),
-                    category: req.body.tags,
+                    category: req.body.category,
                     comments: req.body.comments,
                     user: [req.session.user.user,'admin']
                 }
@@ -195,6 +195,33 @@ module.exports = {
             res.statusCode = 500
             return `eat find error`
         }
+    },
+    filter: async(req,res) => {
+        let ratings = req.query.ratings
+        let price = req.query.price
+        let category = req.query.category
+        let queryObject = {
+            user: req.session.user.user
+        }
+       
+        if (ratings !== 'RATINGS') {
+            queryObject['ratings'] = Number(ratings)
+        }
+        if (price !== 'PRICE') {
+            queryObject['price'] = Number(price)
+        }
+        if (category !== 'CATEGORY') {
+            queryObject['category'] = category
+        }
+        try {
+            const eats = await eatModel.find(queryObject)
+            return eats
+        } catch (err) {
+            console.log(err)
+            res.statusCode = 500
+            return `eat find error`
+        }
+        
     }
 
 }

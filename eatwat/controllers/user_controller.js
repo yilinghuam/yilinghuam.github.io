@@ -1,6 +1,9 @@
 const bcrypt = require('bcrypt')
 const saltRounds = 10
 const userServices = require('../services/user_services')
+const mailjetServices = require('../services/mailjet_services')
+const user_services = require('../services/user_services')
+
 
 module.exports = {
     login: (req,res) => {
@@ -29,8 +32,10 @@ module.exports = {
             res.redirect('/users/signup')
             return
         }
-        
+
         const createdUser = await userServices.createUser(req,res)
+        const sendAccountCreated = await mailjetServices.sendAccountCreated(req,res)
+
         res.redirect('/eats')
     },
     
@@ -48,7 +53,7 @@ module.exports = {
             res.redirect('/users/login')
             return
         }
-
+        
         req.session.user = user
 
         res.redirect('/eats')
@@ -56,6 +61,20 @@ module.exports = {
     },
     logout: (req, res) => {
         req.session.destroy()
+        res.redirect('/users/login')
+    },
+    forgetpassword: (req,res) => {
+        res.render('users/forgetpassword')
+    },
+    sendResetEmail: async(req,res) => {
+        let user = null
+        user = await userModel.findUserByEmail(req,res)
+
+        if(user !== null) {
+            const sendResetEmail = await mailjetServices.sendResetEmail(req,res,user)
+        }else{
+            res.redirect('/users/forgetpassword')
+        }
         res.redirect('/users/login')
     }
 }

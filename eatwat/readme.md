@@ -75,6 +75,7 @@
 |  |            |  /dashboard           | GET       | admin rights to form data(ratings,price, category and mrt)
 |  |            |  /users/login         | GET       | login form
 |  |            |  /users/logout        | GET       | logout then redirect
+|  |            |  /users/forgetpassword| GET       | to send email reset password
 |2.| New        |  /eats/new            | GET       | EATS record form
 |  |            |  /dashboard/:cat/new  | GET       | form to add formdata
 |  |            |  /users/signup        | GET       | form to add user
@@ -107,8 +108,6 @@
 * add lazy loading
 * add index, show, add, delete routes for user
 * add a 'to try' section (simple list)
-* add filter by stars, ratings, tags
-
 -----------------------------------------
 notes to yourself 
 - add email api

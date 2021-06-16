@@ -27,6 +27,7 @@ module.exports  = {
             console.log(err)
             res.redirect('/user/login')
         }
+        
     },
     findUserByUser: async(req,res) => {
         try {
